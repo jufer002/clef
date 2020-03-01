@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  include SessionsHelper
+  
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -27,9 +29,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      # Flash a success message.
       flash[:success] = "Welcome to Clef!"
       # Log in
-      # ...
+      log_in @user
       # Redirect home
       redirect_to root_path
     else
