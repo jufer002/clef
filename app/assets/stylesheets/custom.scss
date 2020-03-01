@@ -3,7 +3,8 @@
 
 /* variables */
 
-$background-color: mintcream;
+$background-color: #f5fffa;
+$error-color-light: #f2dede;
 
 /* universal */
 
@@ -59,4 +60,22 @@ input, textarea, select, .uneditable-input {
 
 input {
   height: auto !important;
+}
+
+/* error messages */
+
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  background-color: $error-color-light !important;
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
 }
