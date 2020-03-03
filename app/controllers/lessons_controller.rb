@@ -1,4 +1,6 @@
 class LessonsController < ApplicationController
+  include SessionsHelper
+
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
 
   # GET /lessons
@@ -26,14 +28,14 @@ class LessonsController < ApplicationController
   def create
     @lesson = Lesson.new(lesson_params)
 
-    respond_to do |format|
-      if @lesson.save
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully created.' }
-        format.json { render :show, status: :created, location: @lesson }
-      else
-        format.html { render :new }
-        format.json { render json: @lesson.errors, status: :unprocessable_entity }
-      end
+    # The lesson has been composed by the signed-in user.
+    @lesson.user_id = current_user.id
+
+    if @lesson.save
+      flash[:success] = 'Lesson created!'
+      redirect_to @lesson
+    else
+      render 'new'
     end
   end
 
@@ -69,6 +71,6 @@ class LessonsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lesson_params
-      params.require(:lesson).permit(:title, :text, :user_id)
+      params.require(:lesson).permit(:title, :body)
     end
 end

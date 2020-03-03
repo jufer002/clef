@@ -8,5 +8,28 @@
   </h2>
 
   <br />
-  </ul>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-6">
+      <h3>Recent Lessons</h3>
+      <br />
+      <ul class="list-unstyled">
+        <% recent_lessons(5).each do |lesson| %>
+          <li>
+            <div class="container">
+              <h4><%= lesson.title %></h4>
+              <%= lesson.body %>
+            </div>
+          </li>
+          <br />
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-xs-6">
+      <h3>Recent Courses</h3>
+      <br />
+    </div>
+  </div>
 </div>
