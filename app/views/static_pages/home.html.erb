@@ -14,14 +14,13 @@
   <div class="row">
     <div class="col-xs-6">
       <h3>Recent Lessons</h3>
+      <hr>
       <br />
       <ul class="list-unstyled">
         <% recent_lessons(5).each do |lesson| %>
           <li>
-            <div class="container">
-              <h4><%= lesson.title %></h4>
-              <%= lesson.body %>
-            </div>
+            <h4><%= lesson.title %></h4>
+            <%= lesson.body %>
           </li>
           <br />
         <% end %>
@@ -29,6 +28,7 @@
     </div>
     <div class="col-xs-6">
       <h3>Recent Courses</h3>
+      <hr>
       <br />
     </div>
   </div>
