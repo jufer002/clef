@@ -20,6 +20,7 @@
         <% recent_lessons(5).each do |lesson| %>
           <li>
             <h4><%= lesson.title %></h4>
+            <h5>by: <%= lesson.user.username%></h5>
             <%= lesson.body %>
           </li>
           <br />
