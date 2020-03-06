@@ -45,6 +45,8 @@ GEM
     activerecord (6.0.2.1)
       activemodel (= 6.0.2.1)
       activesupport (= 6.0.2.1)
+    activerecord-import (1.0.4)
+      activerecord (>= 3.2)
     activestorage (6.0.2.1)
       actionpack (= 6.0.2.1)
       activejob (= 6.0.2.1)
@@ -84,6 +86,8 @@ GEM
     crass (1.0.6)
     erubi (1.9.0)
     execjs (2.7.0)
+    faker (2.10.2)
+      i18n (>= 1.6, < 2)
     ffi (1.12.2)
     ffi (1.12.2-x64-mingw32)
     globalid (0.4.2)
@@ -208,12 +212,14 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  activerecord-import
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
   bootstrap-sass (= 3.4.1)
   bootstrap-will_paginate (= 1.0.0)
   byebug
   capybara (>= 2.15)
+  faker
   jbuilder (~> 2.7)
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
