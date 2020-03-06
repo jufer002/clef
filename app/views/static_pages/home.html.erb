@@ -31,6 +31,16 @@
       <h3>Recent Courses</h3>
       <hr>
       <br />
+      <ul class="list-unstyled">
+        <% recent_courses(5).each do |course| %>
+          <li>
+            <h4><%= course.title %></h4>
+            <h5>by: <%= course.user.username%></h5>
+            <%= course.description %>
+          </li>
+          <br />
+        <% end %>
+      </ul>
     </div>
   </div>
 </div>
