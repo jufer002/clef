@@ -23,6 +23,21 @@ class LessonsController < ApplicationController
   def edit
   end
 
+  def post_comment
+    @comment = Comment.new(comment_params)
+
+    @comment.lesson_id = params[:id]
+    @comment.user_id = current_user.id
+
+    if @comment.save
+      flash[:success] = 'Comment posted!'
+    else
+      puts @comment.errors.full_messages
+    end
+
+    redirect_to Lesson.find(params[:id])
+  end
+
   # POST /lessons
   # POST /lessons.json
   def create
@@ -72,5 +87,9 @@ class LessonsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def lesson_params
       params.require(:lesson).permit(:title, :body)
+    end
+
+    def comment_params
+      params.permit(:text)
     end
 end
