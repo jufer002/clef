@@ -19,8 +19,8 @@
       <ul class="list-unstyled">
         <% recent_lessons(5).each do |lesson| %>
           <li>
-            <h4><%= lesson.title %></h4>
-            <h5>by: <%= lesson.user.username%></h5>
+            <h4 id="lesson-title"><%= link_to lesson.title, lesson%></h4>
+            <h5>by: <%= lesson.user.username %></h5>
             <%= lesson.body %>
           </li>
           <br />
@@ -35,7 +35,7 @@
         <% recent_courses(5).each do |course| %>
           <li>
             <h4><%= course.title %></h4>
-            <h5>by: <%= course.user.username%></h5>
+            <h5>by: <%= course.user.username %></h5>
             <%= course.description %>
           </li>
           <br />

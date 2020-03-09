@@ -8,6 +8,10 @@ $error-color-light: #f2dede;
 
 /* universal */
 
+// .col {
+//   margin: 2%;
+// }
+
 body {
   padding-top: 60px;
   background-color: $background-color;
@@ -80,6 +84,3 @@ input {
   }
 }
 
-.col-xs-6 {
-  box-shadow: 0 0 2px grey;
-}
