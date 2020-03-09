@@ -12,6 +12,35 @@ $error-color-light: #f2dede;
 //   margin: 2%;
 // }
 
+.comment-section {
+  border-style: solid;
+  border-color: red;
+  width: 50%;
+
+  .comment-text{
+    height: 100px;
+  }
+
+  .publish-btn {
+    border-style: solid;
+    border-color: red;
+    width: auto;
+    float: right; 
+  }
+
+  .comments-container {
+    border-style: solid;
+    border-color: red;
+    width: auto;
+    margin: 2%;
+    overflow: scroll;
+  }
+
+  .comment-container {
+    border-style: solid;
+    border-color: red;
+  }
+}
 
 #logo {
   float: left;
@@ -24,6 +53,8 @@ $error-color-light: #f2dede;
     color: whitesmoke;
     text-decoration: none;
   }
+}
+  
 
 body {
   padding-top: 60px;
@@ -62,9 +93,6 @@ input, textarea, select, .uneditable-input {
   @include box_sizing;
 }
 
-input {
-  height: auto !important;
-}
 
 /* error messages */
 
