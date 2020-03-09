@@ -6,23 +6,38 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-user = []
+users = []
 10.times do
-    user << User.new(username: Faker::Internet.username, email: Faker::Internet.email, password: "password", password_confirmation: "password")
+    users<< User.new(username: Faker::Internet.username(specifier: 6), email: Faker::Internet.email, password: "password", password_confirmation: "password")
 end
-User.import user
 
-lesson = []
+User.import users
+
+lessons = []
 20.times do
-    #lesson << Lesson.new(title: Faker::Markdown.headers, body: Faker::Markdown.sandwich)
-    lesson << Lesson.new(title: Faker::Music.band, body: Faker::Markdown.sandwich, user_id: user.sample.id)
-    lesson << Lesson.new(title: Faker::Music.instrument, body: Faker::Markdown.sandwich, user_id: user.sample.id)
-    lesson << Lesson.new(title: Faker::Music.genre, body: Faker::Markdown.sandwich, user_id: user.sample.id)
-    lesson.each do |l|
-        puts l.valid?
-    end
+    #lessonss << Lesson.new(title: Faker::Markdown.headers, body: Faker::Markdown.sandwich)
+    lessons << Lesson.new(title: Faker::Music.band, body: Faker::Lorem.paragraph, user_id: users.sample.id)
+    lessons << Lesson.new(title: Faker::Music.instrument, body: Faker::Lorem.paragraph, user_id: users.sample.id)
+    lessons << Lesson.new(title: Faker::Music.genre, body: Faker::Lorem.paragraph, user_id: users.sample.id)
 end
-Lesson.import lesson
+
+Lesson.import lessons
+
+courses = []
+10.times do 
+    courses << Course.new(title: Faker::Music.genre, description: Faker::Twitter.status[:text], user_id: users.sample.id)
+    #will need to connect courses to lessons once that is in place
+end
+
+comments = []
+100.times do
+    comments << Comment.new(user_id: users.sample.id, lesson_id: lessons.sample.id, text: Faker::Quote.famous_last_words)
+end
+
+
+
+Course.import courses
+Comment.import comments
 
 # tag = []
 # tag << Tag.new(type: "difficulty", name: "easy"), 

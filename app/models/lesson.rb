@@ -7,10 +7,10 @@ class Lesson < ApplicationRecord
   ################
 
   # Validates that the article's title
-  validates :title, presence: true, length: { minimum: 6 }, uniqueness: true
+  validates :title, presence: true#, uniqueness: true
 
   # Validates that the article has a sufficient body.
-  validates :body, presence: true, length: { minimum: 10 }
+  validates :body, presence: true#, length: { minimum: 10 }
 
   # Validates that a user wrote the article.
   validates :user_id, presence: true
