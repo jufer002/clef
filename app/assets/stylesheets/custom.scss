@@ -17,7 +17,7 @@ $error-color-light: #f2dede;
   border-color: red;
   width: 50%;
 
-  .comment-text{
+  .comment-text {
     height: 100px;
   }
 
@@ -25,7 +25,7 @@ $error-color-light: #f2dede;
     border-style: solid;
     border-color: red;
     width: auto;
-    float: right; 
+    float: right;
   }
 
   .comments-container {
@@ -54,10 +54,6 @@ $error-color-light: #f2dede;
     text-decoration: none;
   }
 }
-<<<<<<< HEAD
-=======
-  
->>>>>>> 8bf061384cd5b0fef9fc96be97f04578f0bd02a6
 
 body {
   padding-top: 60px;
@@ -82,20 +78,22 @@ textarea {
 /* mixins */
 
 @mixin box_sizing {
-  -moz-box-sizing:    border-box;
+  -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  box-sizing:         border-box;
+  box-sizing: border-box;
 }
 
 /* forms */
 
-input, textarea, select, .uneditable-input {
+input,
+textarea,
+select,
+.uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
   margin-bottom: 15px;
   @include box_sizing;
 }
-
 
 /* error messages */
 
