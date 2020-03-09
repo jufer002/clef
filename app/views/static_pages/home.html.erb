@@ -19,9 +19,7 @@
       <ul class="list-unstyled">
         <% recent_lessons(5).each do |lesson| %>
           <li>
-            <h4 id="lesson-title"><%= link_to lesson.title, lesson%></h4>
-            <h5>by: <%= lesson.user.username %></h5>
-            <%= lesson.body %>
+            <%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson } %>
           </li>
           <br />
         <% end %>
