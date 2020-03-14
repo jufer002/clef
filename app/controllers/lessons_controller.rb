@@ -78,6 +78,11 @@ class LessonsController < ApplicationController
     end
   end
 
+  def search
+    lesson_title = params[:lesson_title]
+    @lessons = Lesson.where("lower(name) like ?", lesson_title.downcase)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_lesson

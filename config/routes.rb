@@ -14,4 +14,7 @@ Rails.application.routes.draw do
   # Lesson paths
   get '/compose', to: 'lessons#new'
   post '/lessons/:id', to: 'lessons#post_comment'
+
+  # Search paths
+  get '/search', to: 'lessons#search'
 end
