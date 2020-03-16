@@ -2,7 +2,10 @@ class User < ApplicationRecord
   #############
   # Relations #
   #############
-  #has_many :course
+  has_many :courses
+  has_many :sections
+  has_manu :lessons
+  
   ############################
   # Validations #
   ############################

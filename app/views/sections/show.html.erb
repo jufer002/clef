@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @section.title %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @section.user_id %>
+</p>
+
+<p>
+  <strong>Previous:</strong>
+  <%= @section.previous_id %>
+</p>
+
+<p>
+  <strong>Next:</strong>
+  <%= @section.next_id %>
+</p>
+
+<%= link_to 'Edit', edit_section_path(@section) %> |
+<%= link_to 'Back', sections_path %>
