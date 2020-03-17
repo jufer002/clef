@@ -4,7 +4,7 @@ class User < ApplicationRecord
   #############
   has_many :courses
   has_many :sections
-  has_manu :lessons
+  has_many :lessons
   
   ############################
   # Validations #

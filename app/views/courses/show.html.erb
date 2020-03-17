@@ -17,3 +17,29 @@
 
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', courses_path %>
+
+<br>
+<br>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <strong>Course Title:</strong>
+      <%= @course.title %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">
+      [Sections and lessons from this course go here. Also, buttons to let you add more sections and buttons to let you add more lessons if this were the "Edit Course" page]
+      <% @course.sections.each do |section| %>
+        <p>Another section</p>
+        <%= section.title %>
+        <%= section.user_id %>
+      <% end %>
+      </div>
+    <div class="col-sm-9">
+      [Current lesson content]
+    </div>
+  </div>
+</div>
+</div>

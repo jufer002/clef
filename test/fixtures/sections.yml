@@ -5,9 +5,11 @@ one:
   user_id: 1
   previous_id: 1
   next_id: 1
+  course_id: 1
 
 two:
   title: MyString
   user_id: 1
   previous_id: 1
   next_id: 1
+  course_id: 1

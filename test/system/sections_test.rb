@@ -14,6 +14,7 @@ class SectionsTest < ApplicationSystemTestCase
     visit sections_url
     click_on "New Section"
 
+    fill_in "Course", with: @section.course_id
     fill_in "Next", with: @section.next_id
     fill_in "Previous", with: @section.previous_id
     fill_in "Title", with: @section.title
@@ -28,6 +29,7 @@ class SectionsTest < ApplicationSystemTestCase
     visit sections_url
     click_on "Edit", match: :first
 
+    fill_in "Course", with: @section.course_id
     fill_in "Next", with: @section.next_id
     fill_in "Previous", with: @section.previous_id
     fill_in "Title", with: @section.title
