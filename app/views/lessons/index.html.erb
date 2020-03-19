@@ -2,28 +2,24 @@
 
 <h1>Lessons</h1>
 
-<table class="table table-bordered table-hover table-striped">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Body</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @lessons.each do |lesson| %>
-      <tr>
-        <td><%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson } %></td>
-        <td><%= link_to 'Show', lesson %></td>
-        <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td>
-        <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<div class="container">
+	<div class="card-deck">
+		<% @lessons.in_groups_of(4) do |lesson1, lesson2, lesson3, lesson4| %>
+			<% if not lesson1.nil? %>
+				<%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson1 } %>
+			<% end %>
+			<% if not lesson2.nil? %>
+				<%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson2 } %>
+			<% end %>
+			<% if not lesson3.nil? %>
+				<%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson3 } %>
+			<% end %>
+			<% if not lesson4.nil? %>
+				<%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson4 } %>
+			<% end %>
+		<% end %> 
+	</div>
+</div>
 <br>
 
 <%= link_to 'New Lesson', new_lesson_path %>

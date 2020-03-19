@@ -12,9 +12,13 @@ $error-color-light: #f2dede;
 //   margin: 2%;
 // }
 
+.lesson-card {
+  .lesson-by {
+    margin-bottom: 5px;
+  }
+}
+
 .comment-section {
-  border-style: solid;
-  border-color: red;
   width: 50%;
 
   .comment-text {
@@ -22,23 +26,17 @@ $error-color-light: #f2dede;
   }
 
   .publish-btn {
-    border-style: solid;
-    border-color: red;
     width: auto;
     float: right;
   }
 
   .comments-container {
-    border-style: solid;
-    border-color: red;
     width: auto;
     margin: 2%;
     overflow: scroll;
   }
 
   .comment-container {
-    border-style: solid;
-    border-color: red;
   }
 }
 
