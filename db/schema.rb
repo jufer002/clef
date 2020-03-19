@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_17_103635) do
+#<<<<<<< HEAD 
+#ActiveRecord::Schema.define(version: 2020_03_17_103635) do
+#=======
+ActiveRecord::Schema.define(version: 2020_03_17_100057) do
+#>>>>>>> 519145a61edbd5373a7916a4323cc661bfb60da9
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +40,16 @@ ActiveRecord::Schema.define(version: 2020_03_17_103635) do
     t.integer "user_id"
     t.text "body"
     t.integer "section_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "sections", force: :cascade do |t|
+    t.string "title"
+    t.integer "user_id"
+    t.integer "previous_id"
+    t.integer "next_id"
+    t.integer "course_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

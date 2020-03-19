@@ -1,7 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<br />
-<br />
+<h2 class="center"><%= @lesson.title %></h2>
+
+<div class="center lesson-show-head">
+  <h4>
+    <p>by <%= button_to @lesson.user.username, @lesson.user, remote: true, class: "btn", id: "user-button" %></p>
+  </h4>
+</div>
 
 <% @course = @lesson.section.course %>
 <div class="container-fluid">
