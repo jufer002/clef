@@ -14,7 +14,8 @@ class LessonsTest < ApplicationSystemTestCase
     visit lessons_url
     click_on "New Lesson"
 
-    fill_in "Text", with: @lesson.text
+    fill_in "Body", with: @lesson.body
+    fill_in "Section", with: @lesson.section_id
     fill_in "Title", with: @lesson.title
     fill_in "User", with: @lesson.user_id
     click_on "Create Lesson"
@@ -27,7 +28,8 @@ class LessonsTest < ApplicationSystemTestCase
     visit lessons_url
     click_on "Edit", match: :first
 
-    fill_in "Text", with: @lesson.text
+    fill_in "Body", with: @lesson.body
+    fill_in "Section", with: @lesson.section_id
     fill_in "Title", with: @lesson.title
     fill_in "User", with: @lesson.user_id
     click_on "Update Lesson"

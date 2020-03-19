@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
+  resources :lessons
   resources :sections
   resources :courses
   # Resources
-  resources :lessons
   resources :users
 
   # Home and session paths
