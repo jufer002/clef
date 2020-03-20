@@ -1,4 +1,9 @@
-<h1>New Lesson for section <%= params[:lesson][:section_id] %></h1>
+<h1>
+    New Lesson 
+    <% if params[:lesson] != nil %>
+        for section <%= params[:lesson][:section_id] %>
+    <% end %>
+</h1>
 
 <%= render 'form', lesson: @lesson %>
 

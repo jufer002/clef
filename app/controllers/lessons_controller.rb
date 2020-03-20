@@ -34,12 +34,13 @@ class LessonsController < ApplicationController
     #puts "**************" + @lesson.section_ids[0]
     
     if @lesson.save
+      flash[:success] = 'Lesson created!'
       @section_content = SectionContent.new(:section_id => @lesson.section_ids[0], :lesson_id => @lesson.id)
       if @section_content.save
-        flash[:success] = 'Lesson created!'
+        flash[:success] = 'Lesson connected to its section!'
         redirect_to @lesson
       else
-        flash[:failure] = 'Failed saving!'
+        flash[:failure] = 'Failed connecting new lesson to section!'
         redirect_to root_path
       end
     else

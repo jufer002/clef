@@ -32,11 +32,11 @@
               Created by: <%= lesson.user_id %> <br />
             </li>
             <% end %>
-            <%= link_to "Add new lesson to this section", new_lesson_path(:lesson => { :section_id => section.lessons.size } ), class: "btn" %>
+            <%= link_to "Add new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn" %>
           </ol>
         </li>
         <% end %>
-        <%= link_to "Add new section to this course", new_section_path(:section => { :course_id => @course.sections.size } ), class: "btn" %>
+        <%= link_to "Add new section to this course", new_section_path(:section => { :course_id => @course.id } ), class: "btn" %>
       </ol>
     </div>
     <div class="col-sm-8">
