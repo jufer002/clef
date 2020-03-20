@@ -1,11 +1,21 @@
 <p id="notice"><%= notice %></p>
 
+<script src="/js/show.js.erb"></script>
+
 <h2 class="center"><%= @lesson.title %></h2>
 
 <div class="center lesson-show-head">
   <h4>
-    <p>by <%= button_to @lesson.user.username, @lesson.user, remote: true, class: "btn", id: "user-button" %></p>
+    <p>by<div id="user-button"><button><%= @lesson.user.username %></button></div></p>
   </h4>
+</div>
+
+<div id="user-modal" class="modal">
+  <!-- Modal content -->
+  <div class="user-modal-content">
+    <span class="close">&times;</span>
+    <p>Users top lessons will go here. Or user info. I don't know. This took a while to make.</p>
+  </div>
 </div>
 
 <br/>

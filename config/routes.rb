@@ -3,13 +3,14 @@ Rails.application.routes.draw do
   resources :section_contents
   resources :course_contents
   resources :lessons
+  resources :users
+
   resources :sections do
     resources :lessons
   end
   resources :courses do
     resources :sections
   end
-  resources :users
 
   # Home and session paths
   root 'static_pages#home'

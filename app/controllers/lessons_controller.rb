@@ -12,6 +12,10 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /lessons/new
@@ -72,6 +76,7 @@ class LessonsController < ApplicationController
     end
   end
 
+  # POST /lessons/1
   def post_comment
     @comment = Comment.new(comment_params)
 

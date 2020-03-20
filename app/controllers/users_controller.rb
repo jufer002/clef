@@ -12,6 +12,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    puts 'HELLO'
+    redirect_to root_path
   end
 
   # GET /users/new
