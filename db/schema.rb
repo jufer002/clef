@@ -66,16 +66,6 @@ ActiveRecord::Schema.define(version: 2020_03_20_105853) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "sections", force: :cascade do |t|
-    t.string "title"
-    t.integer "user_id"
-    t.integer "previous_id"
-    t.integer "next_id"
-    t.integer "course_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "email"
