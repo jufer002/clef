@@ -20,10 +20,11 @@
   <%= @section.next_id %>
 </p>
 
-<p>
+<!-- <p>
   <strong>Course:</strong>
-  <%= @section.course_id %>
-</p>
+  <%= @section.course_ids %>
+</p> -->
+<%= debug @section %>
 
 <%= link_to 'Edit', edit_section_path(@section) %> |
 <%= link_to 'Back', sections_path %>

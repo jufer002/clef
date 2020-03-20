@@ -1,6 +1,8 @@
 class SectionsController < ApplicationController
   before_action :set_section, only: [:show, :edit, :update, :destroy]
 
+  include SessionsHelper
+
   # GET /sections
   # GET /sections.json
   def index
@@ -10,6 +12,7 @@ class SectionsController < ApplicationController
   # GET /sections/1
   # GET /sections/1.json
   def show
+    #debugger
   end
 
   # GET /sections/new
@@ -25,6 +28,9 @@ class SectionsController < ApplicationController
   # POST /sections.json
   def create
     @section = Section.new(section_params)
+
+    # The lesson has been composed by the signed-in user.
+    @section.user_id = current_user.id
 
     respond_to do |format|
       if @section.save
@@ -69,6 +75,6 @@ class SectionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def section_params
-      params.require(:section).permit(:title, :user_id, :previous_id, :next_id, :course_id)
+      params.require(:section).permit(:title, :user_id, :previous_id, :next_id)
     end
 end

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Section Contents</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Section</th>
+      <th>Lesson</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @section_contents.each do |section_content| %>
+      <tr>
+        <td><%= section_content.section_id %></td>
+        <td><%= section_content.lesson_id %></td>
+        <td><%= link_to 'Show', section_content %></td>
+        <td><%= link_to 'Edit', edit_section_content_path(section_content) %></td>
+        <td><%= link_to 'Destroy', section_content, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Section Content', new_section_content_path %>

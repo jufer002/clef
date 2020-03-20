@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
-  resources :lessons
-  resources :sections
-  resources :courses
   # Resources
+  resources :section_contents
+  resources :course_contents
+  resources :lessons
+  resources :sections do
+    resources :lessons
+  end
+  resources :courses do
+    resources :sections
+  end
   resources :users
 
   # Home and session paths
@@ -13,8 +19,11 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   # Lesson paths
-  get '/compose', to: 'lessons#new'
+  get '/compose_lesson', to: 'lessons#new'
   post '/lessons/:id', to: 'lessons#post_comment'
+
+  # Course paths
+  get '/compose_course', to: 'courses#new'
 
   # Search paths
   get '/search', to: 'lessons#search'

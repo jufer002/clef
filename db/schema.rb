@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_17_103635) do
+ActiveRecord::Schema.define(version: 2020_03_20_105853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(version: 2020_03_17_103635) do
     t.string "text"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "course_contents", force: :cascade do |t|
+    t.bigint "section_id", null: false
+    t.bigint "course_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_id"], name: "index_course_contents_on_course_id"
+    t.index ["section_id"], name: "index_course_contents_on_section_id"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -35,9 +44,17 @@ ActiveRecord::Schema.define(version: 2020_03_17_103635) do
     t.string "title"
     t.integer "user_id"
     t.text "body"
-    t.integer "section_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "section_contents", force: :cascade do |t|
+    t.bigint "section_id", null: false
+    t.bigint "lesson_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["lesson_id"], name: "index_section_contents_on_lesson_id"
+    t.index ["section_id"], name: "index_section_contents_on_section_id"
   end
 
   create_table "sections", force: :cascade do |t|
@@ -45,7 +62,6 @@ ActiveRecord::Schema.define(version: 2020_03_17_103635) do
     t.integer "user_id"
     t.integer "previous_id"
     t.integer "next_id"
-    t.integer "course_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -58,4 +74,8 @@ ActiveRecord::Schema.define(version: 2020_03_17_103635) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "course_contents", "courses"
+  add_foreign_key "course_contents", "sections"
+  add_foreign_key "section_contents", "lessons"
+  add_foreign_key "section_contents", "sections"
 end

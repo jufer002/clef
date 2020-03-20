@@ -30,26 +30,29 @@
   </div>
   <div class="row">
     <div class="col-sm-4">
-      [Sections and lessons from this course go here. Also, buttons to let you add more sections and buttons to let you add more lessons if this were the "Edit Course" page]
+      [Sections and lessons from this course go here. Also, buttons to let you add more sections and buttons to let you
+      add more lessons if this were the "Edit Course" page]
       <ol>
         <% @course.sections.each do |section| %>
-          <li>
-            Section name: <%= section.title %> <br/>
-            Created by user: <%= section.user_id %> <br/>
-            <ol>
-              <% section.lessons.each do |lesson| %>
-                <li>
-                  Lesson title: <%= lesson.title %> <br/>
-                  Created by: <%= lesson.user_id %> <br/>
-                </li>
-              <% end %>
-            </ol>
-          </li>
+        <li>
+          Section name: <%= section.title %> <br />
+          Created by user: <%= section.user_id %> <br />
+          <ol>
+            <% section.lessons.each do |lesson| %>
+            <li>
+              Lesson: <%= link_to lesson.title, lesson %> <br />
+              Created by: <%= lesson.user_id %> <br />
+            </li>
+            <% end %>
+            <%= link_to "Add new lesson to this section", new_lesson_path(:lesson => { :section_id => section.lessons.size } ), class: "btn" %>
+          </ol>
+        </li>
         <% end %>
+        <%= link_to "Add new section to this course", new_section_path(:section => { :course_id => @course.sections.size } ), class: "btn" %>
       </ol>
     </div>
     <div class="col-sm-8">
-      [Current lesson content (talk with Julian)]
+      
     </div>
   </div>
 </div>
