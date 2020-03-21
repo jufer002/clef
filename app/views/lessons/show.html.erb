@@ -6,15 +6,24 @@
 
 <div class="center lesson-show-head">
   <h4>
-    <p>by<div id="user-button"><button><%= @lesson.user.username %></button></div></p>
+    <p>by <button id="user-button"><%= @lesson.user.username %></button></p>
   </h4>
 </div>
 
 <div id="user-modal" class="modal">
   <!-- Modal content -->
   <div class="user-modal-content">
-    <span class="close">&times;</span>
-    <p>Users top lessons will go here. Or user info. I don't know. This took a while to make.</p>
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>This is a header. We have got to change this color scheme.</h2>
+    </div>
+    <div class="modal-body">
+      <p>For the love of god, please.</p>
+      <p>We have to do something about this green</p>
+    </div>
+    <div class="modal-footer">
+      <h3>Footer.</h3>
+    </div>
   </div>
 </div>
 
