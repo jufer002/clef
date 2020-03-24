@@ -14,7 +14,7 @@ end
 User.import users
 
 lessons = []
-20.times do
+30.times do
     #lessonss << Lesson.new(title: Faker::Markdown.headers, body: Faker::Markdown.sandwich)
     lessons << Lesson.new(title: Faker::Music.band, body: Faker::Lorem.paragraph, user_id: users.sample.id)
     lessons << Lesson.new(title: Faker::Music.instrument, body: Faker::Lorem.paragraph, user_id: users.sample.id)
@@ -23,11 +23,56 @@ end
 
 Lesson.import lessons
 
+sections = []
+
+
 courses = []
 10.times do 
-    courses << Course.new(title: Faker::Music.genre, description: Faker::Twitter.status[:text], user_id: users.sample.id)
+    temp_course = Course.new(title: Faker::Music.genre, description: Faker::Twitter.status[:text], user_id: users.sample.id)
     #will need to connect courses to lessons once that is in place
+    prev_section = nil
+    
+    current_section = Section.create(title: Faker::Food.dish, user_id: temp_course.user_id)
+    num = rand(4)
+    if num == 0 
+        sections << current_section
+        temp_course.sections << current_section
+
+        time = rand(6) + 1
+        time.times do
+            current_section.lessons << lessons.sample
+        end
+    end
+    num.times do
+        
+        prev_section = current_section
+        time = rand(6) + 1
+        time.times do
+            current_section.lessons << lessons.sample
+        end
+        sections << current_section
+        temp_course.sections << current_section
+
+        current_section = Section.create(title: Faker::Food.dish, user_id: temp_course.user_id, previous_id: prev_section.id)
+        puts current_section.id
+        prev_section.next_id = current_section.id
+    end
+    courses << temp_course
 end
+
+#print tests
+courses.each do |c|
+    puts c.title
+    c.sections.each do |s|
+        puts "\t#{s.title}"
+        puts "\t#{s.next_id}"
+        s.lessons.each do |l|
+            puts "\t\t#{l.title}"
+        end
+    end
+    puts ""
+end
+
 
 comments = []
 100.times do
@@ -35,7 +80,7 @@ comments = []
 end
 
 
-
+#Section.import sections
 Course.import courses
 Comment.import comments
 

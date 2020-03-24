@@ -5,7 +5,7 @@ class Lesson < ApplicationRecord
     has_many :comments
 
   # Validates that the article's title exists, is long enough, and is unique
-  validates :title, presence: true, length: { minimum: 6 }, uniqueness: true
+  validates :title, presence: true#, length: { minimum: 6 }, uniqueness: true
 
   # Validates that the article has a sufficient body.
   validates :body, presence: true, length: { minimum: 10 }
