@@ -61,17 +61,17 @@ courses = []
 end
 
 #print tests
-courses.each do |c|
-    puts c.title
-    c.sections.each do |s|
-        puts "\t#{s.title}"
-        puts "\t#{s.next_id}"
-        s.lessons.each do |l|
-            puts "\t\t#{l.title}"
-        end
-    end
-    puts ""
-end
+# courses.each do |c|
+#     puts c.title
+#     c.sections.each do |s|
+#         puts "\t#{s.title}"
+#         puts "\t#{s.next_id}"
+#         s.lessons.each do |l|
+#             puts "\t\t#{l.title}"
+#         end
+#     end
+#     puts ""
+# end
 
 
 comments = []
