@@ -2,6 +2,7 @@ class SectionsController < ApplicationController
   before_action :set_section, only: [:show, :edit, :update, :destroy]
 
   include SessionsHelper
+  include SectionsHelperS
 
   # GET /sections
   # GET /sections.json
@@ -30,14 +31,12 @@ class SectionsController < ApplicationController
   def create
     @section = Section.new(section_params)
 
-    puts '******************************************'
-    puts params
-    puts '******************************************'
+    course_id = params[:course_id]
 
     respond_to do |format|
       if @section.save
         # Use the sections helper to create the relation between the section and its course.
-        add_section_to_course(@section)
+        add_section_to_course(@section, course_id)
 
         format.html { redirect_to @section, notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
