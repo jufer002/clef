@@ -4,10 +4,8 @@ one:
   title: MyString
   user_id: 1
   body: MyText
-  section_id: 1
 
 two:
   title: MyString
   user_id: 1
   body: MyText
-  section_id: 1

@@ -1,15 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
+  title: test_title1
   user_id: 1
   previous_id: 1
-  next_id: 1
-  course_id: 1
+  next_id: 2
 
 two:
-  title: MyString
+  title: test_title2
   user_id: 1
-  previous_id: 1
-  next_id: 1
-  course_id: 1
+  previous_id: 2
+  next_id: 4

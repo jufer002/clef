@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
   # Resources
-  resources :section_contents
-  resources :course_contents
   resources :lessons
   resources :users
 
