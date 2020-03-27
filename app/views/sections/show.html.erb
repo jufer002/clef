@@ -6,11 +6,6 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @section.user_id %>
-</p>
-
-<p>
   <strong>Previous:</strong>
   <%= @section.previous_id %>
 </p>
@@ -20,10 +15,7 @@
   <%= @section.next_id %>
 </p>
 
-<!-- <p>
-  <strong>Course:</strong>
-  <%= @section.course_ids %>
-</p> -->
+
 <%= debug @section %>
 
 <%= link_to 'Edit', edit_section_path(@section) %> |

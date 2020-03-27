@@ -2,7 +2,7 @@ class SectionsController < ApplicationController
   before_action :set_section, only: [:show, :edit, :update, :destroy]
 
   include SessionsHelper
-  include SectionsHelperS
+  include SectionsHelper
 
   # GET /sections
   # GET /sections.json
@@ -18,7 +18,9 @@ class SectionsController < ApplicationController
 
   # GET /sections/new
   def new
+    puts '*******************************hello'
     @section = Section.new
+    
     @course = params['course_id']
   end
 

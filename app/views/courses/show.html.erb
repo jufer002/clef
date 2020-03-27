@@ -37,7 +37,6 @@
         <% @course.sections.each do |section| %>
         <li>
           Section name: <%= section.title %> <br />
-          Created by user: <%= section.user_id %> <br />
           <ol>
             <% section.lessons.each do |lesson| %>
             <li>
