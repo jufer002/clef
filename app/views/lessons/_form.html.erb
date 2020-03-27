@@ -1,37 +1,22 @@
-<%= form_with(model: lesson, local: true) do |form| %>
-  <% if lesson.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
 
-      <ul>
-        <% lesson.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <%= form_with model: @lesson, local: true do |f| %>
+      <%= render 'shared/lesson_error_messages' %>
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control' %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+      <%= f.label :body %>
+      <%= f.text_area :body, size: "60x12", class: 'form-control' %>
+
+
+      <% if defined?(lesson_section) %>
+        <%= hidden_field_tag(:section_id, lesson_section) %>
+      <% else %>
+        <%= hidden_field_tag(:section_id, -1) %>
+      <% end %>
+
+      <%= f.submit "Publish", class: "btn btn-primary" %>
+    <% end %>
   </div>
-
-  <!-- <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id %>
-  </div> -->
-
-  <div class="field">
-    <%= form.label :body %>
-    <%= form.text_area :body %>
-  </div>
-
-  <!-- <div class="field">
-    <%= form.label :section_id %>
-    <%= form.number_field :section_id %>
-  </div> -->
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

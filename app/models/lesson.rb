@@ -1,5 +1,6 @@
 class Lesson < ApplicationRecord
   belongs_to :user
+  belongs_to :section, required: false
   has_many :sections, :through => :section_contents
   has_many :comments
 

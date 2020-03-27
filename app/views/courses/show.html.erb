@@ -33,7 +33,7 @@
       [Sections and lessons from this course go here. Also, buttons to let you add more sections and buttons to let you
       add more lessons if this were the "Edit Course" page]
       <ol>
-        <% @course.sections.each do |section| %>
+        <% @course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
         <li>
           Section name: <%= section.title %> <br />
           <ol>
