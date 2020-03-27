@@ -1,5 +1,6 @@
 class Lesson < ApplicationRecord
   belongs_to :user
+  has_many :sections, :through => :section_contents
   has_many :comments
 
   # Validates that the article's title exists, is long enough, and is unique

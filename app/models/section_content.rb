@@ -1,4 +1,4 @@
 class SectionContent < ApplicationRecord
-  belongs_to :section
-  belongs_to :lesson
+  has_many :sections
+  has_many :lessons
 end
