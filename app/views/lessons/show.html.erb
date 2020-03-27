@@ -8,33 +8,68 @@
   </h4>
 </div>
 
-<br/>
-
-<div class="container">
-
-<p>
-<%= @lesson.body %>
-</p>
-
-</div>
-
-<div class="comment-section container">
-  <h3>Comments</h3>
-
-  <% if logged_in? %>
-    <%= form_with model: @comment do |f| %>
-      <%= f.text_area :text, class:"comment-text"%>
-      <%= f.submit "Publish", class: "publish-btn btn" %>
-    <% end %>
-  <% end # if logged_in? %>
-
-  <br/>
-
-  <div class="comments-container container">
-    <% @lesson.comments.each do |comment| %>
-    <div class="comment-container container">
-      <strong><%= comment.user.username %></strong>: <%= comment.text %>
+<% @course = @lesson.section.course %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <strong>Course Title:</strong>
+      <%= @course.title %>
     </div>
-    <% end %>
   </div>
+  <div class="row">
+    <div class="col-sm-4">
+      [Sections and lessons from this course go here. Also, buttons to let you add more sections and buttons to let you
+      add more lessons if this were the "Edit Course" page]
+      <ol>
+        <% @course.sections.each do |section| %>
+        <li>
+          Section name: <%= section.title %> <br />
+          Created by user: <%= section.user_id %> <br />
+          <ol>
+            <% section.lessons.each do |lesson| %>
+            <li>
+              Lesson title: <%= lesson.title %> <br />
+              Created by: <%= lesson.user_id %> <br />
+            </li>
+            <% end %>
+          </ol>
+        </li>
+        <% end %>
+      </ol>
+    </div>
+    <div class="col-sm-8">
+      <h2 class="center"><%= @lesson.title %></h2>
+      <h4 class="center">by <%= @lesson.user.username %></h4>
+
+      <br />
+
+      <div class="container">
+        <p>
+          <%= @lesson.body %>
+        </p>
+      </div>
+
+      <div class="container">
+        <h3>Comments</h3>
+        <%= form_with model: @comment do |f| %>
+        <%= f.text_field :text, size: "20x10" %>
+        <%= f.submit "Publish", class: "btn" %>
+        <% end %>
+      </div>
+
+      <br />
+
+      <div class="container">
+        <% @lesson.comments.each do |comment| %>
+        <div class="container">
+          <strong><%= comment.user.username %></strong>: <%= comment.text %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<<<<<<< HEAD
 </div> 
+=======
+</div>
+>>>>>>> c7edb5cc27c47ba26bb501465a8ccc6cbd4facc4

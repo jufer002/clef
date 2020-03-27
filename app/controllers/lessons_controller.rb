@@ -1,6 +1,4 @@
 class LessonsController < ApplicationController
-  include SessionsHelper
-
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
 
   # GET /lessons
@@ -23,34 +21,19 @@ class LessonsController < ApplicationController
   def edit
   end
 
-  def post_comment
-    @comment = Comment.new(comment_params)
-
-    @comment.lesson_id = params[:id]
-    @comment.user_id = current_user.id
-
-    if @comment.save
-      flash[:success] = 'Comment posted!'
-    else
-      puts @comment.errors.full_messages
-    end
-
-    redirect_to Lesson.find(params[:id])
-  end
-
   # POST /lessons
   # POST /lessons.json
   def create
     @lesson = Lesson.new(lesson_params)
 
-    # The lesson has been composed by the signed-in user.
-    @lesson.user_id = current_user.id
-
-    if @lesson.save
-      flash[:success] = 'Lesson created!'
-      redirect_to @lesson
-    else
-      render 'new'
+    respond_to do |format|
+      if @lesson.save
+        format.html { redirect_to @lesson, notice: 'Lesson was successfully created.' }
+        format.json { render :show, status: :created, location: @lesson }
+      else
+        format.html { render :new }
+        format.json { render json: @lesson.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -78,11 +61,21 @@ class LessonsController < ApplicationController
     end
   end
 
-  def search
-    lesson_title = params[:lesson_title]
-    @lessons = Lesson.where("lower(name) like ?", lesson_title.downcase)
-  end
+  def post_comment
+    @comment = Comment.new(comment_params)
 
+    @comment.lesson_id = params[:id]
+    @comment.user_id = current_user.id
+
+    if @comment.save
+      flash[:success] = 'Comment posted!'
+    else
+      puts @comment.errors.full_messages
+    end
+
+    redirect_to Lesson.find(params[:id])
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_lesson
@@ -91,7 +84,7 @@ class LessonsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lesson_params
-      params.require(:lesson).permit(:title, :body)
+      params.require(:lesson).permit(:title, :user_id, :body, :section_id)
     end
 
     def comment_params
