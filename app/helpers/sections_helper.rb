@@ -9,7 +9,9 @@ module SectionsHelper
     section_content = SectionContent.new({ :lesson_id => lesson.id, :section_id => section_id })
 
     if not section_content.save
-      puts section_content.errors
+      section_content.errors.full_messages.each do |msg|
+        puts msg
+      end
     end
 
     not section_content.errors.any?

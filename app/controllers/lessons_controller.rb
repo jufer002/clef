@@ -36,17 +36,16 @@ class LessonsController < ApplicationController
     # The lesson has been composed by the signed-in user.
     @lesson.user_id = current_user.id
 
-    section_id = params['section_id']
-
-    if add_lesson_to_section(@lesson, section_id)
-      puts '*****************************************SECTION CONNECTED'
-    else
-      puts '*****************************************no connection'
-    end
     
+
     respond_to do |format|
       if @lesson.save
         flash[:success] = 'Lesson created!'
+        
+        # Get the section, if present and add the lesson to it.
+        section_id = params['section_id']
+        add_lesson_to_section(@lesson, section_id)
+        
         format.html { redirect_to @lesson, notice: 'Lesson was successfully created.' }
         format.json { render :show, status: :created, location: @lesson }
       else
