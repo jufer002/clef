@@ -2,6 +2,7 @@ class LessonsController < ApplicationController
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
 
   include SessionsHelper
+  include SectionsHelper
 
   # GET /lessons
   # GET /lessons.json
@@ -14,7 +15,7 @@ class LessonsController < ApplicationController
   def show
     respond_to do |format|
       format.html
-      format.js
+      format.json
     end
   end
 
@@ -34,21 +35,23 @@ class LessonsController < ApplicationController
 
     # The lesson has been composed by the signed-in user.
     @lesson.user_id = current_user.id
-    #@lesson.section_ids = params[:lesson][:section_id]
-    #puts "**************" + @lesson.section_ids[0]
+
     
-    if @lesson.save
-      flash[:success] = 'Lesson created!'
-      @section_content = SectionContent.new(:section_id => @lesson.section_ids[0], :lesson_id => @lesson.id)
-      if @section_content.save
-        flash[:success] = 'Lesson connected to its section!'
-        redirect_to @lesson
+
+    respond_to do |format|
+      if @lesson.save
+        flash[:success] = 'Lesson created!'
+        
+        # Get the section, if present and add the lesson to it.
+        section_id = params['section_id']
+        add_lesson_to_section(@lesson, section_id)
+        
+        format.html { redirect_to @lesson, notice: 'Lesson was successfully created.' }
+        format.json { render :show, status: :created, location: @lesson }
       else
-        flash[:failure] = 'Failed connecting new lesson to section!'
-        redirect_to root_path
+        format.html { render :new }
+        format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
-    else
-      render 'new'
     end
   end
 

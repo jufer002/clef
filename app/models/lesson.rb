@@ -1,8 +1,8 @@
 class Lesson < ApplicationRecord
-    belongs_to :user
-    has_many :section_contents
-    has_many :section, :through => :section_contents
-    has_many :comments
+  belongs_to :user
+  belongs_to :section, required: false
+  has_many :sections, :through => :section_contents
+  has_many :comments
 
   # Validates that the article's title exists, is long enough, and is unique
   validates :title, presence: true#, length: { minimum: 6 }, uniqueness: true
