@@ -2,6 +2,26 @@
 
 <h1>Lessons</h1>
 
+<<<<<<< HEAD
+<div class="container">
+	<div class="card-deck">
+		<% @lessons.in_groups_of(4) do |lesson1, lesson2, lesson3, lesson4| %>
+			<% if not lesson1.nil? %>
+				<%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson1 } %>
+			<% end %>
+			<% if not lesson2.nil? %>
+				<%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson2 } %>
+			<% end %>
+			<% if not lesson3.nil? %>
+				<%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson3 } %>
+			<% end %>
+			<% if not lesson4.nil? %>
+				<%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson4 } %>
+			<% end %>
+		<% end %> 
+	</div>
+</div>
+=======
 <table>
   <thead>
     <tr>
@@ -28,6 +48,7 @@
   </tbody>
 </table>
 
+>>>>>>> c7edb5cc27c47ba26bb501465a8ccc6cbd4facc4
 <br>
 
 <%= link_to 'New Lesson', new_lesson_path %>
