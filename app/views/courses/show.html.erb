@@ -32,6 +32,7 @@
     <div class="col-sm-4">
       [Sections and lessons from this course go here. Also, buttons to let you add more sections and buttons to let you
       add more lessons if this were the "Edit Course" page]
+      <%= @course.sections.count %>
       <ol>
         <% @course.sections.each do |section| %>
         <li>
@@ -48,7 +49,10 @@
           </ol>
         </li>
         <% end %>
-        <%= link_to "Add new section to this course", new_section_path(:section => { :course_id => @course.sections.size } ), class: "btn" %>
+
+        <% if current_user.id == @course.user_id %>
+          <%= link_to "Add new section to this course", new_section_path(@course), class: "btn" %>
+        <% end %>
       </ol>
     </div>
     <div class="col-sm-8">

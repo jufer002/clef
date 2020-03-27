@@ -18,6 +18,7 @@ class SectionsController < ApplicationController
   # GET /sections/new
   def new
     @section = Section.new
+    @course = params['course_id']
   end
 
   # GET /sections/1/edit
@@ -29,11 +30,15 @@ class SectionsController < ApplicationController
   def create
     @section = Section.new(section_params)
 
-    # The lesson has been composed by the signed-in user.
-    @section.user_id = current_user.id
+    puts '******************************************'
+    puts params
+    puts '******************************************'
 
     respond_to do |format|
       if @section.save
+        # Use the sections helper to create the relation between the section and its course.
+        add_section_to_course(@section)
+
         format.html { redirect_to @section, notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else
@@ -75,6 +80,6 @@ class SectionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def section_params
-      params.require(:section).permit(:title, :user_id, :previous_id, :next_id)
+      params.require(:section).permit(:title, :previous_id, :next_id)
     end
 end
