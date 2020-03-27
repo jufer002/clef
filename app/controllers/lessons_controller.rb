@@ -2,6 +2,7 @@ class LessonsController < ApplicationController
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
 
   include SessionsHelper
+  include SectionsHelper
 
   # GET /lessons
   # GET /lessons.json
@@ -35,9 +36,13 @@ class LessonsController < ApplicationController
     # The lesson has been composed by the signed-in user.
     @lesson.user_id = current_user.id
 
-    if params['lesson'].has_key?('section_id')
-      add_lesson_to_section(@lesson, params['lesson']['section_id'])
-    end    
+    section_id = params['section_id']
+
+    if add_lesson_to_section(@lesson, section_id)
+      puts '*****************************************SECTION CONNECTED'
+    else
+      puts '*****************************************no connection'
+    end
     
     respond_to do |format|
       if @lesson.save

@@ -8,6 +8,10 @@ module SectionsHelper
   def add_lesson_to_section(lesson, section_id)
     section_content = SectionContent.new({ :lesson_id => lesson.id, :section_id => section_id })
 
-    section_content.save
+    if not section_content.save
+      puts section_content.errors
+    end
+
+    not section_content.errors.any?
   end
 end

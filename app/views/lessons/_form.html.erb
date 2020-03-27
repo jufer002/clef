@@ -9,11 +9,8 @@
       <%= f.label :body %>
       <%= f.text_area :body, size: "60x12", class: 'form-control' %>
 
-
-      <% if defined?(lesson_section) %>
-        <%= hidden_field_tag(:section_id, lesson_section) %>
-      <% else %>
-        <%= hidden_field_tag(:section_id, -1) %>
+      <% if params['lesson'].has_key?('section_id') %>
+        <%= hidden_field_tag(:section_id, params['lesson']['section_id']) %>
       <% end %>
 
       <%= f.submit "Publish", class: "btn btn-primary" %>
