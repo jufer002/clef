@@ -1,6 +1,8 @@
 class LessonsController < ApplicationController
   before_action :set_lesson, only: [:show, :edit, :update, :destroy]
 
+  include SessionsHelper
+
   # GET /lessons
   # GET /lessons.json
   def index
@@ -10,6 +12,10 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /lessons/new
@@ -26,14 +32,23 @@ class LessonsController < ApplicationController
   def create
     @lesson = Lesson.new(lesson_params)
 
-    respond_to do |format|
-      if @lesson.save
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully created.' }
-        format.json { render :show, status: :created, location: @lesson }
+    # The lesson has been composed by the signed-in user.
+    @lesson.user_id = current_user.id
+    #@lesson.section_ids = params[:lesson][:section_id]
+    #puts "**************" + @lesson.section_ids[0]
+    
+    if @lesson.save
+      flash[:success] = 'Lesson created!'
+      @section_content = SectionContent.new(:section_id => @lesson.section_ids[0], :lesson_id => @lesson.id)
+      if @section_content.save
+        flash[:success] = 'Lesson connected to its section!'
+        redirect_to @lesson
       else
-        format.html { render :new }
-        format.json { render json: @lesson.errors, status: :unprocessable_entity }
+        flash[:failure] = 'Failed connecting new lesson to section!'
+        redirect_to root_path
       end
+    else
+      render 'new'
     end
   end
 
@@ -61,6 +76,7 @@ class LessonsController < ApplicationController
     end
   end
 
+  # POST /lessons/1
   def post_comment
     @comment = Comment.new(comment_params)
 
@@ -84,7 +100,7 @@ class LessonsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lesson_params
-      params.require(:lesson).permit(:title, :user_id, :body, :section_id)
+      params.require(:lesson).permit(:title, :body)
     end
 
     def comment_params
