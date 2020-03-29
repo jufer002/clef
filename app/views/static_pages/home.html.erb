@@ -1,12 +1,17 @@
-<%= render 'layouts/header' %>
 
-<div class="container">
-  <div class="row">
-    <div class="col-xs-6">
+<%= render 'layouts/header' %>
+<body>
+<div class="container-fluid home">
+  <div class="row top-row">
+    <div class="col top-whats-new">
       <%= render :partial => "layouts/whats_new", :locals => { :new_courses => recent_courses(5)} %>
     </div>
-    <div class="col-xs-6">
-      
+    <div class="col top-search">
+      <%= render :partial => "layouts/home_search" %>
     </div>
   </div>
+  <div class="row bottom-row">
+    <%= render :partial => "layouts/about" %>
+  </div>
 </div>
+</body>
