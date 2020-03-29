@@ -56,6 +56,7 @@ courses = []
         current_section = Section.create(title: Faker::Food.dish, previous_id: prev_section.id)
         puts current_section.id
         prev_section.next_id = current_section.id
+        prev_section.save 
     end
     courses << temp_course
 end
