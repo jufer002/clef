@@ -27,8 +27,13 @@ sections = []
 
 
 courses = []
+sectioncontent = []
+coursecontent = []
 10.times do 
     temp_course = Course.new(title: Faker::Music.genre, description: Faker::Twitter.status[:text], user_id: users.sample.id)
+    #temp_course.save
+    #puts temp_course.id
+    #puts temp_course.title
     #will need to connect courses to lessons once that is in place
     prev_section = nil
     
@@ -38,27 +43,37 @@ courses = []
         sections << current_section
         temp_course.sections << current_section
 
-        time = rand(6) + 1
-        time.times do
-            current_section.lessons << lessons.sample
-        end
-    end
-    num.times do
-        
-        prev_section = current_section
-        time = rand(6) + 1
-        time.times do
-            current_section.lessons << lessons.sample
-        end
-        sections << current_section
-        temp_course.sections << current_section
+        #coursecontent << CourseContent.new(section_id: current_section.id, course_id: temp_course.id)
 
-        current_section = Section.create(title: Faker::Food.dish, previous_id: prev_section.id)
-        puts current_section.id
-        prev_section.next_id = current_section.id
-        prev_section.save 
+        time = rand(6) + 1
+        time.times do
+            temp_lesson = lessons.sample
+            current_section.lessons << temp_lesson
+            sectioncontent << SectionContent.new(section_id: current_section.id, lesson_id: temp_lesson.id)
+        end
+        
+    else
+        num.times do
+            
+            prev_section = current_section
+            time = rand(6) + 1
+            time.times do
+                temp_lesson = lessons.sample
+                current_section.lessons << temp_lesson
+                sectioncontent << SectionContent.new(section_id: current_section.id, lesson_id: temp_lesson.id)
+
+            end
+            sections << current_section
+            temp_course.sections << current_section
+
+            current_section = Section.create(title: Faker::Food.dish, previous_id: prev_section.id)
+            #coursecontent << CourseContent.new(section_id: prev_section.id, course_id: temp_course)
+            prev_section.next_id = current_section.id
+            prev_section.save 
+        end
+        courses << temp_course
+        #temp_course.save
     end
-    courses << temp_course
 end
 
 #print tests
@@ -82,9 +97,22 @@ end
 
 
 #Section.import sections
+
+SectionContent.import sectioncontent
 Course.import courses
 Comment.import comments
+temp = Course.all
+temp.each do |c|
+    puts c.id
+    c.sections.each do |s|
+        if !c.id.nil?
+            CourseContent.create(section_id: s.id, course_id: c.id)
+        end
+    end
+end
 
+
+#CourseContent.import coursecontent
 # tag = []
 # tag << Tag.new(type: "difficulty", name: "easy"), 
 #         Tag.new(type: "difficulty", name: "intermediate"),
