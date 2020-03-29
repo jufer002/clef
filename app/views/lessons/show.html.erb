@@ -2,12 +2,11 @@
 
 <script src="/js/show.js.erb"></script>
 
-<h2 class="center"><%= @lesson.title %></h2>
-
 <div class="center lesson-show-head">
-  <h4>
-    <p>by <button id="user-button"><%= @lesson.user.username %></button></p>
-  </h4>
+  <h2><%= @lesson.title %></h2>
+    <h4>
+      <p>by <button id="user-button"><%= @lesson.user.username %></button></p>
+    </h4>
 </div>
 
 <div id="user-modal" class="modal">
