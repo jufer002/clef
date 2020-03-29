@@ -3,17 +3,18 @@
 
 /* variables */
 
-$background-color: #ffb6c5;
-$panel-color: #ffe9f8;
-$navbar-color: #cb8695;
+$background-color: #d1c4e9;
+// $panel-color: #ffe9f8;
+$panel-color: lighten($background-color, 3%);
+// $navbar-color: #cb8695;
+$navbar-color: darken($background-color, 5%);
 $text-color: black;
 $hover-color: #224731;
+
 %panel {
   background-color: $panel-color;
 }
 $error-color-light: #f2dede;
-
-
 
 .navbar {
   background-color: $navbar-color;
@@ -30,36 +31,21 @@ a {
   color: $text-color !important; 
 }
 
-
 .home {
   width: 100%;
   box-sizing: border-box;
   .top-row {
     display: flex;
     justify-content: space-between;
-    .top-whats-new{
+    margin-bottom: 5px;
+    .top-whats-new, .top-search{
       @extend %panel;
-      border: 1px solid  rgba(66, 0, 128, 0);
-            // top-left top-right bottom-right bottom-left. 
       margin: 5px;
       display: inline-block;
       flex: 1 1 0px;
       // width: 50%;
       // flex-grow: 1;
     }
-    .top-search{
-      @extend %panel;
-      border: 1px solid  rgba(66, 0, 128, 0);
-            // top-left top-right bottom-right bottom-left. 
-      margin: 5px;
-      display: inline-block;
-      flex: 1 1 0px;
-      // width: 50%;
-      // flex-grow: 1;
-    }
-  }
-  .bottom-row {
-    @extend %panel;
   }
 }
 
@@ -78,14 +64,10 @@ a {
 }
 
 .about {
+  @extend %panel;
   box-sizing: content-box;
-  .header {
-  }
-}
-
-.home-search {
-  .home-search-h3 {
-  }
+  border-radius: 10px;
+  padding-bottom: 20px;
 }
 
 .lesson-card {
