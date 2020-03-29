@@ -18,7 +18,6 @@ class SectionsController < ApplicationController
 
   # GET /sections/new
   def new
-    puts '*******************************hello'
     @section = Section.new
     
     @course = params['course_id']
@@ -36,11 +35,9 @@ class SectionsController < ApplicationController
     course_id = params[:course_id]
 
     respond_to do |format|
-      if @section.save
+      if add_section_to_course(@section, course_id)
         # Use the sections helper to create the relation between the section and its course.
-        add_section_to_course(@section, course_id)
-
-        format.html { redirect_to @section, notice: 'Section was successfully created.' }
+        format.html { redirect_to Course.find(course_id), notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else
         format.html { render :new }
@@ -81,6 +78,6 @@ class SectionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def section_params
-      params.require(:section).permit(:title, :previous_id, :next_id)
+      params.require(:section).permit(:title, :previous_id, :next_id, :course_id)
     end
 end

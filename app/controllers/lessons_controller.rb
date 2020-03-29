@@ -40,13 +40,15 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       if @lesson.save
-        flash[:success] = 'Lesson created!'
+        flash[:success] = "#{@lesson.title} has been published!"
         
         # Get the section, if present and add the lesson to it.
-        section_id = params['section_id']
-        add_lesson_to_section(@lesson, section_id)
+        if params.has_key?('section_id')
+          section_id = params['section_id']
+          add_lesson_to_section(@lesson, section_id)
+        end
         
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully created.' }
+        format.html { redirect_to @lesson }
         format.json { render :show, status: :created, location: @lesson }
       else
         format.html { render :new }
