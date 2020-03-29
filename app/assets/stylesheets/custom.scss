@@ -3,17 +3,13 @@
 
 /* variables */
 
-$background-color: #f5fffa;
+$background-color: rgba(134, 113, 161, 0.877);
+$panel: lighten($background-color, 10%);
+%panel {
+  background-color: $panel;
+}
 $error-color-light: #f2dede;
 
-/* universal */
-
-// .col {
-//   margin: 2%;
-// }
-body {
-  background: rgba(134, 113, 161, 0.877);
-}
 
 .home {
   width: 100%;
@@ -22,9 +18,8 @@ body {
     display: flex;
     justify-content: space-between;
     .top-whats-new{
-      background: rgba(178, 155, 209, 0.877);
+      @extend %panel;
       border: 1px solid  rgba(66, 0, 128, 0);
-      border-radius: 10px     0      0        10px;
             // top-left top-right bottom-right bottom-left. 
       margin: 5px;
       display: inline-block;
@@ -33,9 +28,8 @@ body {
       // flex-grow: 1;
     }
     .top-search{
-      background: rgba(178, 155, 209, 0.877);
+      @extend %panel;
       border: 1px solid  rgba(66, 0, 128, 0);
-      border-radius: 0     10px      10px           0;
             // top-left top-right bottom-right bottom-left. 
       margin: 5px;
       display: inline-block;
@@ -45,7 +39,7 @@ body {
     }
   }
   .bottom-row {
-    border: 1px solid red;
+    @extend %panel;
   }
 }
 
