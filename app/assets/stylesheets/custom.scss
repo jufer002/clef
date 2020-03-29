@@ -3,12 +3,32 @@
 
 /* variables */
 
-$background-color: rgba(134, 113, 161, 0.877);
-$panel: lighten($background-color, 10%);
+$background-color: #ffb6c5;
+$panel-color: #ffe9f8;
+$navbar-color: #cb8695;
+$text-color: black;
+$hover-color: #224731;
 %panel {
-  background-color: $panel;
+  background-color: $panel-color;
 }
 $error-color-light: #f2dede;
+
+
+
+.navbar {
+  background-color: $navbar-color;
+  color: $text-color;
+}
+
+body {
+  background-color: $background-color ;
+  color: $text-color;
+  margin: 33px; 
+}
+
+a {
+  color: $text-color !important; 
+}
 
 
 .home {
