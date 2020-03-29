@@ -32,7 +32,7 @@ courses = []
     #will need to connect courses to lessons once that is in place
     prev_section = nil
     
-    current_section = Section.create(title: Faker::Food.dish, user_id: temp_course.user_id)
+    current_section = Section.create(title: Faker::Food.dish)
     num = rand(4)
     if num == 0 
         sections << current_section
@@ -53,7 +53,7 @@ courses = []
         sections << current_section
         temp_course.sections << current_section
 
-        current_section = Section.create(title: Faker::Food.dish, user_id: temp_course.user_id, previous_id: prev_section.id)
+        current_section = Section.create(title: Faker::Food.dish, previous_id: prev_section.id)
         puts current_section.id
         prev_section.next_id = current_section.id
     end
