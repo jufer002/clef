@@ -12,6 +12,21 @@ $error-color-light: #f2dede;
 //   margin: 2%;
 // }
 
+.whatsnew {
+  box-sizing: content-box;
+  .header {
+    display: flex;
+    .header-label, .header-browse {
+      display: inline-block;
+    }
+    .header-label { flex-grow: 1; }
+  }
+  
+  .whatsnew-header {
+    border-bottom: solid;
+  }
+}
+
 .lesson-card {
   .lesson-by {
     margin-bottom: 5px;
