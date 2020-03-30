@@ -46,10 +46,10 @@ table.index {
 a {
   color: $text-color !important; 
 }
-a.btn.browse-btn {
+a.btn.browse-btn, input.btn.form-btn {
   background-color: $btn-color;
 }
-a.btn.browse-btn:hover {
+a.btn.browse-btn:hover , input.btn.form-btn:hover {
   background-color: $panel-color;
 }
 
