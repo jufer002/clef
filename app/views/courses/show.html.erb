@@ -41,15 +41,19 @@
               Created by: <%= lesson.user_id %> <br />
             </li>
             <% end %>
-            <%= link_to "Add new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn" %>
+            <% if logged_in? %>
+              <% if current_user.id == @course.user_id %>
+                <%= link_to "Add new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn" %>
+              <% end %>
+            <% end %>
           </ol>
         </li>
         <% end %>
 
         <% if logged_in? %>
-        <% if current_user.id == @course.user_id %>
-          <%= link_to "Add new section to this course", new_section_path(@course), class: "btn" %>
-        <% end %>
+          <% if current_user.id == @course.user_id %>
+            <%= link_to "Add new section to this course", new_section_path(@course), class: "btn" %>
+          <% end %>
         <% end # if logged_in? %>
       </ol>
     </div>
