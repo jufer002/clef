@@ -8,6 +8,7 @@ $background-color: #d1c4e9;
 $panel-color: lighten($background-color, 3%);
 // $navbar-color: #cb8695;
 $navbar-color: darken($background-color, 5%);
+$btn-color: lighten($background-color, 8%);
 $text-color: black;
 $hover-color: #224731;
 
@@ -19,6 +20,15 @@ $error-color-light: #f2dede;
 .navbar {
   background-color: $navbar-color;
   color: $text-color;
+
+  .nav-btn {
+    border-radius: 0px;
+    margin: 5px;
+    padding: 3px;
+  }
+  .nav-btn:hover {
+    background-color: $panel-color;
+  }
 }
 
 body {
@@ -31,6 +41,12 @@ body {
 
 a {
   color: $text-color !important; 
+}
+a.btn.browse-btn {
+  background-color: $btn-color;
+}
+a.btn.browse-btn:hover {
+  background-color: $panel-color;
 }
 
 .home {
