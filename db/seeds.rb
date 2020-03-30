@@ -31,19 +31,28 @@ sectioncontent = []
 coursecontent = []
 10.times do 
     temp_course = Course.new(title: Faker::Music.genre, description: Faker::Twitter.status[:text], user_id: users.sample.id)
-    #temp_course.save
-    #puts temp_course.id
-    #puts temp_course.title
-    #will need to connect courses to lessons once that is in place
+    courses << temp_course
+end
+
+
+
+comments = []
+100.times do
+    comments << Comment.new(user_id: users.sample.id, lesson_id: lessons.sample.id, text: Faker::Quote.famous_last_words)
+end
+
+
+Course.import courses
+Comment.import comments
+temp = Course.all
+temp.each do |c|
     prev_section = nil
     
     current_section = Section.create(title: Faker::Food.dish)
     num = rand(4)
     if num == 0 
         sections << current_section
-        temp_course.sections << current_section
-
-        #coursecontent << CourseContent.new(section_id: current_section.id, course_id: temp_course.id)
+        coursecontent << CourseContent.new(section_id: current_section.id, course_id: c.id)
 
         time = rand(6) + 1
         time.times do
@@ -64,53 +73,19 @@ coursecontent = []
 
             end
             sections << current_section
-            temp_course.sections << current_section
+
 
             current_section = Section.create(title: Faker::Food.dish, previous_id: prev_section.id)
-            #coursecontent << CourseContent.new(section_id: prev_section.id, course_id: temp_course)
+            coursecontent << CourseContent.new(section_id: prev_section.id, course_id: c.id)
             prev_section.next_id = current_section.id
             prev_section.save 
         end
-        courses << temp_course
-        #temp_course.save
+        
+        
     end
 end
-
-#print tests
-# courses.each do |c|
-#     puts c.title
-#     c.sections.each do |s|
-#         puts "\t#{s.title}"
-#         puts "\t#{s.next_id}"
-#         s.lessons.each do |l|
-#             puts "\t\t#{l.title}"
-#         end
-#     end
-#     puts ""
-# end
-
-
-comments = []
-100.times do
-    comments << Comment.new(user_id: users.sample.id, lesson_id: lessons.sample.id, text: Faker::Quote.famous_last_words)
-end
-
-
-#Section.import sections
-
+CourseContent.import coursecontent
 SectionContent.import sectioncontent
-Course.import courses
-Comment.import comments
-temp = Course.all
-temp.each do |c|
-    puts c.id
-    c.sections.each do |s|
-        if !c.id.nil?
-            CourseContent.create(section_id: s.id, course_id: c.id)
-        end
-    end
-end
-
 
 #CourseContent.import coursecontent
 # tag = []
