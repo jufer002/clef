@@ -24,6 +24,6 @@ Rails.application.routes.draw do
   # Course paths
   get '/compose_course', to: 'courses#new'
 
-  # Search paths
+  # Search paths 
   get '/search', to: 'lessons#search'
 end
