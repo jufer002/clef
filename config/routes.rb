@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'search/search'
   # Resources
   resources :lessons
   resources :users
@@ -25,5 +26,6 @@ Rails.application.routes.draw do
   get '/compose_course', to: 'courses#new'
 
   # Search paths 
-  get '/search', to: 'lessons#search'
+  #get '/search', to: 'lessons#search'
+  get  '/search',  to: "search#search"
 end
