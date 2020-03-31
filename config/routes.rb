@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'search/search', to: "search#search"
+  
   # Resources
   resources :lessons
   resources :users
@@ -27,5 +27,7 @@ Rails.application.routes.draw do
 
   # Search paths 
   #get '/search', to: 'lessons#search'
-  get  '/search',  to: "search#search"
+  get  '/search', to: "search#search"
+  get 'search/search', to: "search#search"
+  
 end
