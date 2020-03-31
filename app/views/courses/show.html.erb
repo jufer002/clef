@@ -1,31 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @course.title %>
-</p>
+<div class="center jumbotron">
+  <h1><%= @course.title %></h1>
 
-<p>
-  <strong>Description:</strong>
-  <%= @course.description %>
-</p>
+  <h2>
+    <%= @course.description  %>
+  </h2>
 
-<p>
-  <strong>User:</strong>
-  <%= @course.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
-
-<br>
-<br>
+  <br />
+</div>
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col">
-      <strong>Course Title:</strong>
-      <%= @course.title %>
+    <div class="col">      
     </div>
   </div>
   <div class="row">
