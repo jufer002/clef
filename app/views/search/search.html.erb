@@ -1,38 +1,26 @@
-<h4>Search</h4>
-<%= form_tag(search_search_path, :method => "get",   
-    class: 'navbar-form navbar-left') do %>  
-  <div class="input-group">
-    Search for a lesson.<br />
-    Features supported:<br />
-    <ul>
-        <li>Exact lesson name search</li>
-        <li>Approximate lesson name search</li>
-        <li>Exact lesson body search</li>
-        <li>Approximate lesson body search</li>
-    </ul>
-    <div class="input-group mb-3 search-field">
-        <%= search_field_tag :search_text, params[:search], placeholder: "Search for a lesson", class: "form-control" %>
-        <div class="input-group-append search-button-area">  
-            <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
-        </div>  
-    </div>  
-  </div>  
-<% end %>
+<div class="center jumbotron">
+  <h1>Search</h1>
+  <br />
 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-Results:
+  <%= form_tag(search_search_path, :method => "get",   
+    class: 'navbar-form') do %>  
+        <div class="input-group">
+            <div class="input-group mb-3 search-field">
+                <%= search_field_tag :search_text, params[:search], placeholder: "Search for a lesson", class: "form-control" %>
+                <div class="input-group-append search-button-area">  
+                    <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
+                </div>  
+            </div>  
+        </div>  
+    <% end %>
+</div>
+
+
+
+<center><h2>Results</h2></center>
 <hr>
 
-<div>
+<div class="user-lessons container-fluid">
     <ul>
         <% if @lessons.empty? %>
             No results
@@ -41,7 +29,8 @@ Results:
                 <% result_relation.each do |result| %>
                     <li>
                         Lesson title: <%= link_to result.title, result, class: "btn nav-btn" %>
-                        by user <%= result.user_id %>
+                        <br>
+                        by <%= link_to User.find(result.user_id).username, User.find(result.user_id) %>
                     </li>
                 <% end %>
             <% end %>
