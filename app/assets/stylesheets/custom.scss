@@ -91,10 +91,12 @@ $error-color-light: #f2dede;
   .comments-container {
     width: auto;
     margin: 2%;
-    overflow: scroll;
+    overflow: normal;
   }
 
   .comment-container {
+    width: auto;
+    overflow: normal;
   }
 }
 
@@ -256,7 +258,6 @@ select,
 
 /* user show */
 .user-lessons {
-  
   li {
     font-family: avenir;
     font-size: 1.7em;
