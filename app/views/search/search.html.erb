@@ -10,9 +10,11 @@
         <li>Exact lesson body search</li>
         <li>Approximate lesson body search</li>
     </ul>
-    <%= search_field_tag :search_text, params[:search], placeholder: "Search for a lesson", class: "form-control" %>
-    <div class="input-group-btn">  
-      <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
+    <div class="input-group mb-3 search-field">
+        <%= search_field_tag :search_text, params[:search], placeholder: "Search for a lesson", class: "form-control" %>
+        <div class="input-group-append search-button-area">  
+            <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
+        </div>  
     </div>  
   </div>  
 <% end %>

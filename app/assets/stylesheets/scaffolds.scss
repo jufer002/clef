@@ -38,6 +38,9 @@ div.lesson {
   border-left: 5px solid $navbar-color;
   background-color: $panel-color;
 }
+div.search-button-area {
+  display: flex;
+}
 
 table.index {
   margin-left: 5%;
@@ -51,6 +54,15 @@ a.btn.browse-btn, input.btn.form-btn {
 }
 a.btn.browse-btn:hover , input.btn.form-btn:hover {
   background-color: $panel-color;
+}
+a.nav-btn:hover {
+  background-color: #97b498 !important;
+}
+
+button.btn-info {
+  color: #fff;
+  background-color: #97b498;
+  border-color: #97b498;
 }
 
 pre {
