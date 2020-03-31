@@ -1,19 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
+<div class="center jumbotron">
+  <h1><%= @user.username %></h1>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+  <h2>
+    <%= @user.email %>
+  </h2>
 
-<p>
-  <strong>Password digest:</strong>
-  <%= @user.password_digest %>
-</p>
+  <br />
+</div>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div class="user-lessons container-fluid">
+  <h3 class="center">
+    <%= @user.username %>'s lessons
+  </h3>
+  <hr>
+  <ul>
+    <% @user.lessons.each do |lesson| %>
+      <li>
+        <%= link_to lesson.title, lesson, class: "btn" %>
+        <hr>
+        <h5><%= lesson_excerpt(lesson) %></h5>
+        <hr>
+      </li>
+    <% end %>
+  </ul>
+</div>

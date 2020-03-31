@@ -246,3 +246,27 @@ select,
 
 }
 
+
+/* course show */
+.section-head {
+  li {
+    padding: 5px;
+  }
+}
+
+/* user show */
+.user-lessons {
+  
+  li {
+    font-family: avenir;
+    font-size: 1.7em;
+    padding: 1em;
+  }
+  width: 40%;
+  background-color: $panel-color;
+  .btn {
+    float: top;
+    font-size: 0.9em;
+    background-color: $btn-color;
+  }
+}

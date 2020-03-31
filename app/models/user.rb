@@ -11,7 +11,7 @@ class User < ApplicationRecord
   ############################
 
   # Username validation
-  validates :username, presence: true, length: { minimum: 6 }, uniqueness: true
+  validates :username, presence: true, length: { minimum: 3 }, uniqueness: true
   # Password validation
   validates :password, presence: true, length: { minimum: 6 }
   # Email validation

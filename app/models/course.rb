@@ -5,7 +5,7 @@ class Course < ApplicationRecord
   has_many :sections, through: :course_contents
 
   # Validates that the course's title exists, is long enough and is unique
-  validates :title, presence: true, length: { minimum: 6 }, uniqueness: true
+  validates :title, presence: true
 
   # Validates that a user started the course.
   validates :user_id, presence: true
