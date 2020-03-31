@@ -14,7 +14,7 @@
   <div class="user-modal-content">
     <div class="modal-header">
       <span class="close">&times;</span>
-      <h2><%= @lesson.user.username %></h2>
+      <h2><%= link_to @lesson.user.username, @lesson.user %></h2>
     </div>
     <div class="modal-body">
       <p>This will contain more information about the user who wrote this lesson.</p>
