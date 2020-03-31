@@ -17,15 +17,15 @@
   </div>
   <div class="row">
     <div class="col-sm-4">
-      <ol>
+      <ol class="section-head">
         <% @course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
         <li>
           Section name: <%= section.title %> <br />
           <ol>
             <% section.lessons.each do |lesson| %>
             <li>
-              Lesson: <%= link_to lesson.title, lesson %> <br />
-              Created by: <%= lesson.user_id %> <br />
+              Lesson: <%= link_to lesson.title, lesson, class: "btn" %> <br />
+              Created by: <%= User.find(lesson.user_id).username %> <br />
             </li>
             <% end %>
             <% if logged_in? %>
