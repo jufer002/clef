@@ -93,8 +93,17 @@ a.nav-btn:hover {
 a.btn.title-btn {
   background-color: transparent;
   font-size: 20px;
+  font-weight: bold;
 }
 a.btn.title-btn:hover {
+  background-color: $btn-color;
+}
+a.btn.option-btn {
+  background-color: darken($btn-color, 4%);
+  height: 30px;
+  margin-left: 8%;
+}
+a.btn.option-btn:hover {
   background-color: $btn-color;
 }
 
@@ -118,6 +127,9 @@ td {
 div.field,
 div.actions {
   margin-bottom: 10px; }
+div.course-div {
+  position: relative;
+}
 
 #notice {
   color: green; }

@@ -1,3 +1,4 @@
+
 <p id="notice"><%= notice %></p>
 
 <div class="center jumbotron">
@@ -10,6 +11,8 @@
   <br />
 </div>
 
+
+
 <div class="container-fluid">
   <div class="row">
     <div class="col">      
@@ -20,17 +23,16 @@
       <ol class="section-head">
         <% @course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
         <li>
-          Section name: <%= section.title %> <br />
+          <h3><%= section.title %></h3>
           <ol>
             <% section.lessons.each do |lesson| %>
             <li>
-              Lesson: <%= link_to lesson.title, lesson, class: "btn" %> <br />
-              Created by: <%= User.find(lesson.user_id).username %> <br />
+              <%= link_to lesson.title, lesson, class: "btn title-btn" %>
             </li>
             <% end %>
             <% if logged_in? %>
               <% if current_user.id == @course.user_id %>
-                <%= link_to "Add new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn" %>
+                <%= link_to "Add new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn option-btn" %>
               <% end %>
             <% end %>
           </ol>
@@ -39,7 +41,7 @@
 
         <% if logged_in? %>
           <% if current_user.id == @course.user_id %>
-            <%= link_to "Add new section to this course", new_section_path(@course), class: "btn" %>
+            <%= link_to "Add new section to this course", new_section_path(@course), class: "btn option-btn" %>
           <% end %>
         <% end # if logged_in? %>
       </ol>
