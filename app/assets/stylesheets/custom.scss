@@ -1,273 +1,54 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-/* variables */
-
-$background-color: #d1c4e9;
-// $panel-color: #ffe9f8;
-$panel-color: lighten($background-color, 3%);
-// $navbar-color: #cb8695;
+$background-color: #ffffff;
+$panel-color: darken($background-color, 3%);
 $navbar-color: darken($background-color, 5%);
-$btn-color: lighten($background-color, 8%);
+$btn-color: darken($background-color, 8%);
 $text-color: black;
-$hover-color: #224731;
 
 %panel {
-  background-color: $panel-color;
-}
-$error-color-light: #f2dede;
+    background-color: $panel-color;
+    box-sizing: content-box;
+  }
 
 .navbar {
-  background-color: $navbar-color;
-  color: $text-color;
-
-  .nav-btn {
-    border-radius: 0px;
-    margin: 5px;
-    padding: 3px;
-  }
-  .nav-btn:hover {
-    background-color: $panel-color;
-  }
+    background-color: $navbar-color;
+    color: $text-color;
+  
+    .nav-btn {
+      border-radius: 0px;
+      margin: 5px;
+      padding: 3px;
+    }
+    .nav-btn:hover {
+      background-color: $panel-color;
+    }
 }
 
 .home {
-  width: 100%;
-  box-sizing: border-box;
-  .top-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-    .top-whats-new, .top-search{
-      @extend %panel;
-      margin: 5px;
-      display: inline-block;
-      flex: 1 1 0px;
-      // width: 50%;
-      // flex-grow: 1;
-    }
-  }
+    margin-top: 10%;
+    width: 95%;
+    box-sizing: border-box;
+    height: 800px;
+    .top-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        height: 50%;
+            .top-whats-new, .top-search{
+            @extend %panel;
+            margin: 5px;
+            display: inline-block;
+            flex: 1 1 0px;
+            height: 100%;
+            // width: 50%;
+            // flex-grow: 1;
+            }
+        }   
 }
 
-.whatsnew {
-  box-sizing: content-box;
-  .header {
-    display: flex;
-    .header-label, .header-browse {
-      display: inline-block;
-    }
-    .header-label { flex-grow: 1; }
-  }
-  .browse-button {
-    padding-top: 18px;
-  }
-}
-
-.about {
-  @extend %panel;
-  box-sizing: content-box;
-  border-radius: 10px;
-  padding-bottom: 20px;
-}
-
-.lesson-card {
-  .lesson-by {
-    margin-bottom: 5px;
-  }
-}
-
-.comment-section {
-  width: 50%;
-
-  .comment-text {
-    height: 100px;
-  }
-
-  .publish-btn {
-    width: auto;
-    float: right;
-  }
-
-  .comments-container {
-    width: auto;
-    margin: 2%;
-    overflow: normal;
-  }
-
-  .comment-container {
-    width: auto;
-    overflow: normal;
-  }
-}
-
-#logo {
-  float: left;
-  font-size: 3em;
-  text-transform: uppercase;
-  letter-spacing: -1px;
-  font-family: Verdana, Geneva, sans-serif;
-  font-weight: bold;
-  &:hover {
-    color: black;
-    text-decoration: none;
-  }
-}
-
-section {
-  overflow: auto;
-}
-
-textarea {
-  resize: vertical;
-}
-
-.center {
-  text-align: center;
-  h1 {
-    margin-bottom: 10px;
-  }
-}
-
-/* mixins */
-
-@mixin box_sizing {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-/* forms */
-
-input,
-textarea,
-select,
-.uneditable-input {
-  border: 1px solid #bbb;
-  width: 100%;
-  margin-bottom: 15px;
-  @include box_sizing;
-}
-
-/* error messages */
-
-#error_explanation {
-  color: red;
-  ul {
-    color: red;
-    margin: 0 0 30px 0;
-  }
-}
-
-.field_with_errors {
-  background-color: $error-color-light !important;
-  @extend .has-error;
-  .form-control {
-    color: $state-danger-text;
-  }
-}
-
-.lesson-show-head {
-  display: inline;
-  .user-button {
-    width: auto;
-    background-color: transparent;
-  }
-}
-
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-
-  /* Modal Content/Box */
-  .user-modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-  }
-
-  /* The Close Button */
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  /* Modal Header */
-  .modal-header {
-    padding: 2px 16px;
-    background-color: $background-color;
-    color: $text-color;
-  }
-
-  /* Modal Body */
-  .modal-body {padding: 2px 16px;}
-
-  /* Modal Footer */
-  .modal-footer {
-    padding: 2px 16px;
-    background-color: $background-color;
-    color: $text-color;
-  }
-
-  /* Modal Content */
-  .modal-content {
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    width: 80%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    animation-name: animatetop;
-    animation-duration: 0.4s
-  }
-
-  /* Add Animation */
-  @keyframes animatetop {
-    from {top: -300px; opacity: 0}
-    to {top: 0; opacity: 1}
-  }
-
-}
-
-
-/* course show */
-.section-head {
-  li {
-    padding: 5px;
-  }
-}
-
-/* user show */
-.user-lessons {
-  li {
-    font-family: avenir;
-    font-size: 1.7em;
-    padding: 1em;
-  }
-  width: 40%;
-  background-color: $panel-color;
-  .btn {
-    float: top;
-    font-size: 0.9em;
-    background-color: $btn-color;
-  }
+div.whatsnew {
+    height: 100%;
+    overflow: scroll;
 }
