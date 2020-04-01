@@ -18,10 +18,7 @@
   <ul>
     <% @user.lessons.each do |lesson| %>
       <li>
-        <%= link_to lesson.title, lesson, class: "btn browse-btn" %>
-        <hr>
-        <h5><%= lesson_excerpt(lesson) %></h5>
-        <hr>
+        <%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson } %>
       </li>
     <% end %>
   </ul> 
