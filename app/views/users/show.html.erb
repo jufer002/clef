@@ -18,11 +18,11 @@
   <ul>
     <% @user.lessons.each do |lesson| %>
       <li>
-        <%= link_to lesson.title, lesson, class: "btn" %>
+        <%= link_to lesson.title, lesson, class: "btn browse-btn" %>
         <hr>
         <h5><%= lesson_excerpt(lesson) %></h5>
         <hr>
       </li>
     <% end %>
-  </ul>
+  </ul> 
 </div>

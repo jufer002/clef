@@ -5,11 +5,39 @@ $navbar-color: darken($background-color, 5%);
 $btn-color: lighten($background-color, 8%);
 $text-color: black;
 
-body, p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
+@mixin _font {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-kerning: normal; //kerning
+  text-rendering: optimizeLegibility; //enable ligatures for small text for some fonts
+  letter-spacing: 0.06em; //6-12% spacing recommending
+}
+@mixin _fontsize {
+  line-height: 1.35;
   font-size: 13px;
-  line-height: 18px; 
-  list-style-type: none;
+  h1 { font-size: 30px; }
+}
+@mixin thefont {
+  @include _font;
+  @include _fontsize;
+}
+.no-text-selection {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+.clickable {
+  cursor: pointer;
+  @extend .no-text-selection;
+}
+
+body, p, ol, ul, td {
+  @include thefont;
+  
 }
 
 body {
