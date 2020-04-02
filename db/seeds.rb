@@ -87,9 +87,21 @@ end
 CourseContent.import coursecontent
 SectionContent.import sectioncontent
 
-#CourseContent.import coursecontent
-# tag = []
-# tag << Tag.new(type: "difficulty", name: "easy"), 
-#         Tag.new(type: "difficulty", name: "intermediate"),
-#         Tag.new(type: "difficulty", name: "hard")
-# Tag.import tag
+
+tag = []
+tag << Tag.new(category: "difficulty", name: "easy")
+tag << Tag.new(category: "difficulty", name: "intermediate")
+tag << Tag.new(category: "difficulty", name: "hard")
+Tag.import tag
+
+lessontags = []
+Lesson.all.each do |l|
+    lessontags << LessonTag.new(lesson_id: l.id, tag_id: Tag.all.sample.id)
+end
+LessonTag.import lessontags
+
+coursetags = []
+Course.all.each do |c|
+    coursetags << CourseTag.new(course_id: c.id, tag_id: Tag.all.sample.id)
+end
+CourseTag.import coursetags
