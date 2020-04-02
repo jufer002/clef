@@ -56,8 +56,8 @@ temp.each do |c|
 
         time = rand(6) + 1
         time.times do
-            temp_lesson = lessons.sample
-            current_section.lessons << temp_lesson
+            temp_lesson = Lesson.all.sample
+            #current_section.lessons << temp_lesson
             sectioncontent << SectionContent.new(section_id: current_section.id, lesson_id: temp_lesson.id)
         end
         
