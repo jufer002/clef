@@ -28,6 +28,10 @@
   <p>
     <%= @lesson.body %>
   </p>
+
+  <% get_attachment_urls(@lesson).each do |attachment| %>
+    <%= image_tag attachment %>
+  <% end %>
 </div>
 
 <div class="comment-section container">
