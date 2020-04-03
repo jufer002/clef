@@ -4,7 +4,7 @@ class Lesson < ApplicationRecord
   has_many :sections, :through => :section_contents
   has_many :comments
 
-  #lesson tag relations
+  # Lesson tag relations
   has_many :lesson_tags
   has_many :tags, through: :lesson_tags
 
@@ -16,4 +16,7 @@ class Lesson < ApplicationRecord
 
   # Validates that a user wrote the article.
   validates :user_id, presence: true
+
+  # S3 attachments images/audio/video
+  has_many_attached :attachments
 end

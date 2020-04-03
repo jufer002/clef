@@ -36,11 +36,12 @@ class LessonsController < ApplicationController
     # The lesson has been composed by the signed-in user.
     @lesson.user_id = current_user.id
 
-    
-
     respond_to do |format|
       if @lesson.save
         flash[:success] = "#{@lesson.title} has been published!"
+
+        # Attach attachments
+        @lesson.attachments.attach(params[:attachments])
         
         # Get the section, if present and add the lesson to it.
         if params.has_key?('section_id')
@@ -105,7 +106,7 @@ class LessonsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lesson_params
-      params.require(:lesson).permit(:title, :body)
+      params.require(:lesson).permit(:title, :body, attachments: [])
     end
 
     def comment_params
