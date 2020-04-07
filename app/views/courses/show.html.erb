@@ -55,6 +55,10 @@
         <% end # if logged_in? %>
       </ol>
       Course progress: <%= (( @completed_lessons / @total_lessons )*10000).to_i / 100.0 %> %
+      <br/>
+      <% if @completed_lessons == @total_lessons %>
+        You're done! You get this [insert something pleasurable].
+      <% end %>
     </div>
     <div class="col-sm-8">
       [This is where the lesson will go]
