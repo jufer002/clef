@@ -59,7 +59,9 @@
         <% end # if logged_in? %>
       </ol>
       <% if logged_in? %>
-        Course progress: <%= (( @completed_lessons / @total_lessons )*10000).to_i / 100.0 %> %
+        <% if @total_lessons != 0 %>
+          Course progress: <%= (( @completed_lessons / @total_lessons )*10000).to_i / 100.0 %> %
+        <% end %>
       <% end %>
       <br/>
       <% if @completed_lessons == @total_lessons %>
