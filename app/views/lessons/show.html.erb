@@ -34,12 +34,13 @@
   <% end %>
 </div>
 
-<% if !Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id}).include?(@lesson.id) %>
-  <%= button_to 'Complete!', {:controller => "progress", :action => "complete"}, params: {lesson_id: @lesson.id} %>
-<% else %>
-  <%= button_to 'Undo Completion', {:controller => "progress", :action => "undo"}, params: {lesson_id: @lesson.id} %>
+<% if logged_in? %>
+  <% if !Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id}).include?(@lesson.id) %>
+    <%= button_to 'Complete!', {:controller => "progress", :action => "complete"}, params: {lesson_id: @lesson.id} %>
+  <% else %>
+    <%= button_to 'Undo Completion', {:controller => "progress", :action => "undo"}, params: {lesson_id: @lesson.id} %>
+  <% end %>
 <% end %>
-
 <div class="comment-section container">
   <h3>Comments</h3>
 

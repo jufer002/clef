@@ -20,9 +20,11 @@
   <div class="row">
     <div class="col-sm-4">
       <ol class="section-head">
-        <% @total_lessons = 0.0 %>
-        <% @completed_lessons = 0.0 %>
-        <% @lessons_completed_by_user = Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id} ) %>
+        <% if logged_in? %>
+          <% @total_lessons = 0.0 %>
+          <% @completed_lessons = 0.0 %>
+          <% @lessons_completed_by_user = Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id} ) %>
+        <% end %>
         <% @course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
         <li>
           <h3><%= section.title %></h3>
@@ -33,10 +35,12 @@
               <%= link_to lesson.title, lesson, class: "btn title-btn" %>
             </li>
 
-            <% if @lessons_completed_by_user.include?(lesson.id) %>
-              <% @completed_lessons += 1 %>
+            <% if logged_in? %>
+              <% if @lessons_completed_by_user.include?(lesson.id) %>
+                <% @completed_lessons += 1 %>
+              <% end %>
+              <% @total_lessons += 1 %>
             <% end %>
-            <% @total_lessons += 1 %>
             
             <% end %>
             <% if logged_in? %>
@@ -54,7 +58,9 @@
           <% end %>
         <% end # if logged_in? %>
       </ol>
-      Course progress: <%= (( @completed_lessons / @total_lessons )*10000).to_i / 100.0 %> %
+      <% if logged_in? %>
+        Course progress: <%= (( @completed_lessons / @total_lessons )*10000).to_i / 100.0 %> %
+      <% end %>
       <br/>
       <% if @completed_lessons == @total_lessons %>
         You're done! You get this [insert something pleasurable].
