@@ -2,20 +2,7 @@
   <div class="col-md-6 col-md-offset-3">
 
     <%= form_with model: @lesson, local: true do |f| %>
-      <%= render 'shared/lesson_error_messages' %>
-      <%= f.label :title %>
-      <%= f.text_field :title, class: 'form-control' %>
-
-      <%= f.label :body %>
-      <%= f.text_area :body, size: "60x12", class: 'form-control' %>
-
-      <%= f.file_field :attachments, multiple: true, direct_upload: true %>
-
-      <% if params.has_key?('lesson') %>
-        <% if params['lesson'].has_key?('section_id') %>
-          <%= hidden_field_tag(:section_id, params['lesson']['section_id']) %>
-        <% end %>
-      <% end %>
+      <%= f.rich_text_area :rich_text %>
 
       <%= f.submit "Publish", class: "btn form-btn" %> 
     <% end %>
