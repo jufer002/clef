@@ -19,4 +19,7 @@ class Lesson < ApplicationRecord
 
   # S3 attachments images/audio/video
   has_many_attached :attachments
+
+  # ActionText rich text field
+  has_rich_text :rich_text
 end

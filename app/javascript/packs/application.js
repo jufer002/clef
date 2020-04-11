@@ -10,6 +10,9 @@ require("channels")
 
 // Added for S3 integration
 require("@rails/activestorage").start()
+// Added for rich text editor
+require("trix")
+require("@rails/actiontext")
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
