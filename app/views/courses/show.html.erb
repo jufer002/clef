@@ -27,7 +27,7 @@
           <ol>
             <% section.lessons.each do |lesson| %>
             <li>
-              <%= link_to lesson.title, lesson, class: "btn title-btn" %>
+              <%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson } %>
             </li>
             <% end %>
             <% if logged_in? %>

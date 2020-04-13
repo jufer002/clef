@@ -27,7 +27,7 @@ $text-color: black;
 }
 
 .home {
-    margin-top: 10%;
+    margin-top: 5%;
     width: 95%;
     box-sizing: border-box;
     height: 800px;
@@ -42,8 +42,9 @@ $text-color: black;
             display: inline-block;
             flex: 1 1 0px;
             height: 100%;
+            
             // width: 50%;
-            // flex-grow: 1;
+            flex-grow: 1;
             }
         }   
 }
@@ -51,4 +52,19 @@ $text-color: black;
 div.whatsnew {
     height: 100%;
     overflow: scroll;
+    border: 1px solid gray;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+div.home-search {
+    border: 1px solid gray;
+    padding-right: 50px;
+}
+
+li {
+    list-style-type: none;
+  }
+
+a.btn:visited {
+    color: white;
 }
