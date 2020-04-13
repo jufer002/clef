@@ -4,7 +4,7 @@ class Lesson < ApplicationRecord
   has_many :sections, :through => :section_contents
   has_many :comments
 
-  #lesson tag relations
+  # Lesson tag relations
   has_many :lesson_tags
   has_many :tags, through: :lesson_tags
 
@@ -12,8 +12,14 @@ class Lesson < ApplicationRecord
   validates :title, presence: true#, length: { minimum: 6 }, uniqueness: true
 
   # Validates that the article has a sufficient body.
-  validates :body, presence: true, length: { minimum: 10 }
+  #validates :body, presence: true, length: { minimum: 10 }
 
   # Validates that a user wrote the article.
   validates :user_id, presence: true
+
+  # S3 attachments images/audio/video
+  has_many_attached :attachments
+
+  # ActionText rich text field
+  has_rich_text :rich_text
 end

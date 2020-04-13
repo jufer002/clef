@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  #type: 
-  name: MyString
+  user_id: 
+  lesson_id: 
 
 two:
-  #type: 
-  name: MyString
+  user_id: 
+  lesson_id: 

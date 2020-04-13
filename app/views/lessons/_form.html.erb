@@ -9,6 +9,8 @@
       <%= f.label :body %>
       <%= f.text_area :body, size: "60x12", class: 'form-control' %>
 
+      <%= f.file_field :attachments, multiple: true, direct_upload: true %>
+
       <% if params.has_key?('lesson') %>
         <% if params['lesson'].has_key?('section_id') %>
           <%= hidden_field_tag(:section_id, params['lesson']['section_id']) %>
