@@ -7,7 +7,7 @@ module LessonsHelper
 
   # Get the first 100 characters from a lesson.
   def lesson_excerpt(lesson)
-    lesson.body[0, 100]
+    lesson.body.body.to_s[0, 100] + '...'
   end
 
   def get_attachment_urls(lesson)

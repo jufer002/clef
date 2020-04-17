@@ -21,5 +21,5 @@ class Lesson < ApplicationRecord
   has_many_attached :attachments
 
   # ActionText rich text field
-  has_rich_text :rich_text
+  has_rich_text :body
 end

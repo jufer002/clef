@@ -64,4 +64,4 @@ gem 'formtastic'
 gem "aws-sdk-s3", require: false
 
 # ImageMagick for image display - requires external install.
-#gem "rmagick"
+gem "rmagick"
