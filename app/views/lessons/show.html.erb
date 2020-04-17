@@ -28,10 +28,6 @@
   <p>
     <%= @lesson.body %>
   </p>
-
-  <% get_attachment_urls(@lesson).each do |attachment| %>
-    <%= image_tag attachment %>
-  <% end %>
 </div>
 
 <% if logged_in? %>

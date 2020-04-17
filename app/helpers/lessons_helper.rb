@@ -16,4 +16,11 @@ module LessonsHelper
       polymorphic_url(attachment, disposition: "attachment", only_path: true)
     end
   end
+
+  def show_video(blob)
+    path = 'C:\Users\Julian\Videos\Captures\romeo.mp4'
+    #path = polymorphic_url(blob, disposition: "attachment")
+
+    rails_blob_path(blob)
+  end
 end

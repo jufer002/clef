@@ -65,3 +65,6 @@ gem "aws-sdk-s3", require: false
 
 # ImageMagick for image display - requires external install.
 gem "rmagick"
+
+# FFMPEG adapter for displaying video
+gem 'streamio-ffmpeg'
