@@ -52,6 +52,7 @@ class LessonsController < ApplicationController
         format.html { redirect_to @lesson }
         format.json { render :show, status: :created, location: @lesson }
       else
+        
         format.html { render :new }
         format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
@@ -106,7 +107,7 @@ class LessonsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lesson_params
-      params.require(:lesson).permit(:title, :body, :rich_text)
+      params.require(:lesson).permit(:title, :body)
     end
 
     def comment_params
