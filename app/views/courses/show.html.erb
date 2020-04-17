@@ -12,13 +12,9 @@
 
 
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col">      
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-4">
+<div>
+  <div class="course-viewer">
+    <div class="side">
       <ol class="section-head">
         <% if logged_in? %>
           <% @total_lessons = 0.0 %>
@@ -31,9 +27,7 @@
           <ol>
             <% section.lessons.each do |lesson| %>
             
-            <li>
-              <%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson } %>
-            </li>
+            <li class="lsn"><%= link_to lesson.title, lesson %></li>
 
             <% if logged_in? %>
               <% if @lessons_completed_by_user.include?(lesson.id) %>
@@ -68,7 +62,7 @@
         You're done! You get this [insert something pleasurable].
       <% end %>
     </div>
-    <div class="col-sm-8">
+    <div class="main">
       [This is where the lesson will go]
     </div>
   </div>
