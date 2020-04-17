@@ -117,7 +117,7 @@ CourseTag.import coursetags
 mess_is_mine_body = "TODO"
 mess_is_mine = Lesson.create(title: "\"Mess is Mine\" by Vance Joy", body: mess_is_mine_body, user_id: users.sample.id)
 LessonTag.create(lesson_id: mess_is_mine.id, tag_id: Tag.where(name: "guitar").sample.id)
-
+LessonTag.create(lesson_id: mess_is_mine.id, tag_id: Tag.where(name: "hard").sample.id)
 like_gold_body = "TODO: add chords and location, and add way to pick.
         \n\n\nTime to let it go
         It won't let go of me
@@ -203,6 +203,7 @@ like_gold_body = "TODO: add chords and location, and add way to pick.
 
 like_gold = Lesson.create(title: "\"Like Gold\" by Vance Joy, with finger picking", body: like_gold_body, user_id: users.sample.id)
 LessonTag.create(lesson_id: like_gold.id, tag_id: Tag.where(name: "guitar").sample.id)
+LessonTag.create(lesson_id: like_gold.id, tag_id: Tag.where(name: "easy").sample.id)
 
 saturday_sun_body = "Capo: 1st fret
                     \nStrumming Pattern: d-du-udu
@@ -230,6 +231,7 @@ saturday_sun_body = "Capo: 1st fret
 
 saturday_sun = Lesson.create(title: "\"Saturday Son\"", body: saturday_sun_body, user_id: users.sample.id)
 LessonTag.create(lesson_id: saturday_sun.id, tag_id: Tag.where(name: "guitar").sample.id)
+LessonTag.create(lesson_id: saturday_sun.id, tag_id: Tag.where(name: "easy").sample.id)
 
 viva_la_vida_body = "Capo on the first fret and standard tuning
                     \nStrumming pattern is a bit tricky so I suggest practicing a lot before you add in the words
@@ -285,7 +287,7 @@ But that was when I ruled the world"
 
 viva_la_vida = Lesson.create(title: "\"Viva la Vida\" by Coldplay", body: viva_la_vida_body, user_id: users.sample.id)
 LessonTag.create(lesson_id: viva_la_vida.id, tag_id: Tag.where(name: "guitar").sample.id)
-
+LessonTag.create(lesson_id: viva_la_vida.id, tag_id: Tag.where(name: "easy").sample.id)
 
 #four cord course
 myuser = User.create(username: "slammypjamas", email: "slammypjamas@gmail.com", password: "Secure135", password_confirmation: "Secure135")
@@ -330,6 +332,40 @@ CourseContent.create(section_id: vance_joy_section.id, course_id: four_chord.id)
 CourseContent.create(section_id: coldplay_section.id, course_id: four_chord.id)
 
 
+####RANDOM OTHER LESSONS#####
+
+all_chord_body = "Once you have mastered the F chord it is simple to learn any major chord. Play the F bar chord. 
+                \n\n{insert image of F chord here}\n\n
+                Now move your fingers over so your index finger is on the second fret, like this. 
+                \n\n{insert image of F# chord here}\n\n
+                This is an F# chord. All you had to do was move your hand along the neck. Now if you move one over again, you are playing the G chord.
+                Continue this process to get all the chords.\n\n
+                Follow this chart to play any major chord.\n
+                Index Finger Fret:  | 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  | 10 | 11 | 12/0\n
+                Chord               | F  | F# | G  | G# | A  | A# | B  | C  | C# | D  | D# | E\n\n
+                This is with major chords. If you know how to play Bm than this can be done with minor chords too. Play the Bm
+                bar chord.
+                \n\n{insert image of Bm chord here}\n\n
+                Now this time move your index finger from the second fret to the first fret. This is an A#m.
+                \n\n{insert image of A#m chord here}\n\n
+                Now if you move your hand over again so your index finger is no longer on the strings you will be playing an Am chord.
+                \n\n{insert image of Am chord here}\n\n
+               Using the same idea as above every minor chord can be played with this finger positions.\n\n
+               Follow this chart to play any major chord.\n
+               Index Finger Fret:  | 0  | 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  | 10 | 11 | 12\n
+               Chord               | Am | A#m| Bm | Cm | C#m| Dm | D#m| Em | Fm | F#m| Gm | G#m| Am\n\n
+               
+               This can be done with any bar chord. Just remember the order of the chords as you move along the neck.
+               It is fairly straight fowards.
+               A -> A# -> B -> C -> C# -> D -> D# -> E -> F -> F# -> G -> G# -> A again and repeat
+               Notice that this is just in alphabetical order with a sharp after each letter except B and E. It is the same with minors 
+               except with minor symbol after each chord. 
+               Now try to play each chord From the Fm chord."
+all_chords = Lesson.create(title: "Playing Every Chord With an F", body: all_chord_body, user_id: users.sample.id)
+LessonTag.create(lesson_id: all_chords.id, tag_id: Tag.where(name: "guitar").sample.id)
+LessonTag.create(lesson_id: all_chords.id, tag_id: Tag.where(name: "intermediate").sample.id)
+Comment.create(user_id: users.sample.id, lesson_id: all_chords.id, text: "Great lesson!")
+Comment.create(user_id: users.sample.id, lesson_id: all_chords.id, text: "Why is there no B# and E#?")
 
 
 
