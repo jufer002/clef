@@ -9,7 +9,7 @@
 					<%= render :partial => "layouts/whats_new", :locals => { :new_courses => recent_courses(5)} %>
 				</div>
 				<div class="search">
-					<%= render :partial => "layouts/home_search" %>
+					<%= render :partial => "layouts/home_search", :locals => { :tags_to_show => get_tags()} %>
 				</div>
 			</div>
 			<div class="row bottom-row">

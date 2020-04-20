@@ -62,8 +62,15 @@ div.whatsnew {
     padding-right: 50px;
 }
 div.home-search {
+    display: flex;
+    flex-direction: column;
     border: 1px solid gray;
     padding-right: 50px;
+}
+
+div.tag-buttons {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 li {
@@ -76,14 +83,18 @@ li {
 .side{
   flex: 30%;
   background-color: $navbar-color;
-  li a{
+  li.lsn{
     display: block;
     text-decoration: none;
     padding: 8px 16px;
   }
-  li a:hover {
+  li.lsn:hover {
     color: white;
     background-color: $hover-color;
+  }
+  li.lsn.active {
+    background-color: pink;
+    color: black;
   }
 }
 

@@ -26,8 +26,8 @@
             <h3><%= section.title %></h3>
             <ol>
               <% section.lessons.each do |lesson| %>
-
-                <li><%= link_to lesson.title, lesson %></li>
+                <!-- Tab Links -->
+                <li class="lsn" onclick="showLsn(event, <%=lesson.id%>)"><%=lesson.title%></li>
 
                 <% if logged_in? %>
                   <% if @lessons_completed_by_user.include?(lesson.id) %>
@@ -63,10 +63,32 @@
         <% end %>
       </div>
       <div class="main">
-        [This is where the lesson will go]
+        <!-- Tab Links -->
+        <% @course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
+          <% section.lessons.each do |lesson| %>
+            <div id=<%=lesson.id %> class="lsn-body">
+              <p><%= lesson.body %></p>
+            </div>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>
   
+  <script>
+    function showLsn(evt, lesson_id) {
+      var i, content, links;
+      content = document.getElementsByClassName("lsn-body");
+      for (i = 0; i < content.length; i++) {
+        content[i].style.display = "none";
+      }
+      links = document.getElementsByClassName("lsn");
+      for (i = 0; i < links.length; i++) {
+        links[i].className = links[i].className.replace(" active", "");
+      }
+      document.getElementById(lesson_id).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+  </script>
 
 </body>
