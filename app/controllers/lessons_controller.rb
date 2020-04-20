@@ -47,11 +47,18 @@ class LessonsController < ApplicationController
         if params.has_key?('section_id')
           section_id = params['section_id']
           add_lesson_to_section(@lesson, section_id)
+
+          # Redirect to the course which contains the lesson.
+          redirect_page = Section.find(section_id).course_contents.first.course
+        else
+          # Otherwise, just redirect to the lesson.
+          redirect_page = @lesson
         end
         
-        format.html { redirect_to @lesson }
+        format.html { redirect_to redirect_page }
         format.json { render :show, status: :created, location: @lesson }
       else
+        
         format.html { render :new }
         format.json { render json: @lesson.errors, status: :unprocessable_entity }
       end
@@ -106,7 +113,7 @@ class LessonsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lesson_params
-      params.require(:lesson).permit(:title, :body, :rich_text)
+      params.require(:lesson).permit(:title, :body)
     end
 
     def comment_params

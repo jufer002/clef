@@ -3,18 +3,20 @@
 <html lang="en">
 	<%= render 'layouts/header' %>
 	<body>
-	<div class="container-fluid home">
-		<div class="row top-row">
-			<div class="col whats-new">
-				<%= render :partial => "layouts/whats_new", :locals => { :new_courses => recent_courses(5)} %>
+		<div class="home">
+			<div class="flex-container top-row">
+				<div class="whats-new">
+					<%= render :partial => "layouts/whats_new", :locals => { :new_courses => recent_courses(5)} %>
+				</div>
+				<div class="search">
+					<%= render :partial => "layouts/home_search", :locals => { :tags_to_show => get_tags()} %>
+				</div>
 			</div>
-			<div class="col search">
-				<%= render :partial => "layouts/home_search" %>
+			<div class="row bottom-row">
+				<div class="col">
+					<%= render :partial => "layouts/about" %>
+				</div>
 			</div>
 		</div>
-		<div class="row bottom-row">
-			<%= render :partial => "layouts/about" %>
-		</div>
-	</div>
 	</body>
 </html>

@@ -1,4 +1,10 @@
 <div class="home-search container-fluid">
     <h3 class="home-search-h3">Looking for something specific?</h3>
-    <%= render :partial => 'layouts/search_partial' %>
+    <div>
+       <%= render :partial => 'layouts/search_partial' %> 
+    </div>
+    <div>
+        <%= render :partial => 'layouts/tag_buttons', :locals => { :tags_to_show => tags_to_show}%>
+    </div>
+    
 </div>

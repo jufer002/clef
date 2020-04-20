@@ -1,9 +1,8 @@
 
-<div class="card bg-light lesson-card">
+<div class="card">
     <div class="card-body">
-        <%= link_to lesson.title, lesson, class: "btn title-btn" %>
-        <hr>
-        <h5><%= lesson_excerpt(lesson) %></h5>
-        <hr>
+        <h5 class="card-title"><%= link_to lesson.title, lesson %></h5>
+        <h6 class="card-subtitle mb-2 text-muted"><%= link_to lesson.user.username, lesson.user, class:"card-subtitle mb-2 text-muted" %> </h6>
+        <p class="card-text"><%= lesson_excerpt(lesson) %></p>
     </div>
 </div>
