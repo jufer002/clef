@@ -1,69 +1,72 @@
+<body>
+  <p id="notice"><%= notice %></p>
 
-<p id="notice"><%= notice %></p>
+  <div class="center jumbotron">
+    <h1><%= @course.title %></h1>
 
-<div class="center jumbotron">
-  <h1><%= @course.title %></h1>
-
-  <h2>
-    <%= @course.description  %>
-  </h2>
-  <br />
-</div>
+    <h2>
+      <%= @course.description  %>
+    </h2>
+    <br />
+  </div>
 
 
 
-<div>
-  <div class="course-viewer">
-    <div class="side">
-      <ol class="section-head">
-        <% if logged_in? %>
-          <% @total_lessons = 0.0 %>
-          <% @completed_lessons = 0.0 %>
-          <% @lessons_completed_by_user = Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id} ) %>
-        <% end %>
-        <% @course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
-        <li>
-          <h3><%= section.title %></h3>
-          <ol>
-            <% section.lessons.each do |lesson| %>
-            
-            <li class="lsn"><%= link_to lesson.title, lesson %></li>
-
-            <% if logged_in? %>
-              <% if @lessons_completed_by_user.include?(lesson.id) %>
-                <% @completed_lessons += 1 %>
-              <% end %>
-              <% @total_lessons += 1 %>
-            <% end %>
-            
-            <% end %>
-            <% if logged_in? %>
-              <% if current_user.id == @course.user_id %>
-                <%= link_to "Add new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn option-btn" %>
-              <% end %>
-            <% end %>
-          </ol>
-        </li>
-        <% end %>
-
-        <% if logged_in? %>
-          <% if current_user.id == @course.user_id %>
-            <%= link_to "Add new section to this course", new_section_path(@course), class: "btn option-btn" %>
+  <div>
+    <div class="course-viewer">
+      <div class="side">
+        <ol class="section-head">
+          <% if logged_in? %>
+            <% @total_lessons = 0.0 %>
+            <% @completed_lessons = 0.0 %>
+            <% @lessons_completed_by_user = Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id} ) %>
           <% end %>
-        <% end # if logged_in? %>
-      </ol>
-      <% if logged_in? %>
-        <% if @total_lessons != 0 %>
-          Course progress: <%= (( @completed_lessons / @total_lessons )*10000).to_i / 100.0 %> %
+          <% @course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
+          <li>
+            <h3><%= section.title %></h3>
+            <ol>
+              <% section.lessons.each do |lesson| %>
+
+                <li><%= link_to lesson.title, lesson %></li>
+
+                <% if logged_in? %>
+                  <% if @lessons_completed_by_user.include?(lesson.id) %>
+                    <% @completed_lessons += 1 %>
+                  <% end %>
+                  <% @total_lessons += 1 %>
+                <% end %>
+              
+              <% end %>
+              <% if logged_in? %>
+                <% if current_user.id == @course.user_id %>
+                  <%= link_to "Add new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn option-btn" %>
+                <% end %>
+              <% end %>
+            </ol>
+          </li>
+          <% end %>
+
+          <% if logged_in? %>
+            <% if current_user.id == @course.user_id %>
+              <%= link_to "Add new section to this course", new_section_path(@course), class: "btn option-btn" %>
+            <% end %>
+          <% end # if logged_in? %>
+        </ol>
+        <% if logged_in? %>
+          <% if @total_lessons != 0 %>
+            Course progress: <%= (( @completed_lessons / @total_lessons )*10000).to_i / 100.0 %> %
+          <% end %>
         <% end %>
-      <% end %>
-      <br/>
-      <% if @completed_lessons == @total_lessons %>
-        You're done! You get this [insert something pleasurable].
-      <% end %>
-    </div>
-    <div class="main">
-      [This is where the lesson will go]
+        <br/>
+        <% if @completed_lessons == @total_lessons %>
+          You're done! You get this [insert something pleasurable].
+        <% end %>
+      </div>
+      <div class="main">
+        [This is where the lesson will go]
+      </div>
     </div>
   </div>
-</div> 
+  
+
+</body>
