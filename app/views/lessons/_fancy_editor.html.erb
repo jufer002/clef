@@ -8,6 +8,12 @@
       <%= f.label :body %>
       <%= f.rich_text_area :body %>
 
+      <% if params.has_key?('lesson') %>
+        <% if params['lesson'].has_key?('section_id') %>
+          <%= hidden_field_tag(:section_id, params['lesson']['section_id']) %>
+        <% end %>
+      <% end %>
+
       <%= f.submit "Publish", class: "btn form-btn" %> 
     <% end %>
   </div>

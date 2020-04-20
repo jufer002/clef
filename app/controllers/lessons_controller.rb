@@ -47,9 +47,15 @@ class LessonsController < ApplicationController
         if params.has_key?('section_id')
           section_id = params['section_id']
           add_lesson_to_section(@lesson, section_id)
+
+          # Redirect to the course which contains the lesson.
+          redirect_page = Section.find(section_id).course_contents.first.course
+        else
+          # Otherwise, just redirect to the lesson.
+          redirect_page = @lesson
         end
         
-        format.html { redirect_to @lesson }
+        format.html { redirect_to redirect_page }
         format.json { render :show, status: :created, location: @lesson }
       else
         
