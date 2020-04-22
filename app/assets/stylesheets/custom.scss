@@ -108,5 +108,7 @@ li {
 }
 
 .author-label {
-  display: none;
+  // Moving the labels off screen allows them to still be functional with screen readers (unlike display: none)
+  position: absolute;
+  left: -500em;
 }
