@@ -162,10 +162,12 @@ li {
   .card-title-link:hover, .card-subtitle-link:hover {
     background-color: $hover-color;
   }
+  transition: all 0.1s ease-out;
 }
 .card:hover {
   border-bottom: 2px solid $card-hover;
   border-right: 2px solid $card-hover;
+  transform: translate(-2px, -2px);
 }
 
 
