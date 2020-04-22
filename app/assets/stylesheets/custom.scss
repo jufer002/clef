@@ -1,14 +1,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-$background-color: #ffffff;
-$panel-color: darken($background-color, 3%);
+$background-color: #1f2232;
+$panel-color: lighten($background-color, 20%);
 $navbar-color: darken($background-color, 5%);
-$btn-color: darken($background-color, 8%);
-$hover-color: darken($background-color, 80%);
-$text-color: black;
+$btn-color: lighten($background-color, 8%);
+$hover-color: lighten($background-color, 50%);
+$text-color: white;
 
 %panel {
+  color: $text-color;
     background-color: $panel-color;
     box-sizing: content-box;
   }
@@ -28,18 +29,18 @@ $text-color: black;
 }
 
 .home {
-    padding: 0;
-    margin-top: 5%;
+    padding-top: 2%;
+    // margin-top: 5%;
     box-sizing: border-box;
     height: 800px;
+    background-color: $background-color;
     .top-row {
         display: flex;
         justify-content: space-around;
         margin-bottom: 5px;
-        margin-top: 10%;
+        margin-top: 5%;
         height: 50%;
             .top-whats-new, .top-search{
-            @extend %panel;
             margin: 5px;
             display: inline-block;
             flex: 1 1 0px;
@@ -55,16 +56,16 @@ $text-color: black;
 }
 
 div.whatsnew {
+    @extend %panel;
     height: 100%;
     overflow: scroll;
-    border: 1px solid gray;
     padding-left: 50px;
     padding-right: 50px;
 }
 div.home-search {
+    @extend %panel;
     display: flex;
     flex-direction: column;
-    border: 1px solid gray;
     padding-right: 50px;
 }
 
@@ -106,3 +107,17 @@ li {
   flex: 70%;
   background-color: $panel-color;
 }
+
+.card {
+  color: $text-color;
+  display: flex;
+  flex-direction: column;
+  .card-title-link, .card-subtitle-link {
+    color: $text-color;
+  }
+  .card-title-link:hover, .card-subtitle-link:hover {
+    background-color: $hover-color;
+  }
+}
+
+
