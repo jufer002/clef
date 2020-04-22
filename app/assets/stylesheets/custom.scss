@@ -106,9 +106,3 @@ li {
   flex: 70%;
   background-color: $panel-color;
 }
-
-.author-label {
-  // Moving the labels off screen allows them to still be functional with screen readers (unlike display: none)
-  position: absolute;
-  left: -500em;
-}

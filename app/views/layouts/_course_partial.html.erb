@@ -1,9 +1,9 @@
 <div class="card">
     <div class="card-body">
         <h5 class="card-title"><%= link_to course.title, course, class:"card-title" %></h5>
-        <label class="author-label">link to course author
-            <h6 class="card-subtitle mb-2 text-muted" id="author"><%= link_to course.user.username, course.user, class:"card-subtitle mb-2 text-muted" %> </h6>
-        </label>
+        
+        <h6 class="card-subtitle mb-2 text-muted" id="author"><%= link_to course.user.username, course.user, class:"card-subtitle mb-2 text-muted" %> </h6>
+        
         <p class="card-text"><%= course.description %></p>
     </div>
 </div>
