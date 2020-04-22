@@ -1,12 +1,12 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-$background-color: #1f2232;
+$background-color: #ffffff;
 $panel-color: lighten($background-color, 20%);
 $navbar-color: darken($background-color, 5%);
 $btn-color: lighten($background-color, 8%);
 $hover-color: lighten($background-color, 50%);
-$text-color: white;
+$text-color: black;
 
 %panel {
   color: $text-color;
