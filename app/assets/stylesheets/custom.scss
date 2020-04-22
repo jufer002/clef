@@ -2,14 +2,16 @@
 @import "bootstrap";
 
 $background-color: #ffffff;
-$panel-color: lighten($background-color, 20%);
+$panel-color: darken($background-color, 20%);
 $navbar-color: darken($background-color, 5%);
 $btn-color: lighten($background-color, 8%);
-$hover-color: lighten($background-color, 50%);
+$hover-color: darken($background-color, 50%);
+$card-color: darken($panel-color, 10%);
+$card-hover: darken($card-color, 20%);
 $text-color: black;
 
 %panel {
-  color: $text-color;
+    color: $text-color;
     background-color: $panel-color;
     box-sizing: content-box;
   }
@@ -40,15 +42,13 @@ $text-color: black;
         margin-bottom: 5px;
         margin-top: 5%;
         height: 50%;
-            .top-whats-new, .top-search{
+        align-content: stretch;
+          .whats-new, .search{
             margin: 5px;
             display: inline-block;
-            flex: 1 1 0px;
             height: 100%;
-            
-            // width: 50%;
-            flex-grow: 1;
-            }
+            flex-grow: 5;
+          }
       } 
       .bottom-row {
         margin: 5%
@@ -59,12 +59,14 @@ div.whatsnew {
     @extend %panel;
     height: 100%;
     overflow: scroll;
-    padding-left: 50px;
-    padding-right: 50px;
+    // flex-grow: 5;
+    // padding-left: 50px;
+    // padding-right: 50px;
 }
 div.home-search {
     @extend %panel;
     display: flex;
+    // flex-grow: 5;
     flex-direction: column;
     padding-right: 50px;
 }
@@ -110,14 +112,26 @@ li {
 
 .card {
   color: $text-color;
+  background-color: $card-color;
+
   display: flex;
   flex-direction: column;
+
+  border: 2px solid $card-color;
+
+  .card-title-link {
+    font-size: large;
+  }
   .card-title-link, .card-subtitle-link {
     color: $text-color;
   }
   .card-title-link:hover, .card-subtitle-link:hover {
     background-color: $hover-color;
   }
+}
+.card:hover {
+  border-bottom: 2px solid $card-hover;
+  border-right: 2px solid $card-hover;
 }
 
 
