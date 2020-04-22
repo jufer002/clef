@@ -71,6 +71,10 @@ div.home-search {
 div.tag-buttons {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
+  .tag-button {
+    
+  }
 }
 
 li {

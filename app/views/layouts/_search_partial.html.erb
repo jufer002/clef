@@ -1,5 +1,5 @@
 <%= form_tag(search_search_path, :method => "get",   class: 'navbar-form navbar-left') do %>  
-  <div class="input-group">
+  <div class="input-group" aria-label="search bar for courses">
     <%= search_field_tag :search_text, params[:search], placeholder: "Search for a lesson", class: "form-control" %>
     <div class="input-group-btn">  
       <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search', :name => nil %>  
