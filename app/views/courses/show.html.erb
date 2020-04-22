@@ -62,7 +62,7 @@
           You're done! You get this [insert something pleasurable].
         <% end %>
       </div>
-      <div class="main">
+      <div class="main" aria-live="polite">
         <!-- Tab Links -->
         <% @course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
           <% section.lessons.each do |lesson| %>
