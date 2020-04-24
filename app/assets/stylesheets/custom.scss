@@ -129,8 +129,23 @@ li {
     padding: 3em;
   }
 
+  #new-lesson-dialog {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.1s ease-in 0.1s;
+    padding: 3em;
+  }
+
   #show-new-section-btn {
     margin: 1em;
+  }
+  
+  .trix-button {
+    background-color: $background-color;
+  }
+
+  .trix-content {
+    background-color: $background-color;
   }
 
   .sec-li {

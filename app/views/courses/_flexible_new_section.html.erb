@@ -1,7 +1,7 @@
 <script>
   addToSectionList = function(section_title) {
     new_lesson_ol = '\
-      <ol><button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor()"> \
+      <ol><button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor(this)"> \
       Add new lesson to this section</button></ol>'
     
     html_text = '<div>\
@@ -12,6 +12,10 @@
   };
 
   function addSection() {
+    hideActiveLesson();
+    hideSectionDialog();
+    
+
     section_title = document.getElementById("section-title").value;
     addToSectionList(section_title);
   }

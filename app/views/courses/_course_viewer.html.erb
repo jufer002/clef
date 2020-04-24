@@ -1,15 +1,16 @@
 <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
 <script>
-  function hidenSectionDialog() {
+  // Global variable that stores the section which the new-lesson button was clicked in
+  var containingSection;
+
+  function hideSectionDialog() {
     new_section_dialog = document.getElementById("new-section-dialog")
     new_section_dialog.style.opacity = 0;
     new_section_dialog.style.display = "none";
   }
-  function showLsn(evt, lesson_id) {
-    var i, content, links;
 
-    // First, hide the potentially visible new section dialog
-    hidenSectionDialog();
+  function hideActiveLesson() {
+    var i, content, links;
 
     content = document.getElementsByClassName("lsn-body");
     for (i = 0; i < content.length; i++) {
@@ -19,6 +20,17 @@
     for (i = 0; i < links.length; i++) {
       links[i].className = links[i].className.replace(" active", "");
     }
+
+    new_lesson_dialog = document.getElementById("new-lesson-dialog");
+    new_lesson_dialog.style.opacity = 0;
+    new_lesson_dialog.style.display = "none";
+  }
+
+  function showLsn(evt, lesson_id) {
+    // First, hide the potentially visible new section dialog
+    hideSectionDialog();
+    hideActiveLesson();
+    
     document.getElementById(lesson_id).style.display = "block";
     evt.currentTarget.className += " active";
   }
@@ -33,9 +45,25 @@
     
   }
 
-  function showLessonEditor() {
+  function showLessonEditor(btn) {
+    // Set global variable
+    containingSection = btn;
+    x = btn;
+
     // Hide anything visible
-    hidenSectionDialog();
+    hideSectionDialog();
+    hideActiveLesson();
+
+    div = document.getElementById("new-lesson-dialog");
+    div.style.display = "block";
+    
+    setTimeout(() => {
+      div.style.opacity = 1;
+    }, 0.001);
+  }
+
+  function addLessonToSection() {
+    trix_content = document.getElementById("lesson_body_in_editor");
   }
 </script>
 
@@ -65,8 +93,8 @@
             <% end %>
             <% if logged_in? %>
               <% if current_user.id == course.user_id %>
-                <button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor()">Add new lesson to this section</button>
-                <%= link_to "Add new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn option-btn" %>
+                <button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor(this)">Add new lesson to this section</button>
+                <%#= link_to "Add new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn option-btn" %>
               <% end %>
             <% end %>
           </ol>
@@ -100,6 +128,16 @@
       <%= 
         render 'flexible_new_section'
       %>
+    </div>
+    <!-- New lesson dialog -->
+    <div class="new-lesson-dialog" id="new-lesson-dialog">
+      <form action="" accept-charset="UTF-8" method="post">
+        <h4>Compose a new lesson</h4>
+        <hr>
+        <trix-editor class="trix-content" id="lesson_body_in_editor" input="x"></trix-editor>
+        <hr>
+        <input value="Compose lesson" type="button" class="btn form-btn" onclick="addLessonToSection();"/>
+      </form>
     </div>
     <!-- Tab Links -->
     <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
