@@ -1,8 +1,28 @@
-<p id="notice"><%= notice %></p>
+<body class="index">
+  <p id="notice"><%= notice %></p>
+
+  <h1><%=@tag.name%></h1>
+
+  <table class="index">
+    <tbody>
+      <% @lessons.each do |lesson| %>
+        <tr>
+          <%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson } %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+  <%= link_to 'Tags', "/tags" %>
+</body>
+
+<!--<p id="notice"><%= notice %></p>
 
 <p>
   <strong>Type:</strong>
-  <%= @tag.type %>
+  <%= @tag.category %>
 </p>
 
 <p>
@@ -10,5 +30,27 @@
   <%= @tag.name %>
 </p>
 
+<center><h2>Lessons</h2></center>
+<hr>
+
+
+<div class="user-lessons container-fluid">
+    <ul>
+        <% if @lessons.empty? %>
+            No results
+        <% else %>
+            <% @lessons.each do |tagged_lesson| %>
+                    <li>
+                        Lesson title: <%= link_to tagged_lesson.title, tagged_lesson, class: "btn nav-btn" %>
+                        <br>
+                        by <%= link_to User.find(tagged_lesson.user_id).username, User.find(tagged_lesson.user_id) %>
+                    </li>
+            <% end %>
+        <% end %>
+    </ul>
+</div>
+
+<hr>
 <%= link_to 'Edit', edit_tag_path(@tag) %> |
 <%= link_to 'Back', tags_path %>
+-->

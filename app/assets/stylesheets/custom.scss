@@ -108,9 +108,9 @@ div.home-search {
 div.tag-buttons {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
   .tag-button {
-    
+    margin: 2px 2px 2px 2px;
   }
 }
 

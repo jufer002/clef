@@ -1,7 +1,7 @@
 <div class="tag-buttons">
     <% tags_to_show.each do |tag| %>
         <div class="tag-button">
-            <%= tag.name %>
+            <%= link_to tag.name, tag, class: "btn btn-primary" %>
         </div>
     <% end %>
 </div>

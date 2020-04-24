@@ -10,6 +10,11 @@ class TagsController < ApplicationController
   # GET /tags/1
   # GET /tags/1.json
   def show
+    lessontags = LessonTag.where(tag_id: params[:id])
+    @lessons = []
+    lessontags.each do |lesson|
+      @lessons << lesson.lesson
+    end
   end
 
   # GET /tags/new
@@ -69,6 +74,6 @@ class TagsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tag_params
-      params.require(:tag).permit(:type, :name)
+      params.require(:tag).permit(:category, :name)
     end
 end
