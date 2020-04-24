@@ -1,6 +1,7 @@
-    
+
+
 <div class="row">
-<div class="col-md-6 col-md-offset-3">    
+  <div class="col-md-6 col-md-offset-3">
     <%= form_with(model: course, local: true) do |form| %>
       <% if course.errors.any? %>
         <div id="error_explanation">
@@ -13,13 +14,16 @@
           </ul>
         </div>
       <% end %>
-        <%= form.label :title%>
-        <%= form.text_field :title, class: 'form-control'   %> 
 
-        <%= form.label :description%>
-        <%= form.text_field :description, class: 'form-control'   %>
-     
-        <%= form.submit "Publish", class: "btn form-btn" %> 
+      <%= form.label :title%>
+      <%= form.text_field :title, class: 'form-control'   %> 
+
+      <%= form.label :description %>
+      <%= form.text_field :description, class: 'form-control' %>
+
+      <br/>
+    
+      <%= form.submit "Publish", class: "btn form-btn" %> 
     <% end %>
   </div>
 </div>
