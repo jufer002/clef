@@ -1,3 +1,44 @@
+<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+<script>
+  function hidenSectionDialog() {
+    new_section_dialog = document.getElementById("new-section-dialog")
+    new_section_dialog.style.opacity = 0;
+    new_section_dialog.style.display = "none";
+  }
+  function showLsn(evt, lesson_id) {
+    var i, content, links;
+
+    // First, hide the potentially visible new section dialog
+    hidenSectionDialog();
+
+    content = document.getElementsByClassName("lsn-body");
+    for (i = 0; i < content.length; i++) {
+      content[i].style.display = "none";
+    }
+    links = document.getElementsByClassName("lsn");
+    for (i = 0; i < links.length; i++) {
+      links[i].className = links[i].className.replace(" active", "");
+    }
+    document.getElementById(lesson_id).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+
+  function showNewSection() {
+    div = document.getElementById("new-section-dialog");
+    div.style.display = "block";
+    
+    setTimeout(() => {
+      div.style.opacity = 1;
+    }, 0.001);
+    
+  }
+
+  function showLessonEditor() {
+    // Hide anything visible
+    hidenSectionDialog();
+  }
+</script>
+
 <div class="course-viewer">
   <div class="side">
     <ol class="section-head">
@@ -7,38 +48,40 @@
         <% lessons_completed_by_user = Set.new( Progress.where(user_id: current_user.id).map { |progress| progress.lesson_id } ) %>
       <% end %>
       <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
-      <li>
-        <h3><%= section.title %></h3>
-        <ol>
-          <% section.lessons.each do |lesson| %>
-            <!-- Tab Links -->
-            <li class="lsn" onclick="showLsn(event, <%= lesson.id %>)"><%= lesson.title %></li>
+        <li class="sec-li">
+          <h3><%= section.title %></h3>
+          <ol>
+            <% section.lessons.each do |lesson| %>
+              <!-- Tab Links -->
+              <li class="lsn" onclick="showLsn(event, <%= lesson.id %>)"><%= lesson.title %></li>
 
-            <% if logged_in? and not no_progress %>
-              <% if lessons_completed_by_user.include?(lesson.id) %>
-                <% completed_lessons += 1 %>
+              <% if logged_in? and not no_progress %>
+                <% if lessons_completed_by_user.include?(lesson.id) %>
+                  <% completed_lessons += 1 %>
+                <% end %>
+                <% total_lessons += 1 %>
               <% end %>
-              <% total_lessons += 1 %>
+            
             <% end %>
-          
-          <% end %>
-          <% if logged_in? %>
-            <% if current_user.id == course.user_id %>
-              <%= link_to "Add new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn option-btn" %>
+            <% if logged_in? %>
+              <% if current_user.id == course.user_id %>
+                <button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor()">Add new lesson to this section</button>
+                <%= link_to "Add new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn option-btn" %>
+              <% end %>
             <% end %>
-          <% end %>
-        </ol>
-      </li>
+          </ol>
+        </li>
       <% end %>
-
-      <% if logged_in? %>
-        <% if current_user.id == course.user_id or new_course %>
-          <button type="button" id="show-new-section-btn" class="btn option-btn" onclick="showNewSection()">Add a new section to this course</button>
-
-          <%= link_to "Add new section to this course", new_section_path(@course), class: "btn option-btn" %>
-        <% end %>
-      <% end # if logged_in? %>
     </ol>
+    <% if logged_in? %>
+      <br />
+      <% if current_user.id == course.user_id or new_course %>
+        <button type="button" id="show-new-section-btn" class="btn option-btn" onclick="showNewSection()">Add a new section to this course</button>
+
+        <%#= link_to "Add new section to this course", new_section_path(@course), class: "btn option-btn" %>
+      <% end %>
+    <% end # if logged_in? %>
+
     <% if logged_in? %>
       <% if total_lessons != 0 and not no_progress %>
         Course progress: <%= (( completed_lessons / total_lessons )*10000).to_i / 100.0 %> %
@@ -69,34 +112,3 @@
   </div>
 </div>
 
-<script>  
-  function showLsn(evt, lesson_id) {
-    var i, content, links;
-
-    // First, hide the potentially visible new section dialog
-    new_section_dialog = document.getElementById("new-section-dialog")
-    new_section_dialog.style.opacity = 0;
-    new_section_dialog.style.display = "none";
-
-    content = document.getElementsByClassName("lsn-body");
-    for (i = 0; i < content.length; i++) {
-      content[i].style.display = "none";
-    }
-    links = document.getElementsByClassName("lsn");
-    for (i = 0; i < links.length; i++) {
-      links[i].className = links[i].className.replace(" active", "");
-    }
-    document.getElementById(lesson_id).style.display = "block";
-    evt.currentTarget.className += " active";
-  }
-
-  function showNewSection() {
-    div = document.getElementById("new-section-dialog");
-    div.style.display = "block";
-    
-    setTimeout(() => {
-      div.style.opacity = 1;
-    }, 0.001);
-    
-  }
-  </script>

@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   
   # Course paths
   get '/compose_course', to: 'courses#new'
+  post '/courses/section/new', to: 'courses#new_dynamic_section'
   
   # Search paths 
   #get '/search', to: 'lessons#search'

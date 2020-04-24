@@ -19,6 +19,12 @@ class CoursesController < ApplicationController
     @course = Course.new(user_id: params[:user_id])
   end
 
+  # POST /courses/section/new
+  def new_dynamic_section
+    # Add a section to a course without redirecting away.
+    
+  end
+
   # GET /courses/1/edit
   def edit
   end

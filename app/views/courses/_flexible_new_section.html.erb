@@ -1,11 +1,30 @@
+<script>
+  addToSectionList = function(section_title) {
+    new_lesson_ol = '\
+      <ol><button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor()"> \
+      Add new lesson to this section</button></ol>'
+    
+    html_text = '<div>\
+      <li class="sec-li"><h4>' + section_title + '</h4>' + new_lesson_ol + '</li> \
+    </div>';
+
+    $(html_text).appendTo($('.section-head')).collapse()
+  };
+
+  function addSection() {
+    section_title = document.getElementById("section-title").value;
+    addToSectionList(section_title);
+  }
+</script>
 
 <h4>New Section</h4>
 
-<form action="/courses" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="zPEYF3NXISxkXXFxMdlXwrMd/njK1aRCrJNQbmLnbjbNyFhM59+Frgabwy5mm1mifYqIQM8WYssScesSig5tLQ==">
+<form action="" accept-charset="UTF-8" method="post">
+
   <label for="section_title">Section Title</label>
-  <input class="form-control" type="text" name="course[description]" id="course_description">
+  <input class="form-control" type="text" name="section[title]" id="section-title">
 
   <hr>
   
-  <input type="submit" name="commit" value="Add Section" class="btn form-btn" data-disable-with="Publish Course">
+  <input value="Add Section" type="button" class="btn form-btn" onclick="addSection();"/>
 </form>
