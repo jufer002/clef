@@ -122,8 +122,9 @@ li {
   display: flex;
 
   #new-section-dialog {
+    display: none;
     opacity: 0;
-    transition: opacity 0.2s ease-in 0.2s;
+    transition: opacity 0.1s ease-in 0.1s;
     padding: 3em;
   }
 }

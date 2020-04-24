@@ -55,7 +55,7 @@
     <!-- New section dialog -->
     <div class="new-section-dialog" id="new-section-dialog">
       <%= 
-        render 'flexible_new_section', f: f
+        render 'flexible_new_section'
       %>
     </div>
     <!-- Tab Links -->
@@ -74,7 +74,9 @@
     var i, content, links;
 
     // First, hide the potentially visible new section dialog
-    document.getElementById("new-section-dialog").style.opacity = 0;
+    new_section_dialog = document.getElementById("new-section-dialog")
+    new_section_dialog.style.opacity = 0;
+    new_section_dialog.style.display = "none";
 
     content = document.getElementsByClassName("lsn-body");
     for (i = 0; i < content.length; i++) {
@@ -90,6 +92,11 @@
 
   function showNewSection() {
     div = document.getElementById("new-section-dialog");
-    div.style.opacity = 1;
+    div.style.display = "block";
+    
+    setTimeout(() => {
+      div.style.opacity = 1;
+    }, 0.001);
+    
   }
   </script>

@@ -1,9 +1,11 @@
 
 <h4>New Section</h4>
 
-  <%= f.label :section_title %>
-  <%= f.text_field :title, class: 'form-control' %>
-  
-  <hr>
+<form action="/courses" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="zPEYF3NXISxkXXFxMdlXwrMd/njK1aRCrJNQbmLnbjbNyFhM59+Frgabwy5mm1mifYqIQM8WYssScesSig5tLQ==">
+  <label for="section_title">Section Title</label>
+  <input class="form-control" type="text" name="course[description]" id="course_description">
 
-  <%= f.submit "Publish Course", class: "btn form-btn" %> 
+  <hr>
+  
+  <input type="submit" name="commit" value="Add Section" class="btn form-btn" data-disable-with="Publish Course">
+</form>
