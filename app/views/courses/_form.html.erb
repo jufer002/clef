@@ -21,9 +21,18 @@
       <%= form.label :description %>
       <%= form.text_field :description, class: 'form-control' %>
 
-      <br/>
+      <br />
     
-      <%= form.submit "Publish", class: "btn form-btn" %> 
+      <%=
+        render 'course_viewer',
+        total_lessons: @total_lessons, completed_lessons: @completed_lessons,
+        lessons_completed_by_user: @lessons_completed_by_user, course: @course,
+        no_progress: true
+      %>
+
+      <br />
+
+      <%= form.submit "Publish", class: "btn form-btn" %>
     <% end %>
   </div>
 </div>

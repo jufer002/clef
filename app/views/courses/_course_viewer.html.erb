@@ -12,9 +12,9 @@
         <ol>
           <% section.lessons.each do |lesson| %>
             <!-- Tab Links -->
-            <li class="lsn" onclick="showLsn(event, <%=lesson.id%>)"><%=lesson.title%></li>
+            <li class="lsn" onclick="showLsn(event, <%= lesson.id %>)"><%= lesson.title %></li>
 
-            <% if logged_in? %>
+            <% if logged_in? and not no_progress %>
               <% if lessons_completed_by_user.include?(lesson.id) %>
                 <% completed_lessons += 1 %>
               <% end %>
@@ -38,13 +38,15 @@
       <% end # if logged_in? %>
     </ol>
     <% if logged_in? %>
-      <% if total_lessons != 0 %>
+      <% if total_lessons != 0 and not no_progress %>
         Course progress: <%= (( completed_lessons / total_lessons )*10000).to_i / 100.0 %> %
       <% end %>
     <% end %>
     <br/>
-    <% if completed_lessons == total_lessons %>
-      You're done! You get this [insert something pleasurable].
+    <% if not no_progress %>
+      <% if completed_lessons == total_lessons %>
+        You're done! You get this [insert something pleasurable].
+      <% end %>
     <% end %>
   </div>
   <div class="main" aria-live="polite">
