@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_with(model: course, local: true) do |form| %>
+    <%= form_with model: course, local: true do |f| %>
       <% if course.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(course.errors.count, "error") %> prohibited this course from being saved:</h2>
@@ -15,24 +15,26 @@
         </div>
       <% end %>
 
-      <%= form.label :title%>
-      <%= form.text_field :title, class: 'form-control'   %> 
+      <h3>Create a new course</h3>
 
-      <%= form.label :description %>
-      <%= form.text_field :description, class: 'form-control' %>
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control' %>
+      <%= f.label :description %>
+      <%= f.text_field :description, class: 'form-control' %>
 
       <br />
     
       <%=
         render 'course_viewer',
-        course: @course,
-        no_progress: true,
-        new_course: true
+          course: @course,
+          no_progress: true,
+          new_course: true,
+          f: f
       %>
 
       <br />
-
-      <%= form.submit "Publish", class: "btn form-btn" %>
+      
+      <%= f.submit "Publish Course", class: "btn form-btn" %> 
     <% end %>
   </div>
 </div>

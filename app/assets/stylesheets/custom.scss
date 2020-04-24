@@ -120,6 +120,12 @@ li {
 
 .course-viewer{
   display: flex;
+
+  #new-section-dialog {
+    opacity: 0;
+    transition: opacity 0.2s ease-in 0.2s;
+    padding: 3em;
+  }
 }
 .side{
   flex: 30%;
@@ -169,5 +175,3 @@ li {
   border-right: 2px solid $card-hover;
   transform: translate(-2px, -2px);
 }
-
-

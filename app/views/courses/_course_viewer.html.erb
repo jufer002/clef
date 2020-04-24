@@ -33,7 +33,7 @@
 
       <% if logged_in? %>
         <% if current_user.id == course.user_id or new_course %>
-          <button type="button" class="btn option-btn" onclick="showNewSection()">Add a new section to this course</button>
+          <button type="button" id="show-new-section-btn" class="btn option-btn" onclick="showNewSection()">Add a new section to this course</button>
 
           <%= link_to "Add new section to this course", new_section_path(@course), class: "btn option-btn" %>
         <% end %>
@@ -53,8 +53,10 @@
   </div>
   <div class="main" aria-live="polite">
     <!-- New section dialog -->
-    <div class="new-section-dialog" id="new-section-dialog" style="display: none;">
-      hello
+    <div class="new-section-dialog" id="new-section-dialog">
+      <%= 
+        render 'flexible_new_section', f: f
+      %>
     </div>
     <!-- Tab Links -->
     <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
@@ -67,12 +69,12 @@
   </div>
 </div>
 
-<script>
+<script>  
   function showLsn(evt, lesson_id) {
     var i, content, links;
 
     // First, hide the potentially visible new section dialog
-    document.getElementById("new-section-dialog").style.display = "block";
+    document.getElementById("new-section-dialog").style.opacity = 0;
 
     content = document.getElementsByClassName("lsn-body");
     for (i = 0; i < content.length; i++) {
@@ -88,6 +90,6 @@
 
   function showNewSection() {
     div = document.getElementById("new-section-dialog");
-    div.style.display = "block"
+    div.style.opacity = 1;
   }
   </script>
