@@ -32,7 +32,9 @@
       <% end %>
 
       <% if logged_in? %>
-        <% if current_user.id == course.user_id %>
+        <% if current_user.id == course.user_id or new_course %>
+          <button type="button" class="btn option-btn" onclick="showNewSection()">Add a new section to this course</button>
+
           <%= link_to "Add new section to this course", new_section_path(@course), class: "btn option-btn" %>
         <% end %>
       <% end # if logged_in? %>
@@ -50,6 +52,10 @@
     <% end %>
   </div>
   <div class="main" aria-live="polite">
+    <!-- New section dialog -->
+    <div class="new-section-dialog" id="new-section-dialog" style="display: none;">
+      hello
+    </div>
     <!-- Tab Links -->
     <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
       <% section.lessons.each do |lesson| %>
@@ -60,3 +66,28 @@
     <% end %>
   </div>
 </div>
+
+<script>
+  function showLsn(evt, lesson_id) {
+    var i, content, links;
+
+    // First, hide the potentially visible new section dialog
+    document.getElementById("new-section-dialog").style.display = "block";
+
+    content = document.getElementsByClassName("lsn-body");
+    for (i = 0; i < content.length; i++) {
+      content[i].style.display = "none";
+    }
+    links = document.getElementsByClassName("lsn");
+    for (i = 0; i < links.length; i++) {
+      links[i].className = links[i].className.replace(" active", "");
+    }
+    document.getElementById(lesson_id).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+
+  function showNewSection() {
+    div = document.getElementById("new-section-dialog");
+    div.style.display = "block"
+  }
+  </script>

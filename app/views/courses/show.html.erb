@@ -18,21 +18,5 @@
         no_progress: false
     %>
   </div>
-  
-  <script>
-    function showLsn(evt, lesson_id) {
-      var i, content, links;
-      content = document.getElementsByClassName("lsn-body");
-      for (i = 0; i < content.length; i++) {
-        content[i].style.display = "none";
-      }
-      links = document.getElementsByClassName("lsn");
-      for (i = 0; i < links.length; i++) {
-        links[i].className = links[i].className.replace(" active", "");
-      }
-      document.getElementById(lesson_id).style.display = "block";
-      evt.currentTarget.className += " active";
-    }
-  </script>
 
 </body>
