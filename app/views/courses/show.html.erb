@@ -11,82 +11,13 @@
   </div>
 
   <div>
-    <div class="course-viewer">
-      <div class="side">
-        <ol class="section-head">
-          <% if logged_in? %>
-            <% @total_lessons = 0.0 %>
-            <% @completed_lessons = 0.0 %>
-            <% @lessons_completed_by_user = Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id} ) %>
-          <% end %>
-          <% @course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
-          <li>
-            <h3><%= section.title %></h3>
-            <ol>
-              <% section.lessons.each do |lesson| %>
-                <!-- Tab Links -->
-                <li class="lsn" onclick="showLsn(event, <%=lesson.id%>)"><%=lesson.title%></li>
-
-                <% if logged_in? %>
-                  <% if @lessons_completed_by_user.include?(lesson.id) %>
-                    <% @completed_lessons += 1 %>
-                  <% end %>
-                  <% @total_lessons += 1 %>
-                <% end %>
-              
-              <% end %>
-              <% if logged_in? %>
-                <% if current_user.id == @course.user_id %>
-                  <%= link_to "Add new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn option-btn" %>
-                <% end %>
-              <% end %>
-            </ol>
-          </li>
-          <% end %>
-
-          <% if logged_in? %>
-            <% if current_user.id == @course.user_id %>
-              <%= link_to "Add new section to this course", new_section_path(@course), class: "btn option-btn" %>
-            <% end %>
-          <% end # if logged_in? %>
-        </ol>
-        <% if logged_in? %>
-          <% if @total_lessons != 0 %>
-            Course progress: <%= (( @completed_lessons / @total_lessons )*10000).to_i / 100.0 %> %
-          <% end %>
-        <% end %>
-        <br/>
-        <% if @completed_lessons == @total_lessons %>
-          You're done! You get this [insert something pleasurable].
-        <% end %>
-      </div>
-      <div class="main" aria-live="polite">
-        <!-- Tab Links -->
-        <% @course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
-          <% section.lessons.each do |lesson| %>
-            <div id=<%=lesson.id %> class="lsn-body">
-              <p><%= lesson.body %></p>
-            </div>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
+    <%=
+        render 'course_viewer',
+          total_lessons: @total_lessons, completed_lessons: @completed_lessons,
+          lessons_completed_by_user: @lessons_completed_by_user, course: @course,
+          no_progress: false,
+          new_course: false
+    %>
   </div>
-  
-  <script>
-    function showLsn(evt, lesson_id) {
-      var i, content, links;
-      content = document.getElementsByClassName("lsn-body");
-      for (i = 0; i < content.length; i++) {
-        content[i].style.display = "none";
-      }
-      links = document.getElementsByClassName("lsn");
-      for (i = 0; i < links.length; i++) {
-        links[i].className = links[i].className.replace(" active", "");
-      }
-      document.getElementById(lesson_id).style.display = "block";
-      evt.currentTarget.className += " active";
-    }
-  </script>
 
 </body>
