@@ -2,6 +2,43 @@
 <script>
   // Global variable that stores the section which the new-lesson button was clicked in
   var containingSection;
+  // Global array of arrays. Outer array contains sections, inner contains lesson.
+  var sections = {
+    <% course.course_contents.map { |content| content.section_id }.each do |section_id| %>
+      <%= section_id %>: <%= Section.find(section_id).lessons.map { |lsn| lsn.id } %>,
+    <% end %>
+  };
+
+  // Return a unique identifier for a section.
+  // For use internal to javascript, not the same as
+  // what will be stored in the database.
+  function getNewSectionID() {
+    section_keys = Object.keys(sections);
+
+    if (section_keys.length === 0) {
+      return 0;
+    }
+
+    max_key = Math.max(...section_keys);
+    section_id = max_key + 1;
+
+    return section_id;
+  }
+
+  // Same as getNewSectionID() but for
+  // lessons.
+  function getNewLessonID(section_id) {
+    lesson_ids = sections[section_id];
+    
+    if (lesson_ids.length === 0) {
+      return 0;
+    }
+
+    max_id = Math.max(...lesson_ids);
+    lesson_id = max_id + 1;
+
+    return lesson_id;
+  }
 
   function hideSectionDialog() {
     new_section_dialog = document.getElementById("new-section-dialog")
@@ -45,10 +82,9 @@
     
   }
 
-  function showLessonEditor(btn) {
+  function showLessonEditor(section_id) {
     // Set global variable
-    containingSection = btn;
-    x = btn;
+    containingSection = section_id;
 
     // Hide anything visible
     hideSectionDialog();
@@ -63,13 +99,47 @@
   }
 
   function addLessonToSection() {
-    trix_content = document.getElementById("lesson_body_in_editor");
+    lesson_title = document.getElementById("lesson-title").value;
+    trix_content = document.getElementById("lesson_body_in_editor").innerText;
+
+    lesson_id = getNewLessonID(containingSection);
+
+    sections[containingSection].push(lesson_id);
+    
+    html_text = `\
+      <li class="lsn" onclick="showLsn(event, ${lesson_id})">${lesson_title}</li>\
+    `;
+
+    $("#lesson-ol").prepend(html_text);
+  }
+
+  function addToSectionList(section_title) {
+    section_key = getNewSectionID();
+    sections[section_key] = [];
+
+    new_lesson_ol = `\
+      <ol id="lesson-ol"><button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor(${section_key})"> \
+      Add new lesson to this section</button></ol>`
+
+    html_text = '<div>\
+      <li class="sec-li" id=section[' + section_key + ']><h4>' + section_title + '</h4>' + new_lesson_ol + '</li> \
+      </div>';
+
+    $(html_text).appendTo($('.section-head')).collapse();
+  }
+
+  function addSection() {
+    hideActiveLesson();
+    hideSectionDialog();
+    
+    section_title = document.getElementById("section-title").value;
+    addToSectionList(section_title);
   }
 </script>
 
 <div class="course-viewer">
   <div class="side">
-    <ol class="section-head">
+    <ol class="section-head" id="section-head">
       <% if logged_in? %>
         <% total_lessons = 0.0 %>
         <% completed_lessons = 0.0 %>
@@ -81,7 +151,7 @@
           <ol>
             <% section.lessons.each do |lesson| %>
               <!-- Tab Links -->
-              <li class="lsn" onclick="showLsn(event, <%= lesson.id %>)"><%= lesson.title %></li>
+              <li class="lsn" id="lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= lesson.id %>)"><%= lesson.title %></li>
 
               <% if logged_in? and not no_progress %>
                 <% if lessons_completed_by_user.include?(lesson.id) %>
@@ -93,7 +163,7 @@
             <% end %>
             <% if logged_in? %>
               <% if current_user.id == course.user_id %>
-                <button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor(this)">Add new lesson to this section</button>
+                <button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor(<%= section.id %>)">Add a new lesson to this section</button>
                 <%#= link_to "Add new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn option-btn" %>
               <% end %>
             <% end %>
@@ -104,7 +174,7 @@
     <% if logged_in? %>
       <br />
       <% if current_user.id == course.user_id or new_course %>
-        <button type="button" id="show-new-section-btn" class="btn option-btn" onclick="showNewSection()">Add a new section to this course</button>
+        <button type="button" id="show-new-section-btn" class="btn option-btn" onclick="showNewSection(event)">Add a new section to this course</button>
 
         <%#= link_to "Add new section to this course", new_section_path(@course), class: "btn option-btn" %>
       <% end %>
@@ -134,19 +204,24 @@
       <form action="" accept-charset="UTF-8" method="post">
         <h4>Compose a new lesson</h4>
         <hr>
+        <label for="lesson_title">Lesson Title</label>
+        <input class="form-control" type="text" name="lesson[title]" id="lesson-title">
+        <hr>
         <trix-editor class="trix-content" id="lesson_body_in_editor" input="x"></trix-editor>
         <hr>
         <input value="Compose lesson" type="button" class="btn form-btn" onclick="addLessonToSection();"/>
       </form>
     </div>
     <!-- Tab Links -->
-    <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
-      <% section.lessons.each do |lesson| %>
-        <div id=<%=lesson.id %> class="lsn-body">
-          <p><%= lesson.body %></p>
-        </div>
+    <div id="lesson-container">
+      <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
+        <% section.lessons.each do |lesson| %>
+          <div id=<%= lesson.id %> class="lsn-body">
+            <p><%= lesson.body %></p>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </div>
 
