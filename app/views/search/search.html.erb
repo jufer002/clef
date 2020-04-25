@@ -1,43 +1,72 @@
-<div class="center jumbotron">
-  <h1>Search</h1>
-  <br />
+<center>
+    <div class="center jumbotron">
+        <h1>Search</h1>
+        <br />
 
-  <%= form_tag(search_search_path, :method => "get",   
-    class: 'navbar-form') do %>  
+        <%= form_tag(search_search_path, :method => "get",   
+    class: 'navbar-form') do %>
         <div class="input-group">
             <div class="input-group mb-3 search-field">
-                <%= search_field_tag :search_text, params[:search], placeholder: "Search for a lesson", class: "form-control" %>
-                <div class="input-group-append search-button-area">  
-                    <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
-                </div>  
-            </div>  
-        </div>  
-    <% end %>
-</div>
-
-
-
-<center><h2>Results</h2></center>
-<center>Searching for: <%= params[:search_text] %></center>
-<center><i>Results that match your search terms either on the lesson title or on the lesson content</i></center>
-<hr>
-
-<div class="user-lessons container-fluid">
-    <ul>
-        <% if @lessons.empty? %>
-            <center>No results</center>
-        <% else %>
-            <% @lessons.each do |result_relation| %>
-                <% result_relation.each do |result| %>
-                    <li>
-                        Lesson title: <%= link_to result.title, result, class: "btn nav-btn" %>
-                        <br>
-                        by <%= link_to User.find(result.user_id).username, User.find(result.user_id) %>
-                    </li>
-                <% end %>
-            <% end %>
+                <%= search_field_tag :search_text, params[:search], placeholder: "Search for a lesson or course", class: "form-control" %>
+                <div class="input-group-append search-button-area">
+                    <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>
+                </div>
+            </div>
+        </div>
         <% end %>
-    </ul>
-</div>
+    </div>
 
-<hr>
+
+    <h4><i>Searching for: <%= params[:search_text] %></i></h4>
+
+
+    <div class="user-lessons container-fluid">
+        <h2>Lessons found</h2>
+        <br>
+        <i>Results that match your search terms either on the lesson title or on the lesson content</i>
+        <hr>
+
+        <ul>
+            <% if @lessons.empty? %>
+            No results
+            <% else %>
+            <% @lessons.each do |result_relation| %>
+            <% result_relation.each do |result| %>
+            <li>
+                Lesson title: <%= link_to result.title, result, class: "btn nav-btn" %>
+                <br>
+                by <%= link_to User.find(result.user_id).username, User.find(result.user_id) %>
+            </li>
+            <% end %>
+            <% end %>
+            <% end %>
+        </ul>
+    </div>
+
+    <hr>
+    <div class="container-fluid">
+
+        <h2>Courses found</h2>
+
+        <br>
+        <i>Results that match your search terms in the course title</i>
+
+        <hr>
+        <ul>
+            <% if @courses.empty? %>
+            No results
+            <% else %>
+            <% @courses.each do |result_relation| %>
+            <% result_relation.each do |result| %>
+            <li>
+                Course title: <%= link_to result.title, result, class: "btn nav-btn" %>
+                <br>
+                by <%= link_to User.find(result.user_id).username, User.find(result.user_id) %>
+            </li>
+            <% end %>
+            <% end %>
+            <% end %>
+        </ul>
+        <hr>
+    </div>
+</center>
