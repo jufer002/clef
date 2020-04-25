@@ -105,7 +105,9 @@
     hideActiveLesson();
 
     lesson_title = document.getElementById("lesson-title").value;
-    trix_content = document.getElementById("lesson_body_in_editor").innerText;
+    document.getElementById("lesson-title").value = "";
+    trix_content = document.getElementById("lesson_body_in_editor").innerHTML;
+    document.getElementById("lesson_body_in_editor").innerText = "";
 
     lesson_id = getNewLessonID(containingSection);
 
@@ -125,12 +127,12 @@
     lesson_ol.appendChild(document.createElement("hr"));
 
     // Create lesson body from trix content.
-    body = document.createElement("div")
-    body.className = "lsn-body"
-    body.innerText = trix_content
-    body.id = `section[${containingSection}]lessonbody[${lesson_id}]`
+    body = document.createElement("div");
+    body.className = "lsn-body";
+    body.innerHTML = trix_content;
+    body.id = `section[${containingSection}]lessonbody[${lesson_id}]`;
 
-    p = document.createElement("p").appendChild(body)
+    p = document.createElement("p").appendChild(body);
     // Add the lesson body to the body container
     $("#lesson-container").append(p)
 
@@ -161,6 +163,15 @@
     section_title = document.getElementById("section-title").value;
     addToSectionList(section_title);
   }
+
+  function sendInitializedLessons() {
+    data = {
+
+    }
+    encodeURIComponent(JSON.stringify());
+  }
+
+  
 </script>
 
 <div class="course-viewer">
@@ -233,7 +244,7 @@
         <label for="lesson_title">Lesson Title</label>
         <input class="form-control" type="text" name="lesson[title]" id="lesson-title">
         <hr>
-        <trix-editor class="trix-content" id="lesson_body_in_editor" input="x"></trix-editor>
+        <trix-editor class="trix-content" id="lesson_body_in_editor" data-blob-url-template="http://localhost:3000/rails/active_storage/blobs/:signed_id/:filename" data-direct-upload-url="http://localhost:3000/rails/active_storage/direct_uploads" input="x"></trix-editor>
         <hr>
         <input value="Compose lesson" type="button" class="btn form-btn" onclick="addLessonToSection();"/>
       </form>

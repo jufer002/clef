@@ -121,6 +121,7 @@ li {
 
 .course-viewer{
   display: flex;
+  padding: 4em;
 
   #new-section-dialog {
     display: none;
@@ -150,6 +151,10 @@ li {
 
   .sec-li {
     margin: 1em;
+  }
+  
+  .lsn-body {
+    padding: 1em;
   }
 }
 .side{
