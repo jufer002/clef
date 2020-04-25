@@ -18,12 +18,14 @@
 
 
 <center><h2>Results</h2></center>
+<center>Searching for: <%= params[:search_text] %></center>
+<center><i>Results that match your search terms either on the lesson title or on the lesson content</i></center>
 <hr>
 
 <div class="user-lessons container-fluid">
     <ul>
         <% if @lessons.empty? %>
-            No results
+            <center>No results</center>
         <% else %>
             <% @lessons.each do |result_relation| %>
                 <% result_relation.each do |result| %>
