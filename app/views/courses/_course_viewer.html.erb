@@ -63,12 +63,12 @@
     new_lesson_dialog.style.display = "none";
   }
 
-  function showLsn(evt, lesson_id) {
+  function showLsn(evt, section_id, lesson_id) {
     // First, hide the potentially visible new section dialog
     hideSectionDialog();
     hideActiveLesson();
-    
-    document.getElementById(lesson_id).style.display = "block";
+
+    document.getElementById(`section[${section_id}]lesson[${lesson_id}]`).style.display = "block";
     evt.currentTarget.className += " active";
   }
 
@@ -105,12 +105,19 @@
     lesson_id = getNewLessonID(containingSection);
 
     sections[containingSection].push(lesson_id);
-    
-    html_text = `\
-      <li class="lsn" onclick="showLsn(event, ${lesson_id})">${lesson_title}</li>\
-    `;
 
-    $("#lesson-ol").prepend(html_text);
+    li = document.createElement("li");
+    li.className = "lsn";
+    li.onclick = function(event) {
+      showLsn(event, containingSection, lesson_id);
+    };
+    li.innerText = lesson_title;
+    li.id = `section[${containingSection}]lesson[${lesson_id}]`;
+
+    lesson_ol = document.getElementById(`section[${containingSection}]-lesson-ol`);
+
+    lesson_ol.appendChild(li);
+    lesson_ol.appendChild(document.createElement("hr"));
   }
 
   function addToSectionList(section_title) {
@@ -118,12 +125,12 @@
     sections[section_key] = [];
 
     new_lesson_ol = `\
-      <ol id="lesson-ol"><button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor(${section_key})"> \
-      Add new lesson to this section</button></ol>`
+      <ol id="section[${section_key}]-lesson-ol"></ol><button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor(${section_key})"> \
+      Add new lesson to this section</button>`
 
     html_text = '<div>\
-      <li class="sec-li" id=section[' + section_key + ']><h4>' + section_title + '</h4>' + new_lesson_ol + '</li> \
-      </div>';
+      <li class="sec-li" id=section[' + section_key + ']><h4>' + section_title + '</h4><hr>' + new_lesson_ol + '</li>\
+      </div><hr>';
 
     $(html_text).appendTo($('.section-head')).collapse();
   }
@@ -148,10 +155,10 @@
       <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
         <li class="sec-li">
           <h3><%= section.title %></h3>
-          <ol>
+          <ol id="section[<%= section.id %>]">
             <% section.lessons.each do |lesson| %>
               <!-- Tab Links -->
-              <li class="lsn" id="lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= lesson.id %>)"><%= lesson.title %></li>
+              <li class="lsn" id="section[<%= section.id %>]lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %></li>
 
               <% if logged_in? and not no_progress %>
                 <% if lessons_completed_by_user.include?(lesson.id) %>
