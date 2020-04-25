@@ -68,7 +68,8 @@
     hideSectionDialog();
     hideActiveLesson();
 
-    document.getElementById(`section[${section_id}]lesson[${lesson_id}]`).style.display = "block";
+    document.getElementById(`section[${section_id}]lessonbody[${lesson_id}]`).style.display = "block";
+
     evt.currentTarget.className += " active";
   }
 
@@ -99,6 +100,10 @@
   }
 
   function addLessonToSection() {
+    // Hide anything visible
+    hideSectionDialog();
+    hideActiveLesson();
+
     lesson_title = document.getElementById("lesson-title").value;
     trix_content = document.getElementById("lesson_body_in_editor").innerText;
 
@@ -118,6 +123,20 @@
 
     lesson_ol.appendChild(li);
     lesson_ol.appendChild(document.createElement("hr"));
+
+    // Create lesson body from trix content.
+    body = document.createElement("div")
+    body.className = "lsn-body"
+    body.innerText = trix_content
+    body.id = `section[${containingSection}]lessonbody[${lesson_id}]`
+
+    p = document.createElement("p").appendChild(body)
+    // Add the lesson body to the body container
+    $("#lesson-container").append(p)
+
+    // Hide anything visible
+    hideSectionDialog();
+    hideActiveLesson();
   }
 
   function addToSectionList(section_title) {
@@ -223,7 +242,7 @@
     <div id="lesson-container">
       <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
         <% section.lessons.each do |lesson| %>
-          <div id=<%= lesson.id %> class="lsn-body">
+          <div id="section[<%= section.id %>]lessonbody[<%= lesson.id %>]" class="lsn-body">
             <p><%= lesson.body %></p>
           </div>
         <% end %>
