@@ -1,24 +1,4 @@
-<script>
-  addToSectionList = function(section_title) {
-    new_lesson_ol = '\
-      <ol id="lesson-ol"><button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor(this)"> \
-      Add new lesson to this section</button></ol>'
-    
-    html_text = '<div>\
-      <li class="sec-li"><h4>' + section_title + '</h4>' + new_lesson_ol + '</li> \
-    </div>';
 
-    $(html_text).appendTo($('.section-head')).collapse()
-  };
-
-  function addSection() {
-    hideActiveLesson();
-    hideSectionDialog();
-    
-    section_title = document.getElementById("section-title").value;
-    addToSectionList(section_title);
-  }
-</script>
 
 <h4>New Section</h4>
 
