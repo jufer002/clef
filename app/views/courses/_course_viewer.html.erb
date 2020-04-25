@@ -1,4 +1,5 @@
 <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+
 <script>
   // Global variable that stores the section which the new-lesson button was clicked in
   var containingSection;
@@ -74,6 +75,11 @@
   }
 
   function showNewSection() {
+    // Hide anything visible
+    hideSectionDialog();
+    hideActiveLesson();
+    $("#new-lesson-dialog").hide();
+
     div = document.getElementById("new-section-dialog");
     div.style.display = "block";
     
@@ -115,9 +121,14 @@
 
     li = document.createElement("li");
     li.className = "lsn";
-    li.onclick = function(event) {
-      showLsn(event, containingSection, lesson_id);
-    };
+    li.setAttribute("onclick", `showLsn(event, ${containingSection}, ${lesson_id})`);
+    // li.onclick = function() {
+    //   var sec = containingSection;
+    //   var l_id = lesson_id;
+    //   console.log(sec, l_id);
+    //   showLsn(event, sec, l_id);
+    // };
+
     li.innerText = lesson_title;
     li.id = `section[${containingSection}]lesson[${lesson_id}]`;
 
@@ -134,7 +145,7 @@
 
     p = document.createElement("p").appendChild(body);
     // Add the lesson body to the body container
-    $("#lesson-container").append(p)
+    $("#lesson-container").append(p);
 
     // Hide anything visible
     hideSectionDialog();
@@ -171,7 +182,6 @@
     encodeURIComponent(JSON.stringify());
   }
 
-  
 </script>
 
 <div class="course-viewer">
