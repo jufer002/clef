@@ -47,7 +47,13 @@ $text-color: black;
     @extend .no-text-selection;
 }
 
-body { margin: 0; padding: 0; @include thefont; }
+body { 
+  margin: 0; padding: 65px; @include thefont; 
+}
+
+.center {
+  text-align: center;
+}
 
 
 .navbar {
@@ -116,12 +122,13 @@ div.tag-buttons {
 }
 
 li {
-    list-style-type: none;
-  }
+  list-style-type: none;
+}
 
 .course-viewer{
   display: flex;
-  padding: 4em;
+  padding-top: 3em;
+  padding-bottom: 3em;
 
   #new-section-dialog {
     display: none;
@@ -147,6 +154,9 @@ li {
 
   .trix-content {
     background-color: $background-color;
+    li {
+      list-style-type: disc !important;
+    }
   }
 
   .sec-li {

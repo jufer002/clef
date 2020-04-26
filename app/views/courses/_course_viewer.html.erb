@@ -1,5 +1,6 @@
 <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
 
+
 <script>
   // Global variable that stores the section which the new-lesson button was clicked in
   var containingSection;
@@ -122,12 +123,6 @@
     li = document.createElement("li");
     li.className = "lsn";
     li.setAttribute("onclick", `showLsn(event, ${containingSection}, ${lesson_id})`);
-    // li.onclick = function() {
-    //   var sec = containingSection;
-    //   var l_id = lesson_id;
-    //   console.log(sec, l_id);
-    //   showLsn(event, sec, l_id);
-    // };
 
     li.innerText = lesson_title;
     li.id = `section[${containingSection}]lesson[${lesson_id}]`;
@@ -146,6 +141,10 @@
     p = document.createElement("p").appendChild(body);
     // Add the lesson body to the body container
     $("#lesson-container").append(p);
+    $("#lesson-container").append(`\
+    <input type="hidden" class="form-control" name=section[${containingSection}]lesson[${lesson_id}][title] value="${lesson_title}">\
+    <input type="hidden" class="form-control" name=section[${containingSection}]lesson[${lesson_id}][body] value="${trix_content}">\
+    `);
 
     // Hide anything visible
     hideSectionDialog();
@@ -158,11 +157,11 @@
 
     new_lesson_ol = `\
       <ol id="section[${section_key}]-lesson-ol"></ol><button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor(${section_key})"> \
-      Add new lesson to this section</button>`
+      Add a new lesson to this section</button>`
 
-    html_text = '<div>\
-      <li class="sec-li" id=section[' + section_key + ']><h4>' + section_title + '</h4><hr>' + new_lesson_ol + '</li>\
-      </div><hr>';
+    html_text = `<input name="section[${section_key}]title" value="${section_title}" type="hidden" class="form-control">\
+      <li class="sec-li" id=section[${section_key}]><h3>${section_title}</h3><hr>${new_lesson_ol}</li>\
+      <hr>`;
 
     $(html_text).appendTo($('.section-head')).collapse();
   }
@@ -173,13 +172,6 @@
     
     section_title = document.getElementById("section-title").value;
     addToSectionList(section_title);
-  }
-
-  function sendInitializedLessons() {
-    data = {
-
-    }
-    encodeURIComponent(JSON.stringify());
   }
 
 </script>
@@ -211,7 +203,7 @@
             <% if logged_in? %>
               <% if current_user.id == course.user_id %>
                 <button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor(<%= section.id %>)">Add a new lesson to this section</button>
-                <%#= link_to "Add new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn option-btn" %>
+                <%#= link_to "Add a new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn option-btn" %>
               <% end %>
             <% end %>
           </ol>
@@ -223,7 +215,7 @@
       <% if current_user.id == course.user_id or new_course %>
         <button type="button" id="show-new-section-btn" class="btn option-btn" onclick="showNewSection(event)">Add a new section to this course</button>
 
-        <%#= link_to "Add new section to this course", new_section_path(@course), class: "btn option-btn" %>
+        <%#= link_to "Add a new section to this course", new_section_path(@course), class: "btn option-btn" %>
       <% end %>
     <% end # if logged_in? %>
 
@@ -248,16 +240,14 @@
     </div>
     <!-- New lesson dialog -->
     <div class="new-lesson-dialog" id="new-lesson-dialog">
-      <form action="" accept-charset="UTF-8" method="post">
         <h4>Compose a new lesson</h4>
         <hr>
         <label for="lesson_title">Lesson Title</label>
         <input class="form-control" type="text" name="lesson[title]" id="lesson-title">
         <hr>
-        <trix-editor class="trix-content" id="lesson_body_in_editor" data-blob-url-template="http://localhost:3000/rails/active_storage/blobs/:signed_id/:filename" data-direct-upload-url="http://localhost:3000/rails/active_storage/direct_uploads" input="x"></trix-editor>
+        <trix-editor class="trix-content" id="lesson_body_in_editor" data-blob-url-template="http://localhost:3000/rails/active_storage/blobs/:signed_id/:filename" data-direct-upload-url="http://localhost:3000/rails/active_storage/direct_uploads"></trix-editor>
         <hr>
         <input value="Compose lesson" type="button" class="btn form-btn" onclick="addLessonToSection();"/>
-      </form>
     </div>
     <!-- Tab Links -->
     <div id="lesson-container">

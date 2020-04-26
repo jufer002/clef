@@ -1,5 +1,9 @@
+require_relative '../poro/section_chunker'
+
 class CoursesController < ApplicationController
   include SessionsHelper
+  include SectionsHelper
+  include SectionChunker
 
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
@@ -34,11 +38,26 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
 
+    section_chunks = get_chunks(params)
+
     # The course has been created by the signed-in user.
     @course.user_id = current_user.id
     respond_to do |format|
       if @course.save
-        format.html { redirect_to @course, notice: 'Course was successfully created.' }
+        # Save the course's subcomponents to the course.
+        section_chunks.each do |chunk|
+          section, *lessons = chunk
+
+          if add_section_to_course(section, @course.id)
+            # Add the lessons to the sections.
+            lessons.each do |lesson|
+              lesson.save
+              add_lesson_to_section(lesson, section.id)
+            end
+          end
+        end
+
+        format.html { redirect_to @course }
         format.json { render :show, status: :created, location: @course }
       else
         format.html { render :new }
@@ -50,6 +69,8 @@ class CoursesController < ApplicationController
   # PATCH/PUT /courses/1
   # PATCH/PUT /courses/1.json
   def update
+    # Update subcontents
+
     respond_to do |format|
       if @course.update(course_params)
         format.html { redirect_to @course, notice: 'Course was successfully updated.' }
