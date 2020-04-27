@@ -9,6 +9,8 @@ $hover-color: darken($background-color, 50%);
 $card-color: $panel-color;
 $card-hover: darken($card-color, 20%);
 $text-color: black;
+$rebel: #38908f;
+$rebellion-color: lighten($rebel, 20%);
 
 %panel {
     color: $text-color;
@@ -207,20 +209,26 @@ li {
 }
 .side{
   flex: 30%;
+
   background-color: $background-color;
   border-right: 2px solid $panel-color;
-  
+  margin-left: 20px;
+  ol {
+    padding-inline-start: 0px;
+  }
   li.lsn {
     display: block;
     text-decoration: none;
     padding: 8px 16px;
+    transition: background-color 0.1s ease-in;
+    border: 2px solid white;
   }
   li.lsn:hover {
-    color: white;
-    background-color: $hover-color;
+    color: black;
+    background-color: $panel-color;
   }
   li.lsn.active {
-    background-color: pink;
+    border: 2px solid $navbar-color;
     color: black;
   }
 }
@@ -249,8 +257,9 @@ li {
   }
 }
 .card:hover {
-  border-bottom: 2px solid $card-hover;
-  border-right: 2px solid $card-hover;
+  // border-bottom: 2px solid $card-hover;
+  // border-right: 2px solid $card-hover;
+  box-shadow: 3px 3px 5px darken($panel-color, 10%);
   transform: translate(-2px, -2px);
   text-decoration: none;
 }
