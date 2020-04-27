@@ -207,7 +207,9 @@ li {
 }
 .side{
   flex: 30%;
-  background-color: $navbar-color;
+  background-color: $background-color;
+  border-right: 2px solid $panel-color;
+  
   li.lsn {
     display: block;
     text-decoration: none;
@@ -224,7 +226,7 @@ li {
 }
 .main{
   flex: 70%;
-  background-color: $panel-color;
+  background-color: $background-color;
 }
 
 .card-link:hover {
