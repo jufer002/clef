@@ -14,6 +14,8 @@
         <% end %>
       <% end %>
 
+      <%= render :partial => "layouts/add_tag", :locals => { :f => f, :tag_relation => @lesson_tags, :tags => @tag }%>
+
       <%= f.submit "Publish", class: "btn form-btn" %> 
     <% end %>
   </div>

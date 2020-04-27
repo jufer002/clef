@@ -15,6 +15,11 @@ class TagsController < ApplicationController
     lessontags.each do |lesson|
       @lessons << lesson.lesson
     end
+    coursetags = CourseTag.where(tag_id: params[:id])
+    @courses = []
+    coursetags.each do |course|
+      @courses << course.course
+    end
   end
 
   # GET /tags/new

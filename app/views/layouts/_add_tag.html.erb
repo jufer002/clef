@@ -1,0 +1,19 @@
+<br/>
+
+<!--<%= radio_button_tag(:difficulty, "difficulty") %>
+    <%= label_tag(:easy, "Easy") %>
+<%= radio_button_tag(:difficulty, "difficulty") %>
+    <%= label_tag(:intermediate, "Intermediate") %>
+<%= radio_button_tag(:difficulty, "difficulty") %>
+    <%= label_tag(:hard, "Hard") %>
+<%= f.radio_button :tags, Tag.find_by(category: "difficulty", name: "easy") %> Easy<br />
+<%= f.radio_button :tags, Tag.find_by(category: "difficulty", name: "intermediate") %> Intermediate<br />
+<%= f.radio_button :tags, Tag.find_by(category: "difficulty", name: "hard") %> Hard<br />-->
+
+<%= fields_for(tag_relation) do |tg| %>
+    <div class="list">
+        <%= tg.label "Add a Tag"%><br />
+        <%= tg.collection_select(:tags, Tag.all, :id, :name, {}, {:multiple => true})%>
+    </div>
+<%end%>
+

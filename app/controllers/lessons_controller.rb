@@ -22,6 +22,10 @@ class LessonsController < ApplicationController
   # GET /lessons/new
   def new
     @lesson = Lesson.new
+
+    @tags = Tag.all
+
+    @lesson_tag = LessonTag.new
   end
 
   # GET /lessons/1/edit

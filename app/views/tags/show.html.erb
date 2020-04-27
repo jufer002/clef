@@ -10,6 +10,11 @@
           <%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson } %>
         </tr>
       <% end %>
+      <% @courses.each do |course| %>
+        <tr>
+          <%= render :partial => "layouts/course_partial", :locals => { :course => course } %>
+        <tr>
+      <% end %>
     </tbody>
   </table> 
 
