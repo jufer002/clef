@@ -18,10 +18,10 @@
       <% end %>
     };
 
-    hideSectionDialog();
-    hideActiveLesson();
+  hideSectionDialog();
+  hideActiveLesson();
   });
-  
+
 
   // Return a unique identifier for a section.
   // For use internal to javascript, not the same as
@@ -291,6 +291,17 @@
           <h4>
             <p><button id="user-button" class="btn user-button"><%= lesson.user.username %></button></p>
           </h4>
+
+          <h4>
+            Tags:
+            <% lesson.tags.each do |lesson_tag| %>
+            <%= link_to lesson_tag, class:"tag-btn" do %>
+            <div class="tag-button">
+              <%= lesson_tag.name %>
+            </div>
+            <% end %>
+            <% end  %>
+          </h4>
         </div>
 
         <div id="user-modal" class="modal">
@@ -315,22 +326,22 @@
         </div>
 
         <% if logged_in? %>
-          <% if !Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id}).include?(lesson.id) %>
-            <%= button_to 'Complete!', {:controller => "progress", :action => "complete"}, params: {lesson_id: lesson.id} %>
-          <% else %>
-            <%= button_to 'Undo Completion', {:controller => "progress", :action => "undo"}, params: {lesson_id: lesson.id} %>
-          <% end %>
+        <% if !Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id}).include?(lesson.id) %>
+        <%= button_to 'Complete!', {:controller => "progress", :action => "complete"}, params: {lesson_id: lesson.id} %>
+        <% else %>
+        <%= button_to 'Undo Completion', {:controller => "progress", :action => "undo"}, params: {lesson_id: lesson.id} %>
+        <% end %>
         <% end %>
         <div class="comment-section container">
           <h3>Comments</h3>
 
           <% if logged_in? %>
-            <%= form_with model: @comment, url: lesson do |f| %>
-              <%= f.text_area :text, class:"comment-text"%>
+          <%= form_with model: @comment, url: lesson do |f| %>
+          <%= f.text_area :text, class:"comment-text"%>
 
-              <%= f.hidden_field(:redirect_to, value: course.id) %>
-              <%= f.submit "Publish", class: "publish-btn btn" %>
-            <% end %>
+          <%= f.hidden_field(:redirect_to, value: course.id) %>
+          <%= f.submit "Publish", class: "publish-btn btn" %>
+          <% end %>
           <% end # if logged_in? %>
           <br />
           <div class="comments-container container">
