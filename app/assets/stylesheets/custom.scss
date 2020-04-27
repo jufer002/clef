@@ -57,7 +57,6 @@ body {
   text-align: center;
 }
 
-
 .navbar {
     background-color: $navbar-color;
     color: $text-color;
@@ -71,7 +70,6 @@ body {
       background-color: $panel-color;
     }
 }
-
 .welcome-banner {
   background-color: $panel-color;
 
@@ -90,56 +88,49 @@ body {
     flex-direction: column;
   }
 }
-.home-content {
-  margin: 0% 5%;
-  .tag-buttons {
-    display: flex;
-    flex-direction: column;
-
-    .tag-button {
-      font-size: 14px;
-      border: 1px solid $navbar-color;
-      border-radius: 5px;
-      padding: 4px;
-      margin: 0.25%;
-      transition: all 0.1s ease-out;
-    }
-    .tag-button:hover {
-      text-decoration: none;
-      transform: translate(4px, 0px);
-      border-color: $hover-color;
-    }
-    .tag-btn:hover {
-      text-decoration: none;
-      background-color: $background-color;
-      color: $text-color;
-    }
-  }
-}
 .home {
-    // padding-top: 2%;
-    // margin-top: 5%;
-    box-sizing: border-box;
-    height: 800px;
-    background-color: $background-color;
-    
-    .top-row {
+  margin: 1% 5%;
+  // box-sizing: border-box;
+  height: 800px;
+  background-color: $background-color;
+  
+  .top-row {
+      display: flex;
+      justify-content: space-between;
+      height: 50%;
+      align-content: stretch;
+      .tag-buttons {
         display: flex;
-        justify-content: space-around;
-        margin-bottom: 5px;
-        margin-top: 5%;
-        height: 50%;
-        align-content: stretch;
-          .whats-new, .search{
-            margin: 5px;
-            display: inline-block;
-            height: 100%;
-            flex-grow: 5;
-          }
-      } 
-      .bottom-row {
-        margin: 5%
-      }  
+        flex-direction: column;
+        .tag-button {
+          font-size: 14px;
+          border: 1px solid $navbar-color;
+          border-radius: 5px;
+          padding: 4px;
+          margin: 2px 0px;
+          transition: all 0.1s ease-out;
+        }
+        .tag-button:hover {
+          text-decoration: none;
+          transform: translate(4px, 0px);
+          border-color: $hover-color;
+        }
+        .tag-btn:hover {
+          text-decoration: none;
+          background-color: $background-color;
+          color: $text-color;
+        }
+      }
+      .whats-new{
+        margin: 0% 2%;
+        display: inline-block;
+        height: 100%;
+        flex-grow: 5;
+      }
+    } 
+    .bottom-row {
+      margin: 5%
+    }  
 }
 
 div.whatsnew {

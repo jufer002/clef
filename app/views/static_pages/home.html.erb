@@ -11,18 +11,12 @@
 					<%= render :partial => 'layouts/search_partial' %> 
 				</div>
 			</div>
-			
-		</div>
-		<div class="home-content">
-				<%= render :partial => 'layouts/tag_buttons', :locals => { :tags_to_show => get_tags()}%>
 		</div>
 		<div class="home">
 			<div class="flex-container top-row">
+				<%= render :partial => 'layouts/tag_buttons', :locals => { :tags_to_show => get_tags()}%>
 				<div class="whats-new">
 					<%= render :partial => "layouts/whats_new", :locals => { :new_courses => recent_courses(5)} %>
-				</div>
-				<div class="search">
-					<%= render :partial => "layouts/home_search", :locals => { :tags_to_show => get_tags()} %>
 				</div>
 			</div>
 			<div class="row bottom-row">
