@@ -45,17 +45,7 @@ class CoursesController < ApplicationController
     respond_to do |format|
       if @course.save
         # Save the course's subcomponents to the course.
-        section_chunks.each do |chunk|
-          section, *lessons = chunk
-
-          if add_section_to_course(section, @course.id)
-            # Add the lessons to the sections.
-            lessons.each do |lesson|
-              lesson.save
-              add_lesson_to_section(lesson, section.id)
-            end
-          end
-        end
+        update_section_chunks(section_chunks)
 
         format.html { redirect_to @course }
         format.json { render :show, status: :created, location: @course }
@@ -69,11 +59,12 @@ class CoursesController < ApplicationController
   # PATCH/PUT /courses/1
   # PATCH/PUT /courses/1.json
   def update
-    # Update subcontents
-
+    section_chunks = get_chunks(params)
+    
     respond_to do |format|
-      if @course.update(course_params)
-        format.html { redirect_to @course, notice: 'Course was successfully updated.' }
+      # Update subcontents
+      if update_section_chunks(section_chunks)
+        format.html { redirect_to @course }
         format.json { render :show, status: :ok, location: @course }
       else
         format.html { render :edit }
@@ -101,5 +92,25 @@ class CoursesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def course_params
       params.require(:course).permit(:title, :description, :user_id)
+    end
+
+    def update_section_chunks(section_chunks)
+      section_chunks.each do |chunk|
+        section, *lessons = chunk
+
+        if add_section_to_course(section, @course.id)
+          # Add the lessons to the sections.
+          lessons.each do |lesson|
+            lesson.save
+            if not add_lesson_to_section(lesson, section.id)
+              return false
+            end
+          end
+        else
+          return false      
+        end
+      end
+
+      true
     end
 end

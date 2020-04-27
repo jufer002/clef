@@ -63,6 +63,15 @@
     new_lesson_dialog = document.getElementById("new-lesson-dialog");
     new_lesson_dialog.style.opacity = 0;
     new_lesson_dialog.style.display = "none";
+
+    // Hide attachments.
+    $("#lesson-container").children().each(function() {
+      $(this).attr("style", "display: none;");
+      // Delete the stray bit of text that appears.
+      /*if ($(this).get(0).data === "﻿" || $(this).get(0).data === '">    ') {
+        $(this).detach();
+      }*/
+    });
   }
 
   function showLsn(evt, section_id, lesson_id) {
@@ -113,7 +122,8 @@
 
     lesson_title = document.getElementById("lesson-title").value;
     document.getElementById("lesson-title").value = "";
-    trix_content = document.getElementById("lesson_body_in_editor").innerHTML;
+    //trix_content = document.getElementById("lesson_body_in_editor").innerHTML;
+    trix_content = document.getElementById("lesson_body_in_editor").value;
     document.getElementById("lesson_body_in_editor").innerText = "";
 
     lesson_id = getNewLessonID(containingSection);
@@ -160,10 +170,11 @@
       Add a new lesson to this section</button>`
 
     html_text = `<input name="section[${section_key}]title" value="${section_title}" type="hidden" class="form-control">\
-      <li class="sec-li" id=section[${section_key}]><h3>${section_title}</h3><hr>${new_lesson_ol}</li>\
-      <hr>`;
+      <li class="sec-li" id=section[${section_key}]><h3>${section_title}</h3>${new_lesson_ol}</li>\
+      `;
 
-    $(html_text).appendTo($('.section-head')).collapse();
+    $(html_text).appendTo($('.section-head'));
+    $('#section-head').collapse();
   }
 
   function addSection() {
@@ -187,7 +198,7 @@
       <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
         <li class="sec-li">
           <h3><%= section.title %></h3>
-          <ol id="section[<%= section.id %>]">
+          <ol id="section[<%= section.id %>]-lesson-ol">
             <% section.lessons.each do |lesson| %>
               <!-- Tab Links -->
               <li class="lsn" id="section[<%= section.id %>]lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %></li>

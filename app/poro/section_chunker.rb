@@ -19,6 +19,10 @@ module SectionChunker
       # A section chunk contains the section_obj, followed by a list of its lesson_objs.
       section_chunk = [section_obj]
 
+      if section_lessons.nil?
+        next
+      end
+
       section_lessons.values.each do |lesson|
         lesson_title = lesson["title"]
         lesson_body = lesson["body"]
