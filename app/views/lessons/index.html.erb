@@ -3,15 +3,13 @@
 
   <h1>Lessons</h1>
   
-  <table class="index">
-    <tbody>
+  <ul class="index">
       <% @lessons.each do |lesson| %>
-        <tr>
+        <li>
         <%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson } %>
-        </tr>
+        </li>
       <% end %>
-    </tbody>
-  </table>
+  </ul>
 
   <br>
 

@@ -2,11 +2,11 @@
 @import "bootstrap";
 
 $background-color: #ffffff;
-$panel-color: darken($background-color, 20%);
-$navbar-color: darken($background-color, 5%);
+$panel-color: darken($background-color, 5%);
+$navbar-color: darken($background-color, 20%);
 $btn-color: lighten($background-color, 8%);
 $hover-color: darken($background-color, 50%);
-$card-color: darken($panel-color, 10%);
+$card-color: $panel-color;
 $card-hover: darken($card-color, 20%);
 $text-color: black;
 
@@ -47,8 +47,15 @@ $text-color: black;
     @extend .no-text-selection;
 }
 
-body { margin: 0; padding: 0; @include thefont; }
+body { 
+  margin: 0;
+  padding-top: 65px; 
+  @include thefont; 
+}
 
+.center {
+  text-align: center;
+}
 
 .navbar {
     background-color: $navbar-color;
@@ -64,38 +71,76 @@ body { margin: 0; padding: 0; @include thefont; }
     }
 }
 
+.welcome-banner {
+  background-color: $panel-color;
+
+  width: 100%;
+  width: 100vw;
+
+  padding: 5%;
+
+  form.navbar-form.navbar-left {
+    padding: 0px 0px;
+    margin: 0px 0px;
+  }
+
+  .banner-text {
+    display: flex;
+    flex-direction: column;
+  }
+}
 .home {
-    padding-top: 2%;
-    // margin-top: 5%;
-    box-sizing: border-box;
-    height: 800px;
-    background-color: $background-color;
-    .top-row {
+  margin: 1% 5%;
+  // box-sizing: border-box;
+  height: 800px;
+  background-color: $background-color;
+  
+  .top-row {
+      display: flex;
+      justify-content: space-between;
+      height: 50%;
+      align-content: stretch;
+      .tag-buttons {
         display: flex;
-        justify-content: space-around;
-        margin-bottom: 5px;
-        margin-top: 5%;
-        height: 50%;
-        align-content: stretch;
-          .whats-new, .search{
-            margin: 5px;
-            display: inline-block;
-            height: 100%;
-            flex-grow: 5;
-          }
-      } 
-      .bottom-row {
-        margin: 5%
-      }  
+        flex-direction: column;
+
+        border-right: 2px solid $panel-color;
+        padding-right: 15px;
+
+        .tag-button {
+          font-size: 14px;
+          border: 1px solid $navbar-color;
+          border-radius: 5px;
+          padding: 4px;
+          margin: 2px 0px;
+          transition: all 0.1s ease-out;
+        }
+        .tag-button:hover {
+          text-decoration: none;
+          transform: translate(4px, 0px);
+          border-color: $hover-color;
+        }
+        .tag-btn:hover {
+          text-decoration: none;
+          background-color: $background-color;
+          color: $text-color;
+        }
+      }
+      .whats-new{
+        // margin: 0% 2%;
+        display: inline-block;
+        height: 100%;
+        flex-grow: 5;
+      }
+    } 
+    .bottom-row {
+      margin: 5%
+    }  
 }
 
 div.whatsnew {
-    @extend %panel;
     height: 100%;
     overflow: scroll;
-    // flex-grow: 5;
-    // padding-left: 50px;
-    // padding-right: 50px;
 }
 div.home-search {
     @extend %panel;
@@ -105,7 +150,6 @@ div.home-search {
     padding-right: 50px;
     padding-bottom: 5px;
 }
-
 div.tag-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -116,12 +160,13 @@ div.tag-buttons {
 }
 
 li {
-    list-style-type: none;
-  }
+  list-style-type: none;
+}
 
 .course-viewer{
   display: flex;
-  padding: 4em;
+  padding-top: 3em;
+  padding-bottom: 3em;
 
   #new-section-dialog {
     display: none;
@@ -147,6 +192,9 @@ li {
 
   .trix-content {
     background-color: $background-color;
+    li {
+      list-style-type: disc !important;
+    }
   }
 
   .sec-li {
@@ -174,12 +222,14 @@ li {
     color: black;
   }
 }
-
 .main{
   flex: 70%;
   background-color: $panel-color;
 }
 
+.card-link:hover {
+  text-decoration: none;
+}
 .card {
   color: $text-color;
   background-color: $card-color;
@@ -188,20 +238,23 @@ li {
   flex-direction: column;
 
   border: 2px solid $card-color;
+  border-radius: 5px;
 
-  .card-title-link {
-    font-size: large;
-  }
-  .card-title-link, .card-subtitle-link {
-    color: $text-color;
-  }
-  .card-title-link:hover, .card-subtitle-link:hover {
-    background-color: $hover-color;
-  }
   transition: all 0.1s ease-out;
+
+  .card-body {
+    margin-left: 3px;
+  }
 }
 .card:hover {
   border-bottom: 2px solid $card-hover;
   border-right: 2px solid $card-hover;
   transform: translate(-2px, -2px);
+  text-decoration: none;
+}
+
+ul.index {
+  li {
+    margin: 5px 0px;
+  }
 }

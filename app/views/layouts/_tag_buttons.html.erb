@@ -1,7 +1,11 @@
 <div class="tag-buttons">
+    <h4> Browse By Category </h4>
     <% tags_to_show.each do |tag| %>
-        <div class="tag-button">
-            <%= link_to tag.name, tag, class: "btn btn-primary" %>
-        </div>
-    <% end %>
+        <%= link_to tag, class:"tag-btn" do %>
+            <div class="tag-button">
+                <%= tag.name %>
+                <!-- <%= link_to tag.name, tag, class: "tag-btn" %> -->
+            </div>
+        <% end %> 
+    <% end %> 
 </div>

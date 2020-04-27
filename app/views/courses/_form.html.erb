@@ -23,18 +23,19 @@
       <%= f.text_field :description, class: 'form-control' %>
 
       <br />
-    
+
       <%=
         render 'course_viewer',
           course: @course,
           no_progress: true,
-          new_course: true,
-          f: f
+          new_course: true
       %>
+
+      <%= f.submit "Publish Course", class: "btn form-btn", id: "submit-course" %>
+
 
       <br />
       
-      <%= f.submit "Publish Course", class: "btn form-btn" %> 
     <% end %>
   </div>
 </div>
