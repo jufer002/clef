@@ -10,7 +10,11 @@
   <h4>
     Tags:
     <% @lesson_tags.each do |lesson_tag| %>
-    <%= lesson_tag.name %>
+    <%= link_to lesson_tag, class:"tag-btn" do %>
+    <div class="tag-button">
+      <%= lesson_tag.name %>
+    </div>
+    <% end %>
     <% end  %>
   </h4>
 </div>
