@@ -19,7 +19,7 @@
             no_progress: false,
             new_course: false
       %>
-      <% if false #current_user.id == @course.user_id %>
+      <% if false and current_user.id == @course.user_id %>
         <%= f.submit "Update Course", class: "btn form-btn", id: "update-course" %>
       <% end %>
     <% end %>
