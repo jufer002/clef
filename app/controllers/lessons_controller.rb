@@ -108,7 +108,11 @@ class LessonsController < ApplicationController
       puts @comment.errors.full_messages
     end
 
-    redirect_to Lesson.find(params[:id])
+    if params.has_key? "redirect_to"
+      redirect_to Course.find(params["redirect_to"])
+    else
+      redirect_to Lesson.find(params[:id])
+    end
   end
   
   private
