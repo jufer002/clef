@@ -13,6 +13,8 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
+    @lesson_tags = @lesson.tags
+    
     respond_to do |format|
       format.html
       format.json

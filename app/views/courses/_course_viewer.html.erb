@@ -283,6 +283,13 @@
           <h4>
             <p><button id="user-button" class="btn user-button"><%= lesson.user.username %></button></p>
           </h4>
+
+          <h4>
+            Tags:
+            <% lesson.tags.each do |lesson_tag| %>
+            <%= lesson_tag.name %>
+            <% end  %>
+          </h4>
         </div>
 
         <div id="user-modal" class="modal">
