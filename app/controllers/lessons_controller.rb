@@ -123,4 +123,12 @@ class LessonsController < ApplicationController
     def comment_params
       params.permit(:text)
     end
+
+    def sort
+      params[:lesson].each_with_index do |id, index|
+        Lesson.where('id = ?', id).update_all(position: index+1)
+      end
+      redirect_back(fallback_location: root_path)
+      # render nothing: true
+    end
 end
