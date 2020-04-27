@@ -3,6 +3,19 @@
 <html lang="en">
 	<%= render 'layouts/header' %>
 	<body>
+		<div class="welcome-banner">
+			<div class="banner-text">
+				<h1>Welcome to Clef!</h1>
+				<div class="banner-search"> 
+					<h3>Looking for something specific?</h3>
+					<%= render :partial => 'layouts/search_partial' %> 
+				</div>
+			</div>
+			
+		</div>
+		<div class="home-content">
+				<%= render :partial => 'layouts/tag_buttons', :locals => { :tags_to_show => get_tags()}%>
+		</div>
 		<div class="home">
 			<div class="flex-container top-row">
 				<div class="whats-new">

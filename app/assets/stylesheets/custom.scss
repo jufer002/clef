@@ -2,8 +2,8 @@
 @import "bootstrap";
 
 $background-color: #ffffff;
-$panel-color: darken($background-color, 20%);
-$navbar-color: darken($background-color, 5%);
+$panel-color: darken($background-color, 5%);
+$navbar-color: darken($background-color, 20%);
 $btn-color: lighten($background-color, 8%);
 $hover-color: darken($background-color, 50%);
 $card-color: darken($panel-color, 10%);
@@ -48,7 +48,9 @@ $text-color: black;
 }
 
 body { 
-  margin: 0; padding: 65px; @include thefont; 
+  margin: 0;
+  padding-top: 65px; 
+  @include thefont; 
 }
 
 .center {
@@ -70,12 +72,57 @@ body {
     }
 }
 
+.welcome-banner {
+  background-color: $panel-color;
+
+  width: 100%;
+  width: 100vw;
+
+  padding: 5%;
+
+  form.navbar-form.navbar-left {
+    padding: 0px 0px;
+    margin: 0px 0px;
+  }
+
+  .banner-text {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.home-content {
+  margin: 0% 5%;
+  .tag-buttons {
+    display: flex;
+    flex-direction: column;
+
+    .tag-button {
+      font-size: 14px;
+      border: 1px solid $navbar-color;
+      border-radius: 5px;
+      padding: 4px;
+      margin: 0.25%;
+      transition: all 0.1s ease-out;
+    }
+    .tag-button:hover {
+      text-decoration: none;
+      transform: translate(4px, 0px);
+      border-color: $hover-color;
+    }
+    .tag-btn:hover {
+      text-decoration: none;
+      background-color: $background-color;
+      color: $text-color;
+    }
+  }
+}
 .home {
-    padding-top: 2%;
+    // padding-top: 2%;
     // margin-top: 5%;
     box-sizing: border-box;
     height: 800px;
     background-color: $background-color;
+    
     .top-row {
         display: flex;
         justify-content: space-around;
@@ -184,7 +231,6 @@ li {
     color: black;
   }
 }
-
 .main{
   flex: 70%;
   background-color: $panel-color;
@@ -201,6 +247,7 @@ li {
   flex-direction: column;
 
   border: 2px solid $card-color;
+  border-radius: 5px;
 
   transition: all 0.1s ease-out;
 
