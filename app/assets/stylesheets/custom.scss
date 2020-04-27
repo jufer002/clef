@@ -6,7 +6,7 @@ $panel-color: darken($background-color, 5%);
 $navbar-color: darken($background-color, 20%);
 $btn-color: lighten($background-color, 8%);
 $hover-color: darken($background-color, 50%);
-$card-color: darken($panel-color, 10%);
+$card-color: $panel-color;
 $card-hover: darken($card-color, 20%);
 $text-color: black;
 
@@ -70,6 +70,7 @@ body {
       background-color: $panel-color;
     }
 }
+
 .welcome-banner {
   background-color: $panel-color;
 
@@ -102,6 +103,10 @@ body {
       .tag-buttons {
         display: flex;
         flex-direction: column;
+
+        border-right: 2px solid $panel-color;
+        padding-right: 15px;
+
         .tag-button {
           font-size: 14px;
           border: 1px solid $navbar-color;
@@ -122,7 +127,7 @@ body {
         }
       }
       .whats-new{
-        margin: 0% 2%;
+        // margin: 0% 2%;
         display: inline-block;
         height: 100%;
         flex-grow: 5;
@@ -134,12 +139,8 @@ body {
 }
 
 div.whatsnew {
-    @extend %panel;
     height: 100%;
     overflow: scroll;
-    // flex-grow: 5;
-    // padding-left: 50px;
-    // padding-right: 50px;
 }
 div.home-search {
     @extend %panel;
@@ -149,7 +150,6 @@ div.home-search {
     padding-right: 50px;
     padding-bottom: 5px;
 }
-
 div.tag-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -251,4 +251,10 @@ li {
   border-right: 2px solid $card-hover;
   transform: translate(-2px, -2px);
   text-decoration: none;
+}
+
+ul.index {
+  li {
+    margin: 5px 0px;
+  }
 }
