@@ -244,17 +244,20 @@
     <% end %>
     <% end # if logged_in? %>
 
+    <br>
+
     <% if logged_in? %>
-    <% if total_lessons != 0 and not no_progress %>
-    Course progress: <%= (( completed_lessons / total_lessons )*10000).to_i / 100.0 %> %
-    <% end %>
+      <% if total_lessons == 0 %>
+        This course has no lessons, so there's no way to keep track of your progress.      
+      <% elsif total_lessons != 0 and not no_progress %>
+        Course progress: <%= (( completed_lessons / total_lessons )*10000).to_i / 100.0 %> %      
+      <% elsif not no_progress %>
+        <% if completed_lessons == total_lessons %>
+          You're done!
+        <% end %>
+      <% end %>
     <% end %>
     <br />
-    <% if not no_progress %>
-    <% if completed_lessons == total_lessons %>
-    You're done! You get this [insert something pleasurable].
-    <% end %>
-    <% end %>
   </div>
   <div class="main" aria-live="polite">
     <!-- New section dialog -->
