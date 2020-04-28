@@ -5,8 +5,9 @@ class Lesson < ApplicationRecord
   has_many :comments
 
   # Lesson tag relations
-  has_many :lesson_tags
-  has_many :tags, through: :lesson_tags
+  has_many :lesson_tags, inverse_of: :lesson
+  has_many :tags, through: :lesson_tags 
+  accepts_nested_attributes_for :lesson_tags
 
   # Validates that the article's title exists, is long enough, and is unique
   validates :title, presence: true#, length: { minimum: 6 }, uniqueness: true

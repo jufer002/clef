@@ -10,10 +10,17 @@
 <%= f.radio_button :tags, Tag.find_by(category: "difficulty", name: "intermediate") %> Intermediate<br />
 <%= f.radio_button :tags, Tag.find_by(category: "difficulty", name: "hard") %> Hard<br />-->
 
-<%= fields_for(tag_relation) do |tg| %>
+
+<!--<%= f.label :tag_ids %>-->
+<%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name %>
+
+
+<!--<%= fields_for(tag_relation) do |tg| %>
     <div class="list">
         <%= tg.label "Add a Tag"%><br />
         <%= tg.collection_select(:tags, Tag.all, :id, :name, {}, {:multiple => true})%>
     </div>
-<%end%>
+<%end%>-->
+
+
 

@@ -26,6 +26,8 @@ class LessonsController < ApplicationController
     @tags = Tag.all
 
     @lesson_tag = LessonTag.new
+
+      
   end
 
   # GET /lessons/1/edit
@@ -40,6 +42,10 @@ class LessonsController < ApplicationController
     # The lesson has been composed by the signed-in user.
     @lesson.user_id = current_user.id
 
+    puts lesson_params
+    puts Tag.find_by(id: lesson_params[:tag_ids]).valid?
+    puts @lesson.valid?
+    puts @lesson.errors.full_messages
     respond_to do |format|
       if @lesson.save
         flash[:success] = "#{@lesson.title} has been published!"
@@ -117,10 +123,14 @@ class LessonsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lesson_params
-      params.require(:lesson).permit(:title, :body)
+      params.require(:lesson).permit(:title, :body, :tag_ids => [])
     end
 
     def comment_params
       params.permit(:text)
+    end
+
+    def tag_params
+      params.require(:lesson).permit(tag_ids: [])
     end
 end
