@@ -13,6 +13,8 @@ class LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
+    @lesson_tags = @lesson.tags
+    
     respond_to do |format|
       format.html
       format.json
@@ -112,7 +114,11 @@ class LessonsController < ApplicationController
       puts @comment.errors.full_messages
     end
 
-    redirect_to Lesson.find(params[:id])
+    if params.has_key? "redirect_to"
+      redirect_to Course.find(params["redirect_to"])
+    else
+      redirect_to Lesson.find(params[:id])
+    end
   end
   
   private
@@ -130,7 +136,11 @@ class LessonsController < ApplicationController
       params.permit(:text)
     end
 
-    def tag_params
-      params.require(:lesson).permit(tag_ids: [])
+    def sort
+      params[:lesson].each_with_index do |id, index|
+        Lesson.where('id = ?', id).update_all(position: index+1)
+      end
+      redirect_back(fallback_location: root_path)
+      # render nothing: true
     end
 end

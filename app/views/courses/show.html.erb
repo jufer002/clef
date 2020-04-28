@@ -2,26 +2,30 @@
   <p id="notice"><%= notice %></p>
 
   <div class="center jumbotron">
-    <h1><%= @course.title %></h1>
+    <h1>
+      <%= @course.title %>
+    </h1>
 
     <h2>
       <%= @course.description  %>
     </h2>
+
+    <h4>By: <%= link_to User.find(@course.user_id).username, User.find(@course.user_id) %></h4>
     <br />
   </div>
 
   <div>
     <%= form_with model: @course, local: true do |f| %>
-      <%=
+    <%=
           render 'course_viewer',
             total_lessons: @total_lessons, completed_lessons: @completed_lessons,
             lessons_completed_by_user: @lessons_completed_by_user, course: @course,
             no_progress: false,
             new_course: false
       %>
-      <% if false and current_user.id == @course.user_id %>
-        <%= f.submit "Update Course", class: "btn form-btn", id: "update-course" %>
-      <% end %>
+    <% if false and current_user.id == @course.user_id %>
+    <%= f.submit "Update Course", class: "btn form-btn", id: "update-course" %>
+    <% end %>
     <% end %>
   </div>
 

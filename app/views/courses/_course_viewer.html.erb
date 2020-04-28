@@ -1,15 +1,27 @@
 <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
 
+<!-- For sortable elements -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
   // Global variable that stores the section which the new-lesson button was clicked in
   var containingSection;
   // Global array of arrays. Outer array contains sections, inner contains lesson.
-  var sections = {
-    <% course.course_contents.map { |content| content.section_id }.each do |section_id| %>
-      <%= section_id %>: <%= Section.find(section_id).lessons.map { |lsn| lsn.id } %>,
-    <% end %>
-  };
+  var sections;
+
+  $(document).ready(function() {
+    sections = {
+      <% course.course_contents.map { | content | content.section_id }.each do | section_id | %>
+        <%= section_id %>: <%= Section.find(section_id).lessons.map { | lsn | lsn.id } %>,
+      <% end %>
+    };
+
+  hideSectionDialog();
+  hideActiveLesson();
+  });
+
 
   // Return a unique identifier for a section.
   // For use internal to javascript, not the same as
@@ -31,7 +43,7 @@
   // lessons.
   function getNewLessonID(section_id) {
     lesson_ids = sections[section_id];
-    
+
     if (lesson_ids.length === 0) {
       return 0;
     }
@@ -65,7 +77,7 @@
     new_lesson_dialog.style.display = "none";
 
     // Hide attachments.
-    $("#lesson-container").children().each(function() {
+    $("#lesson-container").children().each(function () {
       $(this).attr("style", "display: none;");
       // Delete the stray bit of text that appears.
       /*if ($(this).get(0).data === "﻿" || $(this).get(0).data === '">    ') {
@@ -92,11 +104,11 @@
 
     div = document.getElementById("new-section-dialog");
     div.style.display = "block";
-    
+
     setTimeout(() => {
       div.style.opacity = 1;
     }, 0.001);
-    
+
   }
 
   function showLessonEditor(section_id) {
@@ -109,7 +121,7 @@
 
     div = document.getElementById("new-lesson-dialog");
     div.style.display = "block";
-    
+
     setTimeout(() => {
       div.style.opacity = 1;
     }, 0.001);
@@ -180,7 +192,7 @@
   function addSection() {
     hideActiveLesson();
     hideSectionDialog();
-    
+
     section_title = document.getElementById("section-title").value;
     addToSectionList(section_title);
   }
@@ -191,56 +203,62 @@
   <div class="side">
     <ol class="section-head" id="section-head">
       <% if logged_in? %>
-        <% total_lessons = 0.0 %>
-        <% completed_lessons = 0.0 %>
-        <% lessons_completed_by_user = Set.new( Progress.where(user_id: current_user.id).map { |progress| progress.lesson_id } ) %>
+      <% total_lessons = 0.0 %>
+      <% completed_lessons = 0.0 %>
+      <% lessons_completed_by_user = Set.new( Progress.where(user_id: current_user.id).map { |progress| progress.lesson_id } ) %>
       <% end %>
       <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
-        <li class="sec-li">
-          <h3><%= section.title %></h3>
-          <ol id="section[<%= section.id %>]-lesson-ol">
-            <% section.lessons.each do |lesson| %>
-              <!-- Tab Links -->
-              <li class="lsn" id="section[<%= section.id %>]lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %></li>
+      <li class="sec-li">
+        <h3><%= section.title %></h3>
+        <ol id="section[<%= section.id %>]-lesson-ol" class="lessons">
+          <% section.lessons.each do |lesson| %>
+          <!-- Tab Links -->
+          <li class="lsn" id="section[<%= section.id %>]lesson[<%= lesson.id %>]"
+            onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %></li>
 
-              <% if logged_in? and not no_progress %>
-                <% if lessons_completed_by_user.include?(lesson.id) %>
-                  <% completed_lessons += 1 %>
-                <% end %>
-                <% total_lessons += 1 %>
-              <% end %>
-            
-            <% end %>
-            <% if logged_in? %>
-              <% if current_user.id == course.user_id %>
-                <button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor(<%= section.id %>)">Add a new lesson to this section</button>
-                <%#= link_to "Add a new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn option-btn" %>
-              <% end %>
-            <% end %>
-          </ol>
-        </li>
+          <% if logged_in? and not no_progress %>
+          <% if lessons_completed_by_user.include?(lesson.id) %>
+          <% completed_lessons += 1 %>
+          <% end %>
+          <% total_lessons += 1 %>
+          <% end %>
+
+          <% end %>
+          <% if logged_in? %>
+          <% if current_user.id == course.user_id %>
+          <button type="button" id="show-new-lesson-btn" class="btn option-btn"
+            onclick="showLessonEditor(<%= section.id %>)">Add a new lesson to this section</button>
+          <%#= link_to "Add a new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn option-btn" %>
+          <% end %>
+          <% end %>
+        </ol>
+      </li>
       <% end %>
     </ol>
     <% if logged_in? %>
-      <br />
-      <% if current_user.id == course.user_id or new_course %>
-        <button type="button" id="show-new-section-btn" class="btn option-btn" onclick="showNewSection(event)">Add a new section to this course</button>
+    <br />
+    <% if current_user.id == course.user_id or new_course %>
+    <button type="button" id="show-new-section-btn" class="btn option-btn" onclick="showNewSection(event)">Add a new
+      section to this course</button>
 
-        <%#= link_to "Add a new section to this course", new_section_path(@course), class: "btn option-btn" %>
-      <% end %>
+    <%#= link_to "Add a new section to this course", new_section_path(@course), class: "btn option-btn" %>
+    <% end %>
     <% end # if logged_in? %>
 
+    <br>
+
     <% if logged_in? %>
-      <% if total_lessons != 0 and not no_progress %>
-        Course progress: <%= (( completed_lessons / total_lessons )*10000).to_i / 100.0 %> %
+      <% if total_lessons == 0 %>
+        This course has no lessons, so there's no way to keep track of your progress.      
+      <% elsif total_lessons != 0 and not no_progress %>
+        Course progress: <%= (( completed_lessons / total_lessons )*10000).to_i / 100.0 %> %      
+      <% elsif not no_progress %>
+        <% if completed_lessons == total_lessons %>
+          You're done!
+        <% end %>
       <% end %>
     <% end %>
-    <br/>
-    <% if not no_progress %>
-      <% if completed_lessons == total_lessons %>
-        You're done! You get this [insert something pleasurable].
-      <% end %>
-    <% end %>
+    <br />
   </div>
   <div class="main" aria-live="polite">
     <!-- New section dialog -->
@@ -251,25 +269,121 @@
     </div>
     <!-- New lesson dialog -->
     <div class="new-lesson-dialog" id="new-lesson-dialog">
-        <h4>Compose a new lesson</h4>
-        <hr>
-        <label for="lesson_title">Lesson Title</label>
-        <input class="form-control" type="text" name="lesson[title]" id="lesson-title">
-        <hr>
-        <trix-editor class="trix-content" id="lesson_body_in_editor" data-blob-url-template="http://localhost:3000/rails/active_storage/blobs/:signed_id/:filename" data-direct-upload-url="http://localhost:3000/rails/active_storage/direct_uploads"></trix-editor>
-        <hr>
-        <input value="Compose lesson" type="button" class="btn form-btn" onclick="addLessonToSection();"/>
+      <h4>Compose a new lesson</h4>
+      <hr>
+      <label for="lesson_title">Lesson Title</label>
+      <input class="form-control" type="text" name="lesson[title]" id="lesson-title">
+      <hr>
+      <trix-editor class="trix-content" id="lesson_body_in_editor"
+        data-blob-url-template="http://localhost:3000/rails/active_storage/blobs/:signed_id/:filename"
+        data-direct-upload-url="http://localhost:3000/rails/active_storage/direct_uploads"></trix-editor>
+      <hr>
+      <input value="Compose lesson" type="button" class="btn form-btn" onclick="addLessonToSection();" />
     </div>
     <!-- Tab Links -->
     <div id="lesson-container">
       <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
-        <% section.lessons.each do |lesson| %>
-          <div id="section[<%= section.id %>]lessonbody[<%= lesson.id %>]" class="lsn-body">
-            <p><%= lesson.body %></p>
+      <% section.lessons.each do |lesson| %>
+      <div id="section[<%= section.id %>]lessonbody[<%= lesson.id %>]" class="lsn-body">
+        <p id="notice"><%= notice %></p>
+
+        <script src="/js/show.js.erb"></script>
+
+        <div class="center lesson-show-head">
+          <h2><%= lesson.title %></h2>
+          <h4>
+            <p><button id="user-button" class="btn user-button"><%= lesson.user.username %></button></p>
+          </h4>
+
+          <h4>
+            Tags:
+            <% lesson.tags.each do |lesson_tag| %>
+            <%= link_to lesson_tag, class:"tag-btn" do %>
+            <div class="tag-button">
+              <%= lesson_tag.name %>
+            </div>
+            <% end %>
+            <% end  %>
+          </h4>
+        </div>
+
+        <div id="user-modal" class="modal">
+          <!-- Modal content -->
+          <div class="user-modal-content">
+            <div class="modal-header">
+              <span class="close">&times;</span>
+              <h2><%= link_to lesson.user.username, lesson.user %></h2>
+            </div>
+            <div class="modal-body">
+              <p>This will contain more information about the user who wrote this lesson.</p>
+            </div>
           </div>
+        </div>
+
+        <br />
+
+        <div class="container lesson">
+          <p>
+            <%= lesson.body %>
+          </p>
+        </div>
+
+        <% if logged_in? %>
+        <% if !Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id}).include?(lesson.id) %>
+        <%= button_to 'Complete!', {:controller => "progress", :action => "complete"}, params: {lesson_id: lesson.id} %>
+        <% else %>
+        <%= button_to 'Undo Completion', {:controller => "progress", :action => "undo"}, params: {lesson_id: lesson.id} %>
         <% end %>
+        <% end %>
+        <div class="comment-section container">
+          <h3>Comments</h3>
+
+          <% if logged_in? %>
+          <%= form_with model: @comment, url: lesson do |f| %>
+          <%= f.text_area :text, class:"comment-text"%>
+
+          <%= f.hidden_field(:redirect_to, value: course.id) %>
+          <%= f.submit "Publish", class: "publish-btn btn" %>
+          <% end %>
+          <% end # if logged_in? %>
+          <br />
+          <div class="comments-container container">
+            <% lesson.comments.each do |comment| %>
+            <div class="comment-container container">
+              <strong><%= comment.user.username %></strong>: <%= comment.text %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+      <% end %>
       <% end %>
     </div>
   </div>
 </div>
 
+<script>
+  /*
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  $(".lessons").sortable({
+    axis: 'y',
+    connectWith: ".lessons",
+    update: function (event, ui) {
+      $.post($(this).data('update-url'), $(this).sortable('serialize'));
+    },
+
+    receive: function (event, ui) {
+      console.log("this function will add the lesson to another section");
+
+    },
+    remove: function (event, ui) {
+      console.log("This function will remove the lesson from the origin section");
+    }
+  });*/
+</script>
