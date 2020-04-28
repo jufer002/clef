@@ -6,13 +6,14 @@
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
-  $(document).ready(function () {
-    // Global variable that stores the section which the new-lesson button was clicked in
-    var containingSection;
-    // Global array of arrays. Outer array contains sections, inner contains lesson.
-    var sections = {
-      <% course.course_contents.map { | content | content.section_id
-  }.each do | section_id | %>
+  // Global variable that stores the section which the new-lesson button was clicked in
+  var containingSection;
+  // Global array of arrays. Outer array contains sections, inner contains lesson.
+  var sections;
+
+  $(document).ready(function() {
+    sections = {
+      <% course.course_contents.map { | content | content.section_id }.each do | section_id | %>
         <%= section_id %>: <%= Section.find(section_id).lessons.map { | lsn | lsn.id } %>,
       <% end %>
     };
@@ -363,6 +364,7 @@
 </div>
 
 <script>
+  /*
   $.ajaxSetup({
     headers: {
       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -383,5 +385,5 @@
     remove: function (event, ui) {
       console.log("This function will remove the lesson from the origin section");
     }
-  });
+  });*/
 </script>
