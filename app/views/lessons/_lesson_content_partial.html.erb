@@ -10,14 +10,15 @@
   <h4>
     Tags:
     <% if lesson.tags.empty? %>
-    None
-    <% end %>
-    <% lesson.tags.each do |lesson_tag| %>
-    <%= link_to lesson_tag, class:"tag-btn" do %>
-    <div class="tag-button">
-      <%= lesson_tag.name %>
-    </div>
-    <% end %>
+      None
+    <% else %>
+      <% lesson.tags.each do |lesson_tag| %>
+        <%= link_to lesson_tag, class:"tag-btn" do %>
+          <div class="tag-button">
+            <%= lesson_tag.name %>
+          </div>
+        <% end %>
+      <% end %>
     <% end  %>
   </h4>
 </div>
