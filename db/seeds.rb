@@ -115,7 +115,7 @@ CourseTag.import coursetags
 
 
 mess_is_mine_body = "TODO"
-mess_is_mine = Lesson.create(title: "\"Mess is Mine\" by Vance Joy", body: mess_is_mine_body, user_id: users.sample.id)
+mess_is_mine = Lesson.create(title: "\"Mess is Mine\" by Vance Joy", body: mess_is_mine_body, user_id: User.all.sample.id)
 LessonTag.create(lesson_id: mess_is_mine.id, tag_id: Tag.where(name: "guitar").sample.id)
 LessonTag.create(lesson_id: mess_is_mine.id, tag_id: Tag.where(name: "hard").sample.id)
 like_gold_body = "TODO: add chords and location, and add way to pick.

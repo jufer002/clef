@@ -245,17 +245,20 @@
     <% end %>
     <% end # if logged_in? %>
 
+    <br>
+
     <% if logged_in? %>
-    <% if total_lessons != 0 and not no_progress %>
-    Course progress: <%= (( completed_lessons / total_lessons )*10000).to_i / 100.0 %> %
-    <% end %>
-    <% end %>
-    <br />
-    <% if not no_progress %>
-      <% if false# completed_lessons == total_lessons %>
-        You're done! You get this [insert something pleasurable].
+      <% if total_lessons == 0 %>
+        This course has no lessons, so there's no way to keep track of your progress.      
+      <% elsif total_lessons != 0 and not no_progress %>
+        Course progress: <%= (( completed_lessons / total_lessons )*10000).to_i / 100.0 %> %      
+      <% elsif not no_progress %>
+        <% if completed_lessons == total_lessons %>
+          You're done!
+        <% end %>
       <% end %>
     <% end %>
+    <br />
   </div>
   <div class="main" aria-live="polite">
     <!-- New section dialog -->
@@ -283,76 +286,8 @@
       <% section.lessons.each do |lesson| %>
       <div id="section[<%= section.id %>]lessonbody[<%= lesson.id %>]" class="lsn-body">
         <p id="notice"><%= notice %></p>
-
-        <script src="/js/show.js.erb"></script>
-
-        <div class="center lesson-show-head">
-          <h2><%= lesson.title %></h2>
-          <h4>
-            <p><button id="user-button" class="btn user-button"><%= lesson.user.username %></button></p>
-          </h4>
-
-          <h4>
-            Tags:
-            <% lesson.tags.each do |lesson_tag| %>
-              <%= link_to lesson_tag, class:"tag-btn" do %>
-                <div class="tag-button">
-                  <%= lesson_tag.name %>
-                </div>
-              <% end %>
-            <% end  %>
-          </h4>
-        </div>
-
-        <div id="user-modal" class="modal">
-          <!-- Modal content -->
-          <div class="user-modal-content">
-            <div class="modal-header">
-              <span class="close">&times;</span>
-              <h2><%= link_to lesson.user.username, lesson.user %></h2>
-            </div>
-            <div class="modal-body">
-              <p>This will contain more information about the user who wrote this lesson.</p>
-            </div>
-          </div>
-        </div>
-
-        <br />
-
-        <div class="container lesson">
-          <p>
-            <%= lesson.body %>
-          </p>
-        </div>
-
-        <% if logged_in? %>
-          <% if !Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id}).include?(lesson.id) %>
-            <%= button_to 'Complete!', {:controller => "progress", :action => "complete"}, params: {lesson_id: lesson.id} %>
-          <% else %>
-            <%= button_to 'Undo Completion', {:controller => "progress", :action => "undo"}, params: {lesson_id: lesson.id} %>
-          <% end %>
-        <% end %>
-        <div class="comment-section container">
-          <h3>Comments</h3>
-
-          <% if logged_in? %>
-            <%= form_with model: @comment, url: lesson do |f| %>
-            <%= f.text_area :text, class:"comment-text"%>
-
-            <%= f.hidden_field(:redirect_to, value: course.id) %>
-            <%= f.submit "Publish", class: "publish-btn btn" %>
-            <% end %>
-          <% end # if logged_in? %>
-          <br />
-          <div class="comments-container container">
-            <% lesson.comments.each do |comment| %>
-            <div class="comment-container container">
-              <strong><%= comment.user.username %></strong>: <%= comment.text %>
-            </div>
-            <% end %>
-          </div>
-        </div>
-
+        <!-- Lesson show -->
+        <%= render partial: "lessons/lesson_content_partial", locals: { :lesson => lesson, :course => course } %>
       </div>
       <% end %>
       <% end %>

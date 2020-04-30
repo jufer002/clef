@@ -17,10 +17,10 @@
           id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
-        <li><%= link_to "Lessons", lessons_path, class: "btn nav-btn" %></li>
-        <li><%= link_to "Courses", courses_path, class: "btn nav-btn" %></li>
-        <li><%= link_to "Create Course", compose_course_path, class: "btn nav-btn" %>
-        <li><%= link_to "Compose Lesson", compose_lesson_path, class: "btn nav-btn" %>
+        <li><%= image_tag("lesson.png", :alt => "Lessons") %><%= link_to "Lessons", lessons_path, class: "btn nav-btn" %></li>
+        <li><%= image_tag("course.png", :alt => "Courses") %><%= link_to "Courses", courses_path, class: "btn nav-btn" %></li>
+        <li><%= image_tag("add course.png", :alt => "Add new course") %><%= link_to "Create Course", compose_course_path, class: "btn nav-btn" %>
+        <li><%= image_tag("add lesson.png", :alt => "Ad new lesson") %><%= link_to "Compose Lesson", compose_lesson_path, class: "btn nav-btn" %>
         <li><%= link_to "Log out", logout_path, class: "btn nav-btn", method: :delete %></li>
         
         <% else %>
