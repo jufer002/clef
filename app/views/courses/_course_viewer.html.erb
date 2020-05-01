@@ -107,6 +107,12 @@
     hideSectionDialog();
     hideActiveLesson();
 
+    lesson_title = document.getElementById("lesson-title").value;
+    document.getElementById("lesson-title").value = "";
+    //trix_content = document.getElementById("lesson_body_in_editor").innerHTML;
+    trix_content = document.getElementById("lesson_body_in_editor").value;
+    document.getElementById("lesson_body_in_editor").innerText = "";
+
     var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
     json_response = $.getJSON({
       type: "POST",
@@ -118,16 +124,7 @@
       },
       success: function() {console.log('success')}
     }).done(function() {
-      new_lesson_id = json_response['id']
-      $("#lesson")
-
-      lesson_title = document.getElementById("lesson-title").value;
-      document.getElementById("lesson-title").value = "";
-      //trix_content = document.getElementById("lesson_body_in_editor").innerHTML;
-      trix_content = document.getElementById("lesson_body_in_editor").value;
-      document.getElementById("lesson_body_in_editor").innerText = "";
-
-      lesson_id = getNewLessonID(containingSection);
+      lesson_id = json_response.responseJSON['id'];
 
       sections[containingSection].push(lesson_id);
 

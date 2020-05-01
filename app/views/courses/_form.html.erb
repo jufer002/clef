@@ -5,21 +5,40 @@
 <script
   src="https://code.jquery.com/jquery-3.5.0.js"
   integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
-  crossorigin="anonymous"></script>
+  crossorigin="anonymous">
+</script>
 
 <script>
   var sections;
   $(document).ready(function() {
-    $('#submit-course').click(function() {
-      console.log(sections);
-    })
+    // $('#submit-course').click(function() {
+    //   var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+    //   $.ajax({
+    //     type: "POST",
+    //     url: '/courses',
+    //     data: {
+    //       'authenticity_token': AUTH_TOKEN,
+    //       'course': {'title': $("#course_title").value, 'description': $("#course_description").value,
+    //         'sections': sections},
+    //       'no_redirect': true
+    //     }
+    //   });
+    // })
+
+    
+    $('#course-form').submit(function() {
+      // Create hidden input field with section-lesson structure.
+      $("#course-form").append(`<input type="hidden" name=sections value=${JSON.stringify(sections)}></input>`);
+
+      return true;
+    });
   });
 
 </script>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_with model: course, local: true do |f| %>
+    <%= form_with model: course, local: true, id: 'course-form' do |f| %>
       <% if course.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(course.errors.count, "error") %> prohibited this course from being saved:</h2>
@@ -52,9 +71,9 @@
       <br/>
       <%= render :partial => "layouts/add_tag", :locals => { :f => f } %>
 
-      <input name="commit" value="Publish Course" class="btn form-btn" id="submit-course" data-disable-with="Publish Course">
+      <input name="commit" type="submit" value="Publish Course" class="btn form-btn" id="submit-course" data-disable-with="Publish Course">
 
-      <%#= need type="submit"  above f.submit "Publish Course", class: "btn form-btn", id: "submit-course" %>
+      <%#= need type="submit" above f.submit "Publish Course", class: "btn form-btn", id: "submit-course" %>
       <br />
     <% end %>
   </div>
