@@ -102,6 +102,9 @@ class CoursesController < ApplicationController
           # Add the lessons to the sections.
           lessons.each do |lesson|
             lesson.save
+            puts '********************************************'
+            puts lesson.errors.full_messages
+            puts '********************************************'
             if not add_lesson_to_section(lesson, section.id)
               return false
             end

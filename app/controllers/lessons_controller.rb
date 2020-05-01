@@ -50,7 +50,7 @@ class LessonsController < ApplicationController
     # puts @lesson.errors.full_messages
     respond_to do |format|
       if @lesson.save
-        flash[:success] = "#{@lesson.title} has been published!"
+        #flash[:success] = "#{@lesson.title} has been published!"
 
         # Attach attachments
         #@lesson.attachments.attach(params[:lesson][:attachments])
@@ -66,13 +66,20 @@ class LessonsController < ApplicationController
           # Otherwise, just redirect to the lesson.
           redirect_page = @lesson
         end
+
+        puts 'goodbye~!!'
         
-        format.html { redirect_to redirect_page }
-        format.json { render :show, status: :created, location: @lesson }
+        if not params.has_key?('no_redirect')
+          format.html { redirect_to redirect_page }
+        
+          format.json { render :show, status: :created, location: @lesson }
+        else
+          format.js { render "", json: @lesson }
+        end
       else
-        
         format.html { render :new }
         format.json { render json: @lesson.errors, status: :unprocessable_entity }
+        format.js { render json: @lesson.errors, status: :unprocessable_entity }
       end
     end
   end
