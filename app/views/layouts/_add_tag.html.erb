@@ -1,7 +1,15 @@
-<div class="custom-control custom-checkbox">
+<br/>
+<label class="tag-button">Tag<br />
+<div class="wrapping">
     
-    <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name %>
-
+    <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name, {}, class: "toggle1" do |b| %>
+        
+            <%= b.check_box %>
+            <%= b.label class:"toggle" do%>
+                <%= b.text.upcase%>
+            <% end %>
+        
+    <%end%>
 </div>
 
 
