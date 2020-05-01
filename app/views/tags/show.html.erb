@@ -1,10 +1,13 @@
 <body class="index">
   <p id="notice"><%= notice %></p>
 
-  <h1><%=@tag.name%></h1>
+  Lessons with tag: <h1><%=@tag.name%></h1>
 
   <table class="index">
     <tbody>
+      <% if @lessons.empty? %>
+        No lessons match that tag
+      <% else %>
       <% @lessons.each do |lesson| %>
         <tr>
           <%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson } %>
@@ -14,6 +17,7 @@
         <tr>
           <%= render :partial => "layouts/course_partial", :locals => { :course => course } %>
         <tr>
+      <% end %>
       <% end %>
     </tbody>
   </table> 
