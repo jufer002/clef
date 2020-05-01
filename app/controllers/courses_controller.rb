@@ -51,7 +51,7 @@ class CoursesController < ApplicationController
         format.html { redirect_to @course }
         format.json { render :show, status: :created, location: @course }
       else
-        format.html { render :new }
+        format.html { render new_course_path }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
     end
@@ -96,9 +96,8 @@ class CoursesController < ApplicationController
     end
 
     def update_section_chunks(section_chunks)
-      section_chunks.keys do |section_id|
+      section_chunks.keys.each do |section_id|
         if add_section_to_course(Section.find(section_id), @course.id)
-
           lesson_ids = section_chunks[section_id]
 
           # Add the lessons to the sections.
