@@ -96,6 +96,10 @@ class CoursesController < ApplicationController
     end
 
     def update_section_chunks(section_chunks)
+      if section_chunks.empty?
+        return false
+      end
+      
       section_chunks.keys.each do |section_id|
         if add_section_to_course(Section.find(section_id), @course.id)
           lesson_ids = section_chunks[section_id]
