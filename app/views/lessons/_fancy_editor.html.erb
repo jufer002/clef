@@ -8,7 +8,7 @@
       <%= f.label :body %>
       <%= f.rich_text_area :body %>
 
-      <%= render :partial => "layouts/add_tag", :locals => { :f => f, :tag_relation => @lesson_tags, :tag => @tags }%>
+      <%= render :partial => "layouts/add_tag", :locals => { :f => f}%>
 
       <% if params.has_key?('lesson') %>
         <% if params['lesson'].has_key?('section_id') %>

@@ -5,8 +5,9 @@ class Course < ApplicationRecord
   has_many :sections, through: :course_contents
 
   #course tag relations
-  has_many :course_tags
+  has_many :course_tags, inverse_of: :course
   has_many :tags, through: :course_tags
+  accepts_nested_attributes_for :course_tags
 
   # Validates that the course's title exists
   validates :title, presence: true

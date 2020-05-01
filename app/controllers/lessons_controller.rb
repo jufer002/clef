@@ -44,10 +44,10 @@ class LessonsController < ApplicationController
     # The lesson has been composed by the signed-in user.
     @lesson.user_id = current_user.id
 
-    puts lesson_params
-    puts Tag.find_by(id: lesson_params[:tag_ids]).valid?
-    puts @lesson.valid?
-    puts @lesson.errors.full_messages
+    # puts lesson_params
+    # puts Tag.find_by(id: lesson_params[:tag_ids]).valid?
+    # puts @lesson.valid?
+    # puts @lesson.errors.full_messages
     respond_to do |format|
       if @lesson.save
         flash[:success] = "#{@lesson.title} has been published!"
