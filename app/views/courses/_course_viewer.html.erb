@@ -274,22 +274,26 @@
       <label for="lesson_title">Lesson Title</label>
       <input class="form-control" type="text" name="lesson[title]" id="lesson-title">
       <hr>
-      <trix-editor class="trix-content" id="lesson_body_in_editor"
-        data-blob-url-template="http://localhost:3000/rails/active_storage/blobs/:signed_id/:filename"
-        data-direct-upload-url="http://localhost:3000/rails/active_storage/direct_uploads"></trix-editor>
+      <%= form_with model: @lesson do |f| %>
+        <%= f.rich_text_area :body, id: 'lesson_body_in_editor', class: 'trix-content' %>
+      <% end %>
+        <!--
+        <trix-editor class="trix-content" id="lesson_body_in_editor"
+          data-blob-url-template="http://localhost:3000/rails/active_storage/blobs/:signed_id/:filename"
+          data-direct-upload-url="http://localhost:3000/rails/active_storage/direct_uploads"></trix-editor> -->
       <hr>
       <input value="Compose lesson" type="button" class="btn form-btn" onclick="addLessonToSection();" />
     </div>
     <!-- Tab Links -->
     <div id="lesson-container">
       <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
-      <% section.lessons.each do |lesson| %>
-      <div id="section[<%= section.id %>]lessonbody[<%= lesson.id %>]" class="lsn-body">
-        <p id="notice"><%= notice %></p>
-        <!-- Lesson show -->
-        <%= render partial: "lessons/lesson_content_partial", locals: { :lesson => lesson, :course => course } %>
-      </div>
-      <% end %>
+        <% section.lessons.each do |lesson| %>
+          <div id="section[<%= section.id %>]lessonbody[<%= lesson.id %>]" class="lsn-body">
+            <p id="notice"><%= notice %></p>
+            <!-- Lesson show -->
+            <%= render partial: "lessons/lesson_content_partial", locals: { :lesson => lesson, :course => course } %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

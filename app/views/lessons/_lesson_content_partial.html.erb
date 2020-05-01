@@ -58,13 +58,14 @@
 
 
   <% if logged_in? %>
-  <%= form_with model: @comment, url: lesson do |f| %>
-  <%= f.text_area :text, class:"comment-text"%>
-  <% if @course != nil %>
-  <%= f.hidden_field(:redirect_to, value: @course.id) %>
-  <% end %>
-  <%= f.submit "Publish", class: "publish-btn btn" %>
-  <% end %>
+      <%= form_with model: @comment, url: lesson do |f| %>
+      <%= f.text_area :text, class:"comment-text"%>
+    <% if @course != nil %>
+      <%= f.hidden_field(:redirect_to, value: @course.id) %>
+    <% end %>
+    
+    <%= f.submit "Publish", class: "publish-btn btn" %>
+    <% end %>
   <% end # if logged_in? %>
   <br />
   <div class="comments-container container">

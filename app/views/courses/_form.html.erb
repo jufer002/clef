@@ -30,13 +30,12 @@
           no_progress: true,
           new_course: true
       %>
-      <%= render :partial => "layouts/add_tag", :locals => { :f => f}%>
+
+      <br/>
+      <%= render :partial => "layouts/add_tag", :locals => { :f => f } %>
 
       <%= f.submit "Publish Course", class: "btn form-btn", id: "submit-course" %>
-
-
       <br />
-      
     <% end %>
   </div>
 </div>
