@@ -32,17 +32,26 @@ class SectionsController < ApplicationController
   def create
     @section = Section.new(section_params)
 
-    course_id = params[:course_id]
+    if params.has_key?(:course_id)
+      course_id = params[:course_id]
+    end
 
     respond_to do |format|
-      if add_section_to_course(@section, course_id)
-        # Use the sections helper to create the relation between the section and its course.
-        format.html { redirect_to Course.find(course_id), notice: 'Section was successfully created.' }
-        format.json { render :show, status: :created, location: @section }
+      if @section.save
+        
+        format.js { render "", json: @section }
       else
-        format.html { render :new }
-        format.json { render json: @section.errors, status: :unprocessable_entity }
+        puts 'hello'
+        format.js { render json: @section.errors, status: :unprocessable_entity }
       end
+      # if add_section_to_course(@section, course_id)
+      #   # Use the sections helper to create the relation between the section and its course.
+      #   format.html { redirect_to Course.find(course_id), notice: 'Section was successfully created.' }
+      #   format.json { render :show, status: :created, location: @section }
+      # else
+      #   format.html { render :new }
+      #   format.json { render json: @section.errors, status: :unprocessable_entity }
+      # end
     end
   end
 

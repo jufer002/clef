@@ -26,7 +26,7 @@
     hideActiveLesson();
 
     $('#lesson_body_in_editor').attr('data-blob-url-template', `http://${document.location.host}/rails/active_storage/blobs/:signed_id/:filename`).
-      attr('data-direct-upload-url', `http://${document.location.host}/rails/active_storage/direct_uploads`)
+      attr('data-direct-upload-url', `http://${document.location.host}/rails/active_storage/direct_uploads`);
   });
 
   function hideSectionDialog() {
@@ -107,43 +107,6 @@
     hideSectionDialog();
     hideActiveLesson();
 
-    lesson_title = document.getElementById("lesson-title").value;
-    document.getElementById("lesson-title").value = "";
-    //trix_content = document.getElementById("lesson_body_in_editor").innerHTML;
-    trix_content = document.getElementById("lesson_body_in_editor").value;
-    document.getElementById("lesson_body_in_editor").innerText = "";
-
-    lesson_id = getNewLessonID(containingSection);
-
-    sections[containingSection].push(lesson_id);
-
-    li = document.createElement("li");
-    li.className = "lsn";
-    li.setAttribute("onclick", `showLsn(event, ${containingSection}, ${lesson_id})`);
-
-    li.innerText = lesson_title;
-    li.id = `section[${containingSection}]lesson[${lesson_id}]`;
-
-    lesson_ol = document.getElementById(`section[${containingSection}]-lesson-ol`);
-
-    //lesson_ol.appendChild(li);
-    $(lesson_ol).append(li).collapse()
-    lesson_ol.appendChild(document.createElement("hr"));
-
-    // Create lesson body from trix content.
-    body = document.createElement("div");
-    body.className = "lsn-body";
-    body.innerHTML = trix_content;
-    body.id = `section[${containingSection}]lessonbody[${lesson_id}]`;
-
-    p = document.createElement("p").appendChild(body);
-    // Add the lesson body to the body container
-    $("#lesson-container").append(p);
-    // $("#lesson-container").append(`\
-    // <input type="hidden" class="form-control" name=section[${containingSection}]lesson[${lesson_id}][title] value="${lesson_title}">\
-    // <input type="hidden" class="form-control" name=section[${containingSection}]lesson[${lesson_id}][body] value='${p.innerHTML}'>\
-    // `);
-
     var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
     json_response = $.getJSON({
       type: "POST",
@@ -154,37 +117,65 @@
         'no_redirect': true
       },
       success: function() {console.log('success')}
+    }).done(function() {
+      new_lesson_id = json_response['id']
+      $("#lesson")
+
+      lesson_title = document.getElementById("lesson-title").value;
+      document.getElementById("lesson-title").value = "";
+      //trix_content = document.getElementById("lesson_body_in_editor").innerHTML;
+      trix_content = document.getElementById("lesson_body_in_editor").value;
+      document.getElementById("lesson_body_in_editor").innerText = "";
+
+      lesson_id = getNewLessonID(containingSection);
+
+      sections[containingSection].push(lesson_id);
+
+      li = document.createElement("li");
+      li.className = "lsn";
+      li.setAttribute("onclick", `showLsn(event, ${containingSection}, ${lesson_id})`);
+
+      li.innerText = lesson_title;
+      li.id = `section[${containingSection}]lesson[${lesson_id}]`;
+
+      lesson_ol = document.getElementById(`section[${containingSection}]-lesson-ol`);
+
+      //lesson_ol.appendChild(li);
+      $(lesson_ol).append(li).collapse()
+      lesson_ol.appendChild(document.createElement("hr"));
+
+      // Create lesson body from trix content.
+      body = document.createElement("div");
+      body.className = "lsn-body";
+      body.innerHTML = trix_content;
+      body.id = `section[${containingSection}]lessonbody[${lesson_id}]`;
+
+      p = document.createElement("p").appendChild(body);
+      // Add the lesson body to the body container
+      $("#lesson-container").append(p);
+      // $("#lesson-container").append(`\
+      // <input type="hidden" class="form-control" name=section[${containingSection}]lesson[${lesson_id}][title] value="${lesson_title}">\
+      // <input type="hidden" class="form-control" name=section[${containingSection}]lesson[${lesson_id}][body] value='${p.innerHTML}'>\
+      // `);
+
+      // Hide anything visible
+      hideSectionDialog();
+      hideActiveLesson();
     });
-
-    new_lesson_id = json_response['id']
-    $("#lesson")
-
-    // Hide anything visible
-    hideSectionDialog();
-    hideActiveLesson();
   }
 
-  function addToSectionList(section_title) {
-    section_call = $.getJSON({
-      type: "POST",
-      url: '/lessons',
-      data: {
-        'authenticity_token': AUTH_TOKEN,
-        'section': {'title': lesson_title, 'body': trix_content},
-        'no_redirect': true
-      },
-      success: function() {console.log('success')}
-    });
-
+  function addToSectionList(section_title, section_key) {
     sections[section_key] = [];
 
     new_lesson_ol = `\
       <ol id="section[${section_key}]-lesson-ol"></ol><button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor(${section_key})"> \
       Add a new lesson to this section</button>`
 
-    html_text = `<input name="section[${section_key}]title" value="${section_title}" type="hidden" class="form-control">\
-      <li class="sec-li" id=section[${section_key}]><h3>${section_title}</h3>${new_lesson_ol}</li>\
-      `;
+    // html_text = `<input name="section[${section_key}]title" value="${section_title}" type="hidden" class="form-control">\
+    //   <li class="sec-li" id=section[${section_key}]><h3>${section_title}</h3>${new_lesson_ol}</li>\
+    //   `;
+
+    html_text = `<li class="sec-li" id=section[${section_key}]><h3>${section_title}</h3>${new_lesson_ol}</li>`
 
     $(html_text).appendTo($('.section-head'));
     $('#section-head').collapse();
@@ -195,7 +186,23 @@
     hideSectionDialog();
 
     section_title = document.getElementById("section-title").value;
-    addToSectionList(section_title);
+
+    var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+    json_response = $.getJSON({
+      type: "POST",
+      url: '/sections',
+      data: {
+        'authenticity_token': AUTH_TOKEN,
+        'section': {'title': section_title},
+        'no_redirect': true
+      },
+    }).done(function() {
+      section_key = json_response.responseJSON['id'];
+
+      console.log(section_key)
+
+      addToSectionList(section_title, section_key);
+    });
   }
 
 </script>
@@ -301,7 +308,7 @@
 </div>
 
 <script>
-  
+  /*
   $.ajaxSetup({
     headers: {
       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -323,4 +330,5 @@
       console.log("This function will remove the lesson from the origin section");
     }
   });
+  */
 </script>
