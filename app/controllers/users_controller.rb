@@ -1,17 +1,35 @@
 class UsersController < ApplicationController
   include SessionsHelper
-  
+
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  
   # GET /users
   # GET /users.json
   def index
     @users = User.all
   end
-
+  
   # GET /users/1
   # GET /users/1.json
   def show
+    @courses = Course.all
+    @progress = Progress.all
+    @courses_with_progress = Set.new
+    @progress.each do |progress|
+      @courses.each do |course|
+        course.sections.each do |section|
+          section.lessons.each do |lesson|
+            if lesson.id == progress.lesson_id
+              if !@courses_with_progress.include? course
+                @courses_with_progress.add(course)
+              end
+            end
+          end
+        end
+      end
+    end
+
   end
 
   # GET /users/new
@@ -36,7 +54,7 @@ class UsersController < ApplicationController
       # Redirect home
       redirect_to root_path
     else
-      render 'new'
+      render "new"
     end
   end
 
@@ -45,7 +63,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to @user, notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -59,20 +77,21 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:username, :email, :password, 
-                                   :password_confirmation) 
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.require(:user).permit(:username, :email, :password,
+                                 :password_confirmation)
+  end
 end

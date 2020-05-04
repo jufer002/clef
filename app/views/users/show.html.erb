@@ -1,15 +1,11 @@
 <p id="notice"><%= notice %></p>
-
 <div class="center jumbotron">
   <h1><%= @user.username %></h1>
-
   <h2>
     <%= @user.email %>
   </h2>
-
   <br />
 </div>
-
 <div class="user-lessons container-fluid">
   <h3 class="center">
     <%= @user.username %>'s lessons
@@ -21,5 +17,20 @@
         <%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson } %>
       </li>
     <% end %>
-  </ul> 
+  </ul>
+</div>
+<div class="user-lessons container-fluid">
+  <h3 class="center">
+    <%= @user.username %>'s progress on courses
+    <%= @test_value %>
+  </h3>
+  <hr>
+  <ul>
+    <% @courses_with_progress.each do |course| %>
+      <li>
+        <% outputLine = "Course: " + course.title %>
+        <%= link_to outputLine, course, class: "btn option-btn" %>
+      </li>
+    <% end %>
+  </ul>
 </div>
