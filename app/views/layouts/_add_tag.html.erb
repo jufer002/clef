@@ -1,3 +1,18 @@
+<!--<script>
+    $("#check-parent").on("click",function()) {
+        if($("#check-parent").is(":checked")) {
+            console.log("+ is checked");
+            $("#tag-fields").show();
+            $("#tag-fields .new-tag").prop("checked",true);
+        }
+        else {
+            console.log("+ is unchecked");
+            $("#tag-fields .new-tag").prop("checked",false);
+            $("#tag-fields").hide();
+        }
+    });
+</script> -->
+
 <br/>
 <label class="tag-button">Tag<br />
 <div class="wrapping">
@@ -8,9 +23,21 @@
             <%= b.label class:"toggle" do%>
                 <%= b.text.upcase%>
             <% end %>
-        
     <%end%>
+    <!--<input type="checkbox" class="toggle1" id="check-parent"> 
+    <label for="check-parent" class="toggle"> + </label>
+    <div id="tag-fields">
+        <%= render :partial => 'tags/form', :locals => { :tag => Tag.new} %>
+    </div>-->
 </div>
+
+
+
+<!--<script type="text/javascript">
+    $("input[type="checkbox"]+").on("change", function()){
+        $(".tag_fields").toggle();
+    });
+</script>-->
 
 
 
