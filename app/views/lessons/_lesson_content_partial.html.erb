@@ -62,7 +62,7 @@
   <div class="comments-container container">
     <% lesson.comments.each do |comment| %>
     <div class="comment-container container">
-      <strong><%= comment.user.username %></strong>: <%= comment.text %>
+      <strong><%= link_to  comment.user.username, comment.user %></strong>: <%= comment.text %>
     </div>
     <% end %>
   </div>
