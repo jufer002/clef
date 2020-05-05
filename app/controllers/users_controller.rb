@@ -112,7 +112,7 @@ class UsersController < ApplicationController
     end
 
     if total_lessons == 0
-      return 0
+      return 0.0
     else
       return completed_lessons / total_lessons
     end
