@@ -105,6 +105,7 @@ class LessonsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to lessons_url, notice: 'Lesson was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
     end
   end
 

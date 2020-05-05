@@ -68,3 +68,4 @@ gem "rmagick"
 
 # FFMPEG adapter for displaying video
 gem 'streamio-ffmpeg'
+
