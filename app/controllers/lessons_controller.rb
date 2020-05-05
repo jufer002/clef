@@ -101,6 +101,9 @@ class LessonsController < ApplicationController
   # DELETE /lessons/1
   # DELETE /lessons/1.json
   def destroy
+    # First remove the lesson from any sections it's in.
+    sections_contents = SectionContent.where(lesson_id: @lesson.id).each { |sc| sc.destroy }
+    
     @lesson.destroy
 
     # Don't redirect anywhere if no_redirect is in the params.
