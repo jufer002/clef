@@ -148,13 +148,13 @@
 
       p = document.createElement("p").appendChild(body);
       // Add the lesson body to the body container
-      $("#lesson-container").append(p);
+      $("#lesson-container").append(p)
       // $("#lesson-container").append(`\
       // <input type="hidden" class="form-control" name=section[${containingSection}]lesson[${lesson_id}][title] value="${lesson_title}">\
       // <input type="hidden" class="form-control" name=section[${containingSection}]lesson[${lesson_id}][body] value='${p.innerHTML}'>\
       // `);
 
-      delete_button = $(`<button class="btn" type="button">Delete Lesson</button>`).click(function() {
+      delete_button = $(`<hr><button class="btn" type="button">Delete Lesson</button>`).click(function() {
         $.ajax({
           type: "DELETE",
           url: `/lessons/${lesson_id}`,
@@ -170,7 +170,7 @@
       });
 
       // Append delete button.
-      $("#lesson-container").append(delete_button);
+      $(body).append(delete_button);
 
       // Hide anything visible
       hideSectionDialog();
