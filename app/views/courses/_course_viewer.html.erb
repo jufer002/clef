@@ -122,7 +122,6 @@
         'lesson': {'title': lesson_title, 'body': trix_content},
         'no_redirect': true
       },
-      success: function() {console.log('success')}
     }).done(function() {
       lesson_id = json_response.responseJSON['id'];
 
@@ -154,6 +153,24 @@
       // <input type="hidden" class="form-control" name=section[${containingSection}]lesson[${lesson_id}][title] value="${lesson_title}">\
       // <input type="hidden" class="form-control" name=section[${containingSection}]lesson[${lesson_id}][body] value='${p.innerHTML}'>\
       // `);
+
+      delete_button = $(`<button class="btn" type="button">Delete Lesson</button>`).click(function() {
+        $.ajax({
+          type: "DELETE",
+          url: `/lessons/${lesson_id}`,
+          data: {
+            'authenticity_token': AUTH_TOKEN,
+            'no_redirect': true,
+          },
+        }).done(function() {
+          hideActiveLesson();
+          hideSectionDialog();
+          alert(`${lesson_title} has been deleted.`);
+        });
+      });
+
+      // Append delete button.
+      $("#lesson-container").append(delete_button);
 
       // Hide anything visible
       hideSectionDialog();
