@@ -32,11 +32,11 @@
         <%= link_to outputLine, course, class: "btn option-btn" %>
         Progress: <%= @progress_in_courses[course] %>
         <div class="progress">
-  <div class="progress-bar bg-success" role="progressbar" aria-valuenow="70"
+          <div class="progress-bar bg-success" role="progressbar" aria-valuenow="70"
   aria-valuemin="0" aria-valuemax="100" style="width:<%= @progress_in_courses[course] * 100 %>%">
-    Course Progress: <%= @progress_in_courses[course] * 100 %>
-  </div>
-</div>
+            Progress: <%= (@progress_in_courses[course] * 10000).to_i / 100.0 %> %>
+          </div>
+        </div>
       </li>
     <% end %>
   </ul>
