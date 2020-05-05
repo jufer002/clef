@@ -106,8 +106,13 @@ class CoursesController < ApplicationController
 
           # Add the lessons to the sections.
           lesson_ids.each do |lesson_id|
-            lesson = Lesson.find(lesson_id)
-            if not add_lesson_to_section(lesson, section_id)
+
+            lesson_holder = Lesson.where(id: lesson_id)
+            # If the lesson doesn't exist, that's fine.
+            # Just don't add it to the course.
+            if not lesson_holder.exists?
+               next
+            elsif not add_lesson_to_section(lesson_holder.first, section_id)
               return false
             end
           end

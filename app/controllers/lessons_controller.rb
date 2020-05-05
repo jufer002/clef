@@ -101,7 +101,16 @@ class LessonsController < ApplicationController
   # DELETE /lessons/1
   # DELETE /lessons/1.json
   def destroy
+    # First remove the lesson from any sections it's in.
+    sections_contents = SectionContent.where(lesson_id: @lesson.id).each { |sc| sc.destroy }
+    
     @lesson.destroy
+
+    # Don't redirect anywhere if no_redirect is in the params.
+    if params.has_key?('no_redirect')
+      return
+    end
+
     respond_to do |format|
       format.html { redirect_to lessons_url, notice: 'Lesson was successfully destroyed.' }
       format.json { head :no_content }

@@ -31,15 +31,17 @@
   <p>
     <%= lesson.body %>
   </p>
+  <hr>
+  <button class="btn" id="btn-delete[<%= lesson.id %>]" type="button">Delete Lesson</button>
 </div>
 
 <center>
   <% if logged_in? %>
-  <% if !Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id}).include?(lesson.id) %>
-  <%= button_to 'Complete!', {:controller => "progress", :action => "complete"}, params: {lesson_id: lesson.id} %>
-  <% else %>
-  <%= button_to 'Undo Completion', {:controller => "progress", :action => "undo"}, params: {lesson_id: lesson.id} %>
-  <% end %>
+    <% if !Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id}).include?(lesson.id) %>
+      <%= button_to 'Complete!', {:controller => "progress", :action => "complete"}, params: {lesson_id: lesson.id} %>
+    <% else %>
+      <%= button_to 'Undo Completion', {:controller => "progress", :action => "undo"}, params: {lesson_id: lesson.id} %>
+    <% end %>
   <% end %>
 </center>
 <div class="comment-section container">

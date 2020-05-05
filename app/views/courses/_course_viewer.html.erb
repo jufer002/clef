@@ -27,6 +27,34 @@
 
     $('#lesson_body_in_editor').attr('data-blob-url-template', `http://${document.location.host}/rails/active_storage/blobs/:signed_id/:filename`).
       attr('data-direct-upload-url', `http://${document.location.host}/rails/active_storage/direct_uploads`);
+
+    // Add delete buttons to lessons.
+    <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
+      <% section.lessons.each do |lesson| %>
+          //delete_button = $(`<hr><button class="btn" type="button">Delete Lesson</button>`).attr('id', 'btn-delete[<%= lesson.id %>]');
+          //$("#section[<%= section.id %>]lessonbody[<%= lesson.id %>]").append(delete_button)
+          delete_button = document.getElementById("btn-delete[<%= lesson.id %>]");
+          $(delete_button).click(function() {
+            var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+            // Remove the lesson from the database.
+            $.ajax({
+              type: "DELETE",
+              url: `/lessons/<%= lesson.id %>`,
+              data: {
+                'authenticity_token': AUTH_TOKEN,
+                'no_redirect': true,
+              },
+            }).done(function() {
+              // Remove all visual traces of the lesson.
+              hideActiveLesson();
+              hideSectionDialog();
+              $(document.getElementById("section[<%= section.id %>]lessonbody[<%= lesson.id %>]")).remove();
+              $(document.getElementById("section[<%= section.id %>]lesson[<%= lesson.id %>]")).remove();
+              alert(`${'<%= lesson.title %>'} has been deleted.`);
+            });
+          });
+      <% end %>
+    <% end %>
   });
 
   function hideSectionDialog() {
@@ -137,7 +165,7 @@
       lesson_ol = document.getElementById(`section[${containingSection}]-lesson-ol`);
 
       //lesson_ol.appendChild(li);
-      $(lesson_ol).append(li).collapse()
+      $(lesson_ol).append(li).collapse();
       lesson_ol.appendChild(document.createElement("hr"));
 
       // Create lesson body from trix content.
@@ -155,6 +183,7 @@
       // `);
 
       delete_button = $(`<hr><button class="btn" type="button">Delete Lesson</button>`).click(function() {
+        // Remove the lesson from the database.
         $.ajax({
           type: "DELETE",
           url: `/lessons/${lesson_id}`,
@@ -163,8 +192,12 @@
             'no_redirect': true,
           },
         }).done(function() {
+          // Remove all visual traces of the lesson.
           hideActiveLesson();
           hideSectionDialog();
+          $(p).remove();
+          $(li).remove();
+          $(lesson_ol).collapse();
           alert(`${lesson_title} has been deleted.`);
         });
       });
