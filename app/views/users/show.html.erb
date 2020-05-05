@@ -26,10 +26,8 @@
   </h3>
   <hr>
   <ul>
-      <%= @courses_with_progress %>
     <% @courses_with_progress.each do |course| %>
       <li>
-
         <%= render :partial => "layouts/course_partial", :locals => { :course => course } %>
         <%= render :partial => "layouts/course_progress_bar", :locals => { :course => course } %>
       </li>
