@@ -1,0 +1,24 @@
+   
+<h4>
+    Tags:
+    <% if content.tags.empty? %>
+    None
+    <% else %>
+    <div class="wrapped"> 
+        <% content.tags.each do |content_tag| %>
+            <%= link_to content_tag, class:"badge" do %>
+                <!--<span class="badge badge-pill badge-light">
+                    <%= content_tag.name %>
+                </span>-->
+                
+                    <!--<label class="badge">-->
+                    <%= content_tag.name %>
+                
+            <!--<div class="tag-button">
+                <%= content_tag.name %>
+            </div>-->
+            <% end %>
+        <% end %>
+    </div>
+    <% end  %>
+</h4>
