@@ -7,20 +7,9 @@
   <h4>
     <p><button id="user-button" class="btn user-button"><%= lesson.user.username %></button></p>
   </h4>
-  <h4>
-    Tags:
-    <% if lesson.tags.empty? %>
-      None
-    <% else %>
-      <% lesson.tags.each do |lesson_tag| %>
-        <%= link_to lesson_tag, class:"tag-btn" do %>
-          <div class="tag-button">
-            <%= lesson_tag.name %>
-          </div>
-        <% end %>
-      <% end %>
-    <% end  %>
-  </h4>
+  
+  <%= render :partial => "layouts/tag_display_partial", locals: { :content => lesson } %>
+
 </div>
 
 <div id="user-modal" class="modal">

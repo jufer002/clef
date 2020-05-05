@@ -4,6 +4,7 @@
 @import "custom.scss";
 @import url(https://fonts.googleapis.com/css?family=Noto+Sans);
 
+//FOR ADDING TAGS//
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -63,7 +64,7 @@ label.toggle::before {
 // }
 
 label.toggle:hover, input.toggle1:focus + label.toggle {
-  box-shadow: 0 0 20px rgba(0, 0, 0, .6);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .6);
 }
 
 input.toggle1:checked + label.toggle {
@@ -76,4 +77,53 @@ input.toggle1:checked + label.toggle::before {
     background-color: white;
     border: 3px solid white; 
     
+}
+
+//TAG BADGE//
+.wrapped {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+a.badge {
+  font-size: medium;
+display: block;
+position: relative;
+margin: 2.5px;
+padding: 5px 13px 5px 13px;
+border: 3px solid $text-color;
+border-radius: 10px;
+color: $text-color;
+background-color: $panel-color;
+box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+white-space: nowrap;
+cursor: pointer;
+user-select: none;
+transition: background-color .2s, box-shadow .2s;
+}
+
+a.badge:hover {
+  color: $text-color;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .6);
+}
+
+label.badge {
+  font-size: medium;
+display: block;
+position: relative;
+margin: 2.5px;
+padding: 5px 13px 5px 13px;
+border: 3px solid $text-color;
+border-radius: 10px;
+color: $text-color;
+background-color: $panel-color;
+box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+white-space: nowrap;
+cursor: pointer;
+user-select: none;
+transition: background-color .2s, box-shadow .2s;
+}
+
+label.badge:hover {
+  box-shadow: 0 0 5px rgba(0, 0, 0, .6);
 }

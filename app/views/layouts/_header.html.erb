@@ -3,33 +3,31 @@
     <%= link_to "Clef", root_path, id: "logo", class: "navbar-brand" %>
     <nav>
       <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
+        <button type="button" class="navbar-toggle collapsed"
                     data-toggle="collapse"
                     data-target="#bs-example-navbar-collapse-1"
                     aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span> 
-            </button>
-          </div>
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
       <ul class="nav navbar-nav navbar-right collapse navbar-collapse"
           id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <% if logged_in? %>
-        <li><%= image_tag("lesson.png", :alt => "Lessons") %><%= link_to "Lessons", lessons_path, class: "btn nav-btn" %></li>
-        <li><%= image_tag("course.png", :alt => "Courses") %><%= link_to "Courses", courses_path, class: "btn nav-btn" %></li>
-        <li><%= image_tag("add course.png", :alt => "Add new course") %><%= link_to "Create Course", compose_course_path, class: "btn nav-btn" %>
-        <li><%= image_tag("add lesson.png", :alt => "Ad new lesson") %><%= link_to "Compose Lesson", compose_lesson_path, class: "btn nav-btn" %>
-        <li><%= link_to "Log out", logout_path, class: "btn nav-btn", method: :delete %></li>
-        
-        <% else %>
-
-        <li><%= link_to "Sign up", signup_path, class: "btn nav-btn" %></li>
-        <li><%= link_to "Login", login_path, class: "btn nav-btn" %></li>
-        
-        <% end # if logged_in? %>
-      </ul>
-    </nav>
-  </div>
-</header>
+        <ul class="nav navbar-nav navbar-right">
+          <% if logged_in? %>
+            <li><%= image_tag("lesson.png", :alt => "Lessons") %><%= link_to "Lessons", lessons_path, class: "btn nav-btn" %></li>
+            <li><%= image_tag("course.png", :alt => "Courses") %><%= link_to "Courses", courses_path, class: "btn nav-btn" %></li>
+            <li><%= image_tag("add course.png", :alt => "Add new course") %><%= link_to "Create Course", compose_course_path, class: "btn nav-btn" %>
+              <li><%= image_tag("add lesson.png", :alt => "Ad new lesson") %><%= link_to "Compose Lesson", compose_lesson_path, class: "btn nav-btn" %>
+                <li><%= link_to "User's Page", current_user, class: "btn nav-btn"%></li>
+                <li><%= link_to "Log out", logout_path, class: "btn nav-btn", method: :delete %></li>
+              <% else %>
+                <li><%= link_to "Sign up", signup_path, class: "btn nav-btn" %></li>
+                <li><%= link_to "Login", login_path, class: "btn nav-btn" %></li>
+              <% end # if logged_in? %>
+            </ul>
+          </nav>
+        </div>
+      </header>
