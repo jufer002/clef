@@ -38,19 +38,20 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
 
-    section_chunks = get_chunks(params)
+    #section_chunks = get_chunks(params)
+    sections = JSON.parse(params['sections'])
 
     # The course has been created by the signed-in user.
     @course.user_id = current_user.id
     respond_to do |format|
       if @course.save
         # Save the course's subcomponents to the course.
-        update_section_chunks(section_chunks)
+        update_section_chunks(sections)
 
         format.html { redirect_to @course }
         format.json { render :show, status: :created, location: @course }
       else
-        format.html { render :new }
+        format.html { render new_course_path }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
     end
@@ -95,17 +96,18 @@ class CoursesController < ApplicationController
     end
 
     def update_section_chunks(section_chunks)
-      section_chunks.each do |chunk|
-        section, *lessons = chunk
+      if section_chunks.empty?
+        return false
+      end
+      
+      section_chunks.keys.each do |section_id|
+        if add_section_to_course(Section.find(section_id), @course.id)
+          lesson_ids = section_chunks[section_id]
 
-        if add_section_to_course(section, @course.id)
           # Add the lessons to the sections.
-          lessons.each do |lesson|
-            lesson.save
-            puts '********************************************'
-            puts lesson.errors.full_messages
-            puts '********************************************'
-            if not add_lesson_to_section(lesson, section.id)
+          lesson_ids.each do |lesson_id|
+            lesson = Lesson.find(lesson_id)
+            if not add_lesson_to_section(lesson, section_id)
               return false
             end
           end

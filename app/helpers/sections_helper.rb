@@ -3,8 +3,8 @@ module SectionsHelper
     #course_content = CourseContent.new({ :section_id => section.id, :course_id => course_id })
     course_content = CourseContent.new({section: section, course: Course.find(course_id)})
 
-    course_content.section.save
-    course_content.course.save
+    #course_content.section.save
+    #course_content.course.save
 
     course_content.save
   end
