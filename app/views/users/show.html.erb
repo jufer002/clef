@@ -30,6 +30,7 @@
       <li>
         <% outputLine = "Course: " + course.title %>
         <%= link_to outputLine, course, class: "btn option-btn" %>
+        Progress: <%= @progress_in_courses[course] %>
       </li>
     <% end %>
   </ul>

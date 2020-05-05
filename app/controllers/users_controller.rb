@@ -16,6 +16,9 @@ class UsersController < ApplicationController
     @courses = Course.all
     @progress = Progress.all
     @courses_with_progress = Set.new
+    @progress_in_courses = {}
+
+    # Picks out all the courses that have some progress by the user
     @progress.each do |progress|
       @courses.each do |course|
         course.sections.each do |section|
@@ -30,6 +33,10 @@ class UsersController < ApplicationController
       end
     end
 
+    # Gets the progress in all courses
+    @courses.each do |course|
+      @progress_in_courses[course] = calculate_progress(course)
+    end
   end
 
   # GET /users/new
@@ -79,6 +86,35 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to users_url, notice: "User was successfully destroyed." }
       format.json { head :no_content }
+    end
+  end
+
+  def calculate_progress(course)
+    total_lessons = 0.0
+    completed_lessons = 0.0
+    progress_by_user = Set.new
+    
+    # Pick out the lesson ids of all the lessons the user has completed
+    Progress.all.each do |progress|
+      if progress.user_id == @user.id
+        progress_by_user.add(progress.lesson_id)
+      end
+    end
+
+    # Count the amount of total lessons and the amount of lessons completed by the user in this course
+    course.sections.each do |section|
+      section.lessons.each do |lesson|
+        total_lessons += 1
+        if progress_by_user.include? lesson.id
+          completed_lessons += 1
+        end
+      end
+    end
+
+    if total_lessons == 0
+      return 0
+    else
+      return completed_lessons / total_lessons
     end
   end
 
