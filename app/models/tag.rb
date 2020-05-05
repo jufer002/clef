@@ -8,4 +8,6 @@ class Tag < ApplicationRecord
     #belongs_to :courses, required: false
 
     validates :name, presence: true, uniqueness: true
+
+    before_save { name.downcase! }
 end

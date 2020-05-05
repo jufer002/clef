@@ -1,8 +1,27 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Tags</h1>
+<div class="home">
+	<div class="flex-container top-row">
+    <div class="tag-buttons">
+        <!--<h4> 
+          Browse By All Categories
+        </h4>-->
+        <% @tags.each do |tag| %>
+            <%= link_to tag, class:"tag-btn" do %>
+                <div class="tag-button">
+                    <%= tag.name %>
+                    <!-- <%= link_to tag.name, tag, class: "tag-btn" %> -->
+                </div>
+            <% end %> 
+        <% end %>
+        <%= render :partial => 'layouts/create_tags', :locals => { :tag => Tag.new} %>
 
-<table>
+    </div>
+  </div>
+</div>
+
+<!--<table>
   <thead>
     <tr>
       <th>Type</th>
@@ -11,8 +30,29 @@
     </tr>
   </thead>
 
-  <tbody>
-    <% @tags.each do |tag| %>
+  <tbody>-->
+    <!--<div class="wrapped"> 
+        <% @tags.each do |content_tag| %>
+            <%= link_to content_tag, class:"badge" do %>
+                <%= content_tag.name %>
+            <% end %>
+        <% end %>
+        <%= form_with(model: @new_tag, local: true) do |form| %>
+          <% if @new_tag.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@new_tag.errors.count, "error") %> prohibited this tag from being saved:</h2>
+
+              <ul>
+                <% @new_tag.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <%=form.text_field :name, class:"badge", placeholder:"+"%>
+        <% end %>
+    </div>-->
+    <!--<% @tags.each do |tag| %>
       <tr>
         <td><%= tag.category %></td>
         <td><%= tag.name %></td>
@@ -27,3 +67,4 @@
 <br>
 
 <%= link_to 'New Tag', new_tag_path %>
+-->
