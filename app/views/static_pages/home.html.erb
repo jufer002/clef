@@ -14,7 +14,7 @@
 		</div>
 		<div class="home">
 			<div class="flex-container top-row">
-				<%= render :partial => 'layouts/tag_buttons', :locals => { :tags_to_show => get_important_tags(9)}%>
+				<%= render :partial => 'layouts/tag_buttons', :locals => { :tags_to_show => get_tags()}%>
 				<div class="whats-new">
 					<%= render :partial => "layouts/whats_new", :locals => { :new_courses => recent_courses(5)} %>
 				</div>
@@ -26,8 +26,8 @@
 			</div>
 		</div>
 
-		<!-- <footer class="page-footer font-small blue pt-4">
+		<!--<footer class="page-footer font-small blue pt-4">
 			<%= render :partial => "layouts/about" %>
-		</footer> -->
+		</footer>-->
 	</body>
 </html>

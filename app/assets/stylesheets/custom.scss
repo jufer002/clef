@@ -103,14 +103,16 @@ body {
       height: 50%;
       align-content: stretch;
       .tag-buttons {
-        display: flex;
-        flex-direction: column;
-
+        
+        display: block;
         border-right: 2px solid $panel-color;
         padding-right: 20px;
         margin-right: 20px;
 
         .tag-button {
+          display: block;
+          white-space: normal;
+
           font-size: 14px;
           border: 1px solid $navbar-color;
           border-radius: 5px;
@@ -154,9 +156,6 @@ div.home-search {
     padding-bottom: 5px;
 }
 div.tag-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
   .tag-button {
     margin: 2px 2px 2px 2px;
   }
@@ -281,7 +280,7 @@ li {
 
 ul.index {
   li {
-    // margin: 3px 0px;
+    margin: 3px 0px;
   }
 }
 
