@@ -150,3 +150,21 @@ input.badge:hover {
   color: $text-color;
   box-shadow: 0 0 10px rgba(0, 0, 0, .6);
 }
+
+a.link:hover {
+  color: $text-color;
+  background-color: $background-color;
+}
+
+
+input.remove-border {
+  box-shadow: none;
+  border: 0;
+  outline: none;
+  border-radius: 0;
+  padding: 0, 0, 0, 0;
+}
+// input.remove-border::placeholder:focus {
+//   color: $background-color;
+
+// }

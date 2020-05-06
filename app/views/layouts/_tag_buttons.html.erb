@@ -1,6 +1,6 @@
 <div class="tag-buttons">
     <h4> 
-    <%= link_to "Browse By Category", '/tags' %>
+    <%= link_to "Browse By Category", '/tags', class:"link" %>
     </h4>
     <% tags_to_show.each do |tag| %>
         <%= link_to tag, class:"tag-btn" do %>
@@ -10,6 +10,7 @@
             </div>
         <% end %> 
     <% end %>
-    <%= render :partial => 'layouts/create_tags', :locals => { :tag => Tag.new} %>
-
+    <div class="tag-button">
+        <%= render :partial => 'layouts/create_tags', :locals => { :tag => Tag.new} %>
+    </div>
 </div>
