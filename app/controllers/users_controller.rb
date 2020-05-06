@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     @courses = Course.all
     @progress = Progress.where(user_id: @user.id)
     @courses_with_progress = Set.new
-    @progress_in_courses = {}
+    @courses_by_user = Course.where(user_id: @user.id)
 
     # Picks out all the courses that have some progress by the user
     @progress.each do |progress|
@@ -24,19 +24,13 @@ class UsersController < ApplicationController
         course.sections.each do |section|
           section.lessons.each do |lesson|
             if lesson.id == progress.lesson_id
-              if !@courses_with_progress.include? course
-                @courses_with_progress.add(course)
-              end
+              @courses_with_progress.add(course)
             end
           end
         end
       end
     end
-
-    # Gets the progress in all courses
-    @courses.each do |course|
-      @progress_in_courses[course] = calculate_progress(course, @user)
-    end
+    
   end
 
   # GET /users/new

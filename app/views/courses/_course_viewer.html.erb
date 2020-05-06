@@ -262,24 +262,26 @@
           <h3><%= section.title %></h3>
           <ol id="section[<%= section.id %>]-lesson-ol" class="lessons">
           <% section.lessons.each do |lesson| %>
-          <!-- Tab Links -->
-          <li class="lsn" id="section[<%= section.id %>]lesson[<%= lesson.id %>]"
-            onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %></li>
-
-          <% if logged_in? and not no_progress %>
-          <% if lessons_completed_by_user.include?(lesson.id) %>
-          <% completed_lessons += 1 %>
-          <% end %>
-          <% total_lessons += 1 %>
-          <% end %>
+            <!-- Tab Links -->
+            <% if logged_in? and not no_progress %>
+              <% if lessons_completed_by_user.include?(lesson.id) %>
+                <% completed_lessons += 1 %>
+                <li class="lsn alert-success" id="section[<%= section.id %>]lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %></li>
+                <div class="sr-only"></div> 
+                div
+              <% else %>
+                <li class="lsn" id="section[<%= section.id %>]lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %></li>
+              <% end %>
+              <% total_lessons += 1 %>
+            <% end %>
 
           <% end %>
           <% if logged_in? %>
-          <% if current_user.id == course.user_id %>
-          <button type="button" id="show-new-lesson-btn" class="btn option-btn"
+            <% if current_user.id == course.user_id %>
+              <button type="button" id="show-new-lesson-btn" class="btn option-btn"
             onclick="showLessonEditor(<%= section.id %>)">Add a new lesson to this section</button>
           <%#= link_to "Add a new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn option-btn" %>
-          <% end %>
+            <% end %>
           <% end %>
         </ol>
       </li>
