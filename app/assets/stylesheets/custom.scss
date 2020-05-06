@@ -107,7 +107,8 @@ body {
         flex-direction: column;
 
         border-right: 2px solid $panel-color;
-        padding-right: 15px;
+        padding-right: 20px;
+        margin-right: 20px;
 
         .tag-button {
           font-size: 14px;
@@ -252,6 +253,8 @@ li {
 
   transition: all 0.1s ease-out;
 
+  margin: 5px 0px;
+
   .card-body {
     margin-left: 3px;
   }
@@ -275,5 +278,9 @@ ul.index {
   align-content: center;
 }
 
-
+.search-results {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
 

@@ -1,3 +1,4 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <header class="navbar navbar-default navbar-fixed-top">
   <div class="container navbar-container">
     <%= link_to "Clef", root_path, id: "logo", class: "navbar-brand" %>
@@ -17,10 +18,10 @@
           id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           <% if logged_in? %>
-            <li><a href="<%= lessons_path %>" class="btn nav-btn btn-outline-secondary"><%= image_tag("lesson.png", :alt => "Lessons") %> Lessons</a></li>
-            <li><a href="<%= courses_path %>" class="btn nav-btn"><%= image_tag("course.png", :alt => "Courses") %> Courses</a></li>
-            <li><a href="<%= compose_course_path  %>" class="btn nav-btn"><%= image_tag("add course.png", :alt => "Add new course") %> Create Course</a></li>
-            <li><a href="<%= compose_lesson_path %>" class="btn nav-btn"><%= image_tag("add lesson.png", :alt => "Add new lesson") %> Compose Lesson</a></li>
+            <li><a href="<%= lessons_path %>" class="btn nav-btn btn-outline-secondary"><i class="material-icons">description</i> Lessons</a></li>
+            <li><a href="<%= courses_path %>" class="btn nav-btn"><i class="material-icons">library_books</i> Courses</a></li>
+            <li><a href="<%= compose_course_path  %>" class="btn nav-btn"><i class="material-icons">library_add</i> Create Course</a></li>
+            <li><a href="<%= compose_lesson_path %>" class="btn nav-btn"><i class="material-icons">note_add</i> Compose Lesson</a></li>
             <li><a href="<%= user_path(current_user) %>" class="btn nav-btn"><%= image_tag("profile.png", :alt => "Profile") %> Profile</a></li>
             <li><%= link_to logout_path, class: "btn nav-btn", method: :delete do %><%= image_tag("logout.png", :alt => "Profile") %> Logout<% end %></li>
           <% else %>

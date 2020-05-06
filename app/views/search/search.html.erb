@@ -19,53 +19,56 @@
 
     <h4><i>Searching for: <%= params[:search_text] %></i></h4>
 
+    <div class="search-results container-fluid">
+        <div class="lesson-results">
+            <div class="user-lessons container-fluid">
+                <span class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom"
+                    title="Results that match your search terms either on the lesson title or on the lesson content">
+                    <h2>Lessons found</h2><%= image_tag("info.jpg", :alt => "Info" ) %>
+                </span>
+                <br>
+            </div>
+            <hr>
 
-    <div class="user-lessons container-fluid">
-        <span class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom"
-            title="Results that match your search terms either on the lesson title or on the lesson content">
-            <h2>Lessons found</h2><%= image_tag("info.jpg", :alt => "Info" ) %>
-        </span>
-        <br>
-    </div>
-    <hr>
+            <ul class="index">
+                <% if @lessons.empty? %>
+                No lessons match those search terms
+                <% else %>
+                <% @lessons.each do |result_relation| %>
+                <% result_relation.each do |result| %>
+                <li><%= render :partial => "layouts/lesson_partial", :locals => { :lesson => result } %></li>
+                <% end %>
+                <% end %>
+                <% end %>
+            </ul>
+            
+        </div>
 
-    <ul class="index">
-        <% if @lessons.empty? %>
-        No lessons match those search terms
-        <% else %>
-        <% @lessons.each do |result_relation| %>
-        <% result_relation.each do |result| %>
-        <li><%= render :partial => "layouts/lesson_partial", :locals => { :lesson => result } %></li>
-        <% end %>
-        <% end %>
-        <% end %>
-    </ul>
-    </div>
 
-    <hr>
-    <div class="container-fluid">
+        <div class="container-fluid">
 
-        <span class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom"
-            title="Results that match your search terms on the course title">
-            <h2>Courses found</h2><%= image_tag("info.jpg", :alt => "Info" ) %>
-        </span>
+            <span class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom"
+                title="Results that match your search terms on the course title">
+                <h2>Courses found</h2><%= image_tag("info.jpg", :alt => "Info" ) %>
+            </span>
 
-        <br>
-        <hr>
-        <ul class="index">
-            <% if @courses.empty? %>
-            No courses match those search terms
-            <% else %>
-            <% @courses.each do |result_relation| %>
-            <% result_relation.each do |result| %>
-            <li>
-            <li><%= render :partial => "layouts/course_partial", :locals => { :course => result} %></li>
-            </li>
-            <% end %>
-            <% end %>
-            <% end %>
-        </ul>
-        <hr>
+            <br>
+            <hr>
+            <ul class="index">
+                <% if @courses.empty? %>
+                No courses match those search terms
+                <% else %>
+                <% @courses.each do |result_relation| %>
+                <% result_relation.each do |result| %>
+                <li>
+                <li><%= render :partial => "layouts/course_partial", :locals => { :course => result} %></li>
+                </li>
+                <% end %>
+                <% end %>
+                <% end %>
+            </ul>
+            <hr>
+        </div>
     </div>
 </center>
 

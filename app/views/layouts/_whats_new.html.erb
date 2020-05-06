@@ -11,12 +11,11 @@
         </div>
     </div> -->
 
-    <ul class="list-unstyled new-courses"></ul>
+    <ul class="index list-unstyled new-courses"></ul>
         <% new_courses.each do |course| %>
             <li>
                 <%= render :partial => "layouts/course_partial", :locals => { :course => course } %>
             </li>
-            <br />
         <% end %>
     </ul>
 </div>  
