@@ -25,8 +25,8 @@
             <li><a href="<%= user_path(current_user) %>" class="btn nav-btn"><i class="material-icons">account_circle</i> Profile</a></li>
             <li><%= link_to logout_path, class: "btn nav-btn", method: :delete do %><i class="material-icons">exit_to_app</i> Logout<% end %></li>
           <% else %>
-            <li><%= link_to signup_path, class: "btn nav-btn" do %> <%= image_tag("signup.png", :alt => "Sign Up") %> Sign up<% end %></li>
-            <li><%= link_to login_path, class: "btn nav-btn" do %><%= image_tag("login.png", :alt => "Log In") %> Log In <% end %></li>
+            <li><%= link_to signup_path, class: "btn nav-btn" do %> <i class="material-icons">eperson_add</i> Sign up<% end %></li>
+            <li><%= link_to login_path, class: "btn nav-btn" do %><i class="material-icons">account_circle</i> Log In <% end %></li>
           <% end # if logged_in? %>
         </ul>
       </ul>

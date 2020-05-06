@@ -6,7 +6,7 @@
   <ul class="index">
       <% @lessons.each do |lesson| %>
         <li>
-        <%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson } %>
+          <%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson } %>
         </li>
       <% end %>
   </ul>

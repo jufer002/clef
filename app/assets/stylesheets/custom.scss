@@ -29,8 +29,8 @@ $rebellion-color: lighten($rebel, 20%);
 }
 @mixin _fontsize {
     line-height: 1.35;
-    font-size: 20px;
-    h1 { font-size: 30px; }
+    font-size: 30x;
+    h1 { font-size: 40px; }
 }
 @mixin thefont {
     @include _font;
@@ -253,10 +253,10 @@ li {
 
   transition: all 0.1s ease-out;
 
-  margin: 5px 0px;
+  margin: 10px 0px;
 
   .card-body {
-    margin-left: 3px;
+    text-align: center;
   }
 }
 .card:hover {
@@ -269,7 +269,7 @@ li {
 
 ul.index {
   li {
-    margin: 5px 0px;
+    // margin: 3px 0px;
   }
 }
 
