@@ -261,19 +261,19 @@
         <li class="sec-li">
           <h3><%= section.title %></h3>
           <ol id="section[<%= section.id %>]-lesson-ol" class="lessons">
-          <% section.lessons.each do |lesson| %>
-            <!-- Tab Links -->
-            <% if logged_in? and not no_progress %>
-              <% if lessons_completed_by_user.include?(lesson.id) %>
-                <% completed_lessons += 1 %>
-                <li class="lsn alert-success" id="section[<%= section.id %>]lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %> <div class="sr-only">This course has not been completed by the user</div> </li>
-              <% else %>
-                <li class="lsn" id="section[<%= section.id %>]lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %> <div class="sr-only">This course has been completed by the user</div> </li>
+            <% section.lessons.each do |lesson| %>
+              <!-- Tab Links -->
+              <% if logged_in? and not no_progress %>
+                <% if lessons_completed_by_user.include?(lesson.id) %>
+                  <% completed_lessons += 1 %>
+                  <li class="lsn alert-success" id="section[<%= section.id %>]lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %> <div class="sr-only">This course has not been completed by the user</div> </li>
+                <% else %>
+                  <li class="lsn" id="section[<%= section.id %>]lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %> <div class="sr-only">This course has been completed by the user</div> </li>
+                <% end %>
+                <% total_lessons += 1 %>
               <% end %>
-              <% total_lessons += 1 %>
             <% end %>
-
-          <% end %>
+          </ol>
           <% if logged_in? %>
             <% if current_user.id == course.user_id %>
               <button type="button" id="show-new-lesson-btn" class="btn option-btn"
@@ -281,7 +281,7 @@
           <%#= link_to "Add a new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn option-btn" %>
             <% end %>
           <% end %>
-        </ol>
+        
       </li>
       <% end %>
     </ol>
@@ -297,8 +297,8 @@
         <!-- New section dialog -->
         <div class="new-section-dialog" id="new-section-dialog">
           <%= 
-        render 'flexible_new_section'
-      %>
+            render 'flexible_new_section'
+          %>
         </div>
         <!-- New lesson dialog -->
         <div class="new-lesson-dialog" id="new-lesson-dialog">
