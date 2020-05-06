@@ -7,4 +7,5 @@
     </h1>
     <h4>By: <%= link_to User.find(course.user_id).username, User.find(course.user_id) %></h4>
     <h3><%= course.description  %></h3>
+    <%= render :partial => "layouts/course_progress_bar", :locals => { :course => @course } %>
 </div>
