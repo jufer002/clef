@@ -21,32 +21,36 @@
 
 
     <div class="user-lessons container-fluid">
-        <h2>Lessons found</h2>
+        <span class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom"
+            title="Results that match your search terms either on the lesson title or on the lesson content">
+            <h2>Lessons found</h2><%= image_tag("info.jpg", :alt => "Info" ) %>
+        </span>
         <br>
-        <i>Results that match your search terms either on the lesson title or on the lesson content</i>
-        <hr>
+    </div>
+    <hr>
 
-        <ul class="index">
-            <% if @lessons.empty? %>
-            No lessons match those search terms
-            <% else %>
-            <% @lessons.each do |result_relation| %>
-            <% result_relation.each do |result| %>
-                <li><%= render :partial => "layouts/lesson_partial", :locals => { :lesson => result } %></li>
-            <% end %>
-            <% end %>
-            <% end %>
-        </ul>
+    <ul class="index">
+        <% if @lessons.empty? %>
+        No lessons match those search terms
+        <% else %>
+        <% @lessons.each do |result_relation| %>
+        <% result_relation.each do |result| %>
+        <li><%= render :partial => "layouts/lesson_partial", :locals => { :lesson => result } %></li>
+        <% end %>
+        <% end %>
+        <% end %>
+    </ul>
     </div>
 
     <hr>
     <div class="container-fluid">
 
-        <h2>Courses found</h2>
+        <span class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom"
+            title="Results that match your search terms on the course title">
+            <h2>Courses found</h2><%= image_tag("info.jpg", :alt => "Info" ) %>
+        </span>
 
         <br>
-        <i>Results that match your search terms in the course title</i>
-
         <hr>
         <ul class="index">
             <% if @courses.empty? %>
@@ -55,7 +59,7 @@
             <% @courses.each do |result_relation| %>
             <% result_relation.each do |result| %>
             <li>
-                <li><%= render :partial => "layouts/course_partial", :locals => { :course => result} %></li>
+            <li><%= render :partial => "layouts/course_partial", :locals => { :course => result} %></li>
             </li>
             <% end %>
             <% end %>
@@ -64,3 +68,9 @@
         <hr>
     </div>
 </center>
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
