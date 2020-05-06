@@ -266,11 +266,9 @@
             <% if logged_in? and not no_progress %>
               <% if lessons_completed_by_user.include?(lesson.id) %>
                 <% completed_lessons += 1 %>
-                <li class="lsn alert-success" id="section[<%= section.id %>]lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %></li>
-                <div class="sr-only"></div> 
-                div
+                <li class="lsn alert-success" id="section[<%= section.id %>]lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %> <div class="sr-only">This course has not been completed by the user</div> </li>
               <% else %>
-                <li class="lsn" id="section[<%= section.id %>]lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %></li>
+                <li class="lsn" id="section[<%= section.id %>]lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %> <div class="sr-only">This course has been completed by the user</div> </li>
               <% end %>
               <% total_lessons += 1 %>
             <% end %>
