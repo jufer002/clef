@@ -1,4 +1,3 @@
-
 <!-- For sortable elements -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.12.4.js"></script>
@@ -7,27 +6,25 @@
   src="https://code.jquery.com/jquery-3.5.0.js"
   integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
   crossorigin="anonymous"></script>
-
-
 <script>
   // Global variable that stores the section which the new-lesson button was clicked in
   var containingSection;
   // Global array of arrays. Outer array contains sections, inner contains lesson.
   var sections;
-
+  
   $(document).ready(function() {
     sections = {
       <% course.course_contents.map { |content| content.section_id }.each do | section_id | %>
         <%= section_id %>: <%= Section.find(section_id).lessons.map { | lsn | lsn.id } %>,
       <% end %>
     };
-
+  
     hideSectionDialog();
     hideActiveLesson();
-
+  
     $('#lesson_body_in_editor').attr('data-blob-url-template', `http://${document.location.host}/rails/active_storage/blobs/:signed_id/:filename`).
       attr('data-direct-upload-url', `http://${document.location.host}/rails/active_storage/direct_uploads`);
-
+  
     // Add delete buttons to lessons.
     <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
       <% section.lessons.each do |lesson| %>
@@ -56,16 +53,16 @@
       <% end %>
     <% end %>
   });
-
+  
   function hideSectionDialog() {
     new_section_dialog = document.getElementById("new-section-dialog")
     new_section_dialog.style.opacity = 0;
     new_section_dialog.style.display = "none";
   }
-
+  
   function hideActiveLesson() {
     var i, content, links;
-
+  
     content = document.getElementsByClassName("lsn-body");
     for (i = 0; i < content.length; i++) {
       content[i].style.display = "none";
@@ -74,11 +71,11 @@
     for (i = 0; i < links.length; i++) {
       links[i].className = links[i].className.replace(" active", "");
     }
-
+  
     new_lesson_dialog = document.getElementById("new-lesson-dialog");
     new_lesson_dialog.style.opacity = 0;
     new_lesson_dialog.style.display = "none";
-
+  
     // Hide attachments.
     $("#lesson-container").children().each(function () {
       $(this).attr("style", "display: none;");
@@ -88,59 +85,59 @@
       }*/
     });
   }
-
+  
   function showLsn(evt, section_id, lesson_id) {
     // First, hide the potentially visible new section dialog
     hideSectionDialog();
     hideActiveLesson();
-
+  
     document.getElementById(`section[${section_id}]lessonbody[${lesson_id}]`).style.display = "block";
-
+  
     evt.currentTarget.className += " active";
   }
-
+  
   function showNewSection() {
     // Hide anything visible
     hideSectionDialog();
     hideActiveLesson();
     $("#new-lesson-dialog").hide();
-
+  
     div = document.getElementById("new-section-dialog");
     div.style.display = "block";
-
+  
     setTimeout(() => {
       div.style.opacity = 1;
     }, 0.001);
-
+  
   }
-
+  
   function showLessonEditor(section_id) {
     // Set global variable
     containingSection = section_id;
-
+  
     // Hide anything visible
     hideSectionDialog();
     hideActiveLesson();
-
+  
     div = document.getElementById("new-lesson-dialog");
     div.style.display = "block";
-
+  
     setTimeout(() => {
       div.style.opacity = 1;
     }, 0.001);
   }
-
+  
   function addLessonToSection() {
     // Hide anything visible
     hideSectionDialog();
     hideActiveLesson();
-
+  
     lesson_title = document.getElementById("lesson-title").value;
     document.getElementById("lesson-title").value = "";
     //trix_content = document.getElementById("lesson_body_in_editor").innerHTML;
     trix_content = document.getElementById("lesson_body_in_editor").value;
     document.getElementById("lesson_body_in_editor").innerText = "";
-
+  
     var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
     json_response = $.getJSON({
       type: "POST",
@@ -152,28 +149,28 @@
       },
     }).done(function() {
       lesson_id = json_response.responseJSON['id'];
-
+  
       sections[containingSection].push(lesson_id);
-
+  
       li = document.createElement("li");
       li.className = "lsn";
       li.setAttribute("onclick", `showLsn(event, ${containingSection}, ${lesson_id})`);
-
+  
       li.innerText = lesson_title;
       li.id = `section[${containingSection}]lesson[${lesson_id}]`;
-
+  
       lesson_ol = document.getElementById(`section[${containingSection}]-lesson-ol`);
-
+  
       //lesson_ol.appendChild(li);
       $(lesson_ol).append(li).collapse();
       lesson_ol.appendChild(document.createElement("hr"));
-
+  
       // Create lesson body from trix content.
       body = document.createElement("div");
       body.className = "lsn-body";
       body.innerHTML = trix_content;
       body.id = `section[${containingSection}]lessonbody[${lesson_id}]`;
-
+  
       p = document.createElement("p").appendChild(body);
       // Add the lesson body to the body container
       $("#lesson-container").append(p)
@@ -181,7 +178,7 @@
       // <input type="hidden" class="form-control" name=section[${containingSection}]lesson[${lesson_id}][title] value="${lesson_title}">\
       // <input type="hidden" class="form-control" name=section[${containingSection}]lesson[${lesson_id}][body] value='${p.innerHTML}'>\
       // `);
-
+  
       delete_button = $(`<hr><button class="btn" type="button">Delete Lesson</button>`).click(function() {
         // Remove the lesson from the database.
         $.ajax({
@@ -201,39 +198,39 @@
           alert(`${lesson_title} has been deleted.`);
         });
       });
-
+  
       // Append delete button.
       $(body).append(delete_button);
-
+  
       // Hide anything visible
       hideSectionDialog();
       hideActiveLesson();
     });
   }
-
+  
   function addToSectionList(section_title, section_key) {
     sections[section_key] = [];
-
+  
     new_lesson_ol = `\
       <ol id="section[${section_key}]-lesson-ol"></ol><button type="button" id="show-new-lesson-btn" class="btn option-btn" onclick="showLessonEditor(${section_key})"> \
       Add a new lesson to this section</button>`
-
+  
     // html_text = `<input name="section[${section_key}]title" value="${section_title}" type="hidden" class="form-control">\
     //   <li class="sec-li" id=section[${section_key}]><h3>${section_title}</h3>${new_lesson_ol}</li>\
     //   `;
-
+  
     html_text = `<li class="sec-li" id=section[${section_key}]><h3>${section_title}</h3>${new_lesson_ol}</li>`
-
+  
     $(html_text).appendTo($('.section-head'));
     $('#section-head').collapse();
   }
-
+  
   function addSection() {
     hideActiveLesson();
     hideSectionDialog();
-
+  
     section_title = document.getElementById("section-title").value;
-
+  
     var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
     json_response = $.getJSON({
       type: "POST",
@@ -245,46 +242,44 @@
       },
     }).done(function() {
       section_key = json_response.responseJSON['id'];
-
+  
       console.log(section_key)
-
+  
       addToSectionList(section_title, section_key);
     });
   }
-
 </script>
-
 <div class="course-viewer">
   <div class="side">
     <ol class="section-head" id="section-head">
       <% if logged_in? %>
-      <% total_lessons = 0.0 %>
-      <% completed_lessons = 0.0 %>
-      <% lessons_completed_by_user = Set.new( Progress.where(user_id: current_user.id).map { |progress| progress.lesson_id } ) %>
+        <% total_lessons = 0.0 %>
+        <% completed_lessons = 0.0 %>
+        <% lessons_completed_by_user = Set.new( Progress.where(user_id: current_user.id).map { |progress| progress.lesson_id } ) %>
       <% end %>
       <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
-      <li class="sec-li">
-        <h3><%= section.title %></h3>
-        <ol id="section[<%= section.id %>]-lesson-ol" class="lessons">
+        <li class="sec-li">
+          <h3><%= section.title %></h3>
+          <ol id="section[<%= section.id %>]-lesson-ol" class="lessons">
           <% section.lessons.each do |lesson| %>
-          <!-- Tab Links -->
-          <li class="lsn" id="section[<%= section.id %>]lesson[<%= lesson.id %>]"
-            onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %></li>
-
-          <% if logged_in? and not no_progress %>
-          <% if lessons_completed_by_user.include?(lesson.id) %>
-          <% completed_lessons += 1 %>
-          <% end %>
-          <% total_lessons += 1 %>
-          <% end %>
+            <!-- Tab Links -->
+            <% if logged_in? and not no_progress %>
+              <% if lessons_completed_by_user.include?(lesson.id) %>
+                <% completed_lessons += 1 %>
+                <li class="lsn alert-success" id="section[<%= section.id %>]lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %> <div class="sr-only">This course has not been completed by the user</div> </li>
+              <% else %>
+                <li class="lsn" id="section[<%= section.id %>]lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %> <div class="sr-only">This course has been completed by the user</div> </li>
+              <% end %>
+              <% total_lessons += 1 %>
+            <% end %>
 
           <% end %>
           <% if logged_in? %>
-          <% if current_user.id == course.user_id %>
-          <button type="button" id="show-new-lesson-btn" class="btn option-btn"
+            <% if current_user.id == course.user_id %>
+              <button type="button" id="show-new-lesson-btn" class="btn option-btn"
             onclick="showLessonEditor(<%= section.id %>)">Add a new lesson to this section</button>
           <%#= link_to "Add a new lesson to this section", new_lesson_path(:lesson => { :section_id => section.id } ), class: "btn option-btn" %>
-          <% end %>
+            <% end %>
           <% end %>
         </ol>
       </li>
@@ -292,90 +287,71 @@
     </ol>
     <% if logged_in? %>
     <br />
-    <% if current_user.id == course.user_id or new_course %>
-    <button type="button" id="show-new-section-btn" class="btn option-btn" onclick="showNewSection(event)">Add a new
-      section to this course</button>
-
-    
-    <% end %>
-    <% end # if logged_in? %>
-
-    <br>
-
-    <% if logged_in? and new_course == false %>
-      <% if total_lessons == 0 %>
-        This course has no lessons, so there's no way to keep track of your progress.      
-      <% elsif total_lessons != 0 and not no_progress %>
-        Course progress: <%= (( completed_lessons / total_lessons )*10000).to_i / 100.0 %> %      
-      <% elsif not no_progress %>
-        <% if completed_lessons == total_lessons %>
-          You're done!
-        <% end %>
-      <% end %>
-    <% end %>
-    <br />
-  </div>
-  <div class="main" aria-live="polite">
-    <!-- New section dialog -->
-    <div class="new-section-dialog" id="new-section-dialog">
-      <%= 
+          <% if current_user.id == course.user_id or new_course %>
+            <button type="button" id="show-new-section-btn" class="btn option-btn" onclick="showNewSection(event)">Add a new
+              section to this course</button>
+          <% end %>
+        <% end # if logged_in? %>
+      </div>
+      <div class="main" aria-live="polite">
+        <!-- New section dialog -->
+        <div class="new-section-dialog" id="new-section-dialog">
+          <%= 
         render 'flexible_new_section'
       %>
-    </div>
-    <!-- New lesson dialog -->
-    <div class="new-lesson-dialog" id="new-lesson-dialog">
-      <h4>Compose a new lesson</h4>
-      <hr>
-      <label for="lesson_title">Lesson Title</label>
-      <input class="form-control" type="text" name="lesson[title]" id="lesson-title">
-      <hr>
-      <%#= form_with model: @lesson do |f| %>
-        <%#= f.rich_text_area :body, id: 'lesson_body_in_editor', class: 'trix-content' %>
-      <%# end %>
-        
-      <trix-editor class="trix-content" id="lesson_body_in_editor"
+        </div>
+        <!-- New lesson dialog -->
+        <div class="new-lesson-dialog" id="new-lesson-dialog">
+          <h4>Compose a new lesson</h4>
+          <hr>
+          <label for="lesson_title">Lesson Title</label>
+          <input class="form-control" type="text" name="lesson[title]" id="lesson-title">
+          <hr>
+          <%#= form_with model: @lesson do |f| %>
+            <%#= f.rich_text_area :body, id: 'lesson_body_in_editor', class: 'trix-content' %>
+            <%# end %>
+            <trix-editor class="trix-content" id="lesson_body_in_editor"
         data-blob-url-template="http://localhost:3000/rails/active_storage/blobs/:signed_id/:filename"
         data-direct-upload-url="http://localhost:3000/rails/active_storage/direct_uploads"></trix-editor>
-      <hr>
-      <input value="Compose lesson" type="button" class="btn form-btn" onclick="addLessonToSection();" />
-    </div>
-    <!-- Tab Links -->
-    <div id="lesson-container">
-      <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
-        <% section.lessons.each do |lesson| %>
-          <div id="section[<%= section.id %>]lessonbody[<%= lesson.id %>]" class="lsn-body">
-            <p id="notice"><%= notice %></p>
-            <!-- Lesson show -->
-            <%= render partial: "lessons/lesson_content_partial", locals: { :lesson => lesson, :course => course } %>
+            <hr>
+            <input value="Compose lesson" type="button" class="btn form-btn" onclick="addLessonToSection();" />
           </div>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-</div>
-
-<script>
-  /*
-  $.ajaxSetup({
-    headers: {
-      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-    }
-  });
-
-  $(".lessons").sortable({
-    axis: 'y',
-    connectWith: ".lessons",
-    update: function (event, ui) {
-      $.post($(this).data('update-url'), $(this).sortable('serialize'));
-    },
-
-    receive: function (event, ui) {
-      console.log("this function will add the lesson to another section");
-
-    },
-    remove: function (event, ui) {
-      console.log("This function will remove the lesson from the origin section");
-    }
-  });
-  */
-</script>
+          <!-- Tab Links -->
+          <div id="lesson-container">
+            <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
+              <% section.lessons.each do |lesson| %>
+                <div id="section[<%= section.id %>]lessonbody[<%= lesson.id %>]" class="lsn-body">
+                  <p id="notice"><%= notice %></p>
+                  <!-- Lesson show -->
+                  <%= render partial: "lessons/lesson_content_partial", locals: { :lesson => lesson, :course => course } %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <script>
+        /*
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        
+        $(".lessons").sortable({
+          axis: 'y',
+          connectWith: ".lessons",
+          update: function (event, ui) {
+            $.post($(this).data('update-url'), $(this).sortable('serialize'));
+          },
+        
+          receive: function (event, ui) {
+            console.log("this function will add the lesson to another section");
+        
+          },
+          remove: function (event, ui) {
+            console.log("This function will remove the lesson from the origin section");
+          }
+        });
+        */
+      </script>

@@ -11,26 +11,55 @@
     <%= @user.username %>'s lessons
   </h3>
   <hr>
-  <ul>
-    <% @user.lessons.each do |lesson| %>
-      <li>
-        <%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson } %>
-      </li>
+  <ul class="index">
+    <% if @user.lessons.empty? %>
+      <center><%= @user.username %> has not created any lessons</center>
+    <% else %>
+      <% @user.lessons.each do |lesson| %>
+        <li>
+          <%= render :partial => "layouts/lesson_partial", :locals => { :lesson => lesson } %>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 </div>
+<hr>
 <div class="user-lessons container-fluid">
   <h3 class="center">
     <%= @user.username %>'s progress on courses
     <%= @test_value %>
   </h3>
   <hr>
-  <ul>
-    <% @courses_with_progress.each do |course| %>
-      <li>
-        <%= render :partial => "layouts/course_partial", :locals => { :course => course } %>
-        <%= render :partial => "layouts/course_progress_bar", :locals => { :course => course } %>
-      </li>
+  <ul class="index">
+    <% if @courses_with_progress.empty? %>
+      <center><%= @user.username %> has no progress on any course</center>
+    <% else %>
+      <% @courses_with_progress.each do |course| %>
+        <li>
+          <%= render :partial => "layouts/course_partial", :locals => { :course => course } %>
+          <%= render :partial => "layouts/course_progress_bar", :locals => { :course => course } %>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 </div>
+<hr>
+<div class="user-lessons container-fluid">
+  <h3 class="center">
+    <%= @user.username %>'s courses
+    <%= @test_value %>
+  </h3>
+  <hr>
+  <ul class="index">
+    <% if @courses_by_user.empty? %>
+      <center><%= @user.username %> has not created any courses</center>
+    <% else %>
+      <% @courses_by_user.each do |course| %>
+        <li>
+          <%= render :partial => "layouts/course_partial", :locals => { :course => course } %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
+<hr>

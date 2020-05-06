@@ -1,4 +1,4 @@
-<% current_course_progress = (@progress_in_courses[course] * 100).to_i %>
+<% current_course_progress = (calculate_progress(course, current_user) * 100).to_i %>
 <div class="progress">
   <div class="progress-bar bg-success" role="progressbar" aria-valuenow="<%= current_course_progress %>"
   aria-valuemin="0" aria-valuemax="100" style="width:<%= current_course_progress %>%">
