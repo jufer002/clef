@@ -17,15 +17,15 @@
           id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           <% if logged_in? %>
-            <li><%= image_tag("lesson.png", :alt => "Lessons") %><%= link_to "Lessons", lessons_path, class: "btn nav-btn" %></li>
-            <li><%= image_tag("course.png", :alt => "Courses") %><%= link_to "Courses", courses_path, class: "btn nav-btn" %></li>
-            <li><%= image_tag("add course.png", :alt => "Add new course") %><%= link_to "Create Course", compose_course_path, class: "btn nav-btn" %></li>
-            <li><%= image_tag("add lesson.png", :alt => "Ad new lesson") %><%= link_to "Compose Lesson", compose_lesson_path, class: "btn nav-btn" %></li>
-            <li><%= link_to "User's Page", current_user, class: "btn nav-btn"%></li>
-            <li><%= link_to "Log out", logout_path, class: "btn nav-btn", method: :delete %></li>
+            <li><a href="<%= lessons_path %>" class="btn nav-btn btn-outline-secondary"><%= image_tag("lesson.png", :alt => "Lessons") %> Lessons</a></li>
+            <li><a href="<%= courses_path %>" class="btn nav-btn"><%= image_tag("course.png", :alt => "Courses") %> Courses</a></li>
+            <li><a href="<%= compose_course_path  %>" class="btn nav-btn"><%= image_tag("add course.png", :alt => "Add new course") %> Create Course</a></li>
+            <li><a href="<%= compose_lesson_path %>" class="btn nav-btn"><%= image_tag("add lesson.png", :alt => "Add new lesson") %> Compose Lesson</a></li>
+            <li><a href="<%= user_path(current_user) %>" class="btn nav-btn"><%= image_tag("profile.png", :alt => "Profile") %> Profile</a></li>
+            <li><%= link_to logout_path, class: "btn nav-btn", method: :delete do %><%= image_tag("logout.png", :alt => "Profile") %> Logout<% end %></li>
           <% else %>
-            <li><%= link_to "Sign up", signup_path, class: "btn nav-btn" %></li>
-            <li><%= link_to "Login", login_path, class: "btn nav-btn" %></li>
+            <li><%= link_to signup_path, class: "btn nav-btn" do %> <%= image_tag("signup.png", :alt => "Sign Up") %> Sign up<% end %></li>
+            <li><%= link_to login_path, class: "btn nav-btn" do %><%= image_tag("login.png", :alt => "Log In") %> Log In <% end %></li>
           <% end # if logged_in? %>
         </ul>
       </ul>
