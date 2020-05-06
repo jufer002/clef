@@ -1,0 +1,10 @@
+<div class="course-header">
+    <h1>
+        <%= course.title %>
+        <% course.tags.each do |tag| %>
+            <span class="badge badge-secondary"><%= tag.name %></span>
+        <% end %>
+    </h1>
+    <h4>By: <%= link_to User.find(course.user_id).username, User.find(course.user_id) %></h4>
+    <h3><%= course.description  %></h3>
+</div>

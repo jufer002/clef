@@ -166,6 +166,18 @@ li {
   list-style-type: none;
 }
 
+.course-header {
+  margin: 0% 5%;
+  padding-bottom: 2%;
+  border-bottom: 2px solid $panel-color;
+  h1{
+    font-size: 2em;
+  }
+  h3 {
+    margin-left: 2%;
+  }
+  
+}
 .course-viewer{
   display: flex;
   padding-top: 3em;

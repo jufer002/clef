@@ -1,17 +1,7 @@
 <body>
   <p id="notice"><%= notice %></p>
-  <div class="center jumbotron">
-    <h1>
-      <%= @course.title %>
-    </h1>
-    <h2>
-      <%= @course.description  %>
-    </h2>
-    <h4>By: <%= link_to User.find(@course.user_id).username, User.find(@course.user_id) %></h4>
-    <br />
-    <br />
-    <%= render :partial => "layouts/course_progress_bar", :locals => { :course => @course } %>
-  </div>
+  <%= render :partial => "layouts/course_header", :locals => { :course => @course } %>
+  
   <div>
     <%= form_with model: @course, local: true do |f| %>
       <%=
@@ -25,6 +15,6 @@
       <% if false and current_user.id == @course.user_id %>
         <%= f.submit "Update Course", class: "btn form-btn", id: "update-course" %>
       <% end %>
-    <% end %>
+    <% end %> 
   </div>
 </body>
