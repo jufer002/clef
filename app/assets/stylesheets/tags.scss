@@ -35,7 +35,7 @@ label.toggle {
   border-radius: 20px;
   color: $text-color;
   background-color: $panel-color;
-  box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+  //box-shadow: 0 0 20px rgba(0, 0, 0, .2);
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
@@ -118,7 +118,7 @@ border: 2px solid $text-color;
 border-radius: 10px;
 color: $text-color;
 background-color: $panel-color;
-box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+//box-shadow: 0 0 10px rgba(0, 0, 0, .2);
 white-space: nowrap;
 cursor: pointer;
 user-select: none;
