@@ -22,8 +22,8 @@
             <li><a href="<%= courses_path %>" class="btn nav-btn"><i class="material-icons">library_books</i> Courses</a></li>
             <li><a href="<%= compose_course_path  %>" class="btn nav-btn"><i class="material-icons">library_add</i> Create Course</a></li>
             <li><a href="<%= compose_lesson_path %>" class="btn nav-btn"><i class="material-icons">note_add</i> Compose Lesson</a></li>
-            <li><a href="<%= user_path(current_user) %>" class="btn nav-btn"><%= image_tag("profile.png", :alt => "Profile") %> Profile</a></li>
-            <li><%= link_to logout_path, class: "btn nav-btn", method: :delete do %><%= image_tag("logout.png", :alt => "Profile") %> Logout<% end %></li>
+            <li><a href="<%= user_path(current_user) %>" class="btn nav-btn"><i class="material-icons">account_circle</i> Profile</a></li>
+            <li><%= link_to logout_path, class: "btn nav-btn", method: :delete do %><i class="material-icons">exit_to_app</i> Logout<% end %></li>
           <% else %>
             <li><%= link_to signup_path, class: "btn nav-btn" do %> <%= image_tag("signup.png", :alt => "Sign Up") %> Sign up<% end %></li>
             <li><%= link_to login_path, class: "btn nav-btn" do %><%= image_tag("login.png", :alt => "Log In") %> Log In <% end %></li>
