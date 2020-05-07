@@ -32,16 +32,18 @@ class SectionsController < ApplicationController
   def create
     @section = Section.new(section_params)
 
-    if params.has_key?(:course_id)
-      course_id = params[:course_id]
-    end
+    
 
     respond_to do |format|
       if @section.save
+        # Add section to course.
+        if params.has_key?('course_id')
+          course_id = params['course_id']
+          add_section_to_course(@section, course_id)
+        end
         
         format.js { render "", json: @section }
       else
-        puts 'hello'
         format.js { render json: @section.errors, status: :unprocessable_entity }
       end
       # if add_section_to_course(@section, course_id)
