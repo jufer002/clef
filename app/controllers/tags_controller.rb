@@ -11,6 +11,7 @@ class TagsController < ApplicationController
   # GET /tags/1
   # GET /tags/1.json
   def show
+    @tag = Tag.find_by(id: params[:id])
     lessontags = LessonTag.where(tag_id: params[:id])
     @lessons = []
     lessontags.each do |lesson|

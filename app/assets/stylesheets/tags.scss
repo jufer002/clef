@@ -1,8 +1,19 @@
 // Place all the styles related to the Tags controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-@import "custom.scss";
+//@import "custom.scss";
 @import url("https://fonts.googleapis.com/css?family=Noto + Sans");
+$background-color: #ffffff;
+$panel-color: darken($background-color, 5%);
+$navbar-color: darken($background-color, 20%);
+$btn-color: lighten($background-color, 8%);
+$hover-color: darken($background-color, 50%);
+$card-color: $panel-color;
+$card-hover: darken($card-color, 20%);
+$text-color: black;
+$rebel: #38908f;
+$rebellion-color: lighten($rebel, 20%);
+
 
 //FOR ADDING TAGS//
 *,

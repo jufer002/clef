@@ -105,6 +105,7 @@ body {
     align-content: stretch;
     .tag-buttons {
       overflow: auto;
+      //overflow: hidden;
       display: block;
       border-right: 2px solid $panel-color;
       padding-right: 20px;
