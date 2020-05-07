@@ -14,7 +14,7 @@
 </script> -->
 
 <br/>
-<label class="tag-button">Tag<br />
+<div class="tag-button">Select Tags<br />
 <div class="wrapping">
     
     <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name, {}, class: "toggle1" do |b| %>
@@ -29,6 +29,7 @@
     <div id="tag-fields">
         <%= render :partial => 'tags/form', :locals => { :tag => Tag.new} %>
     </div>-->
+</div>
 </div>
 
 
