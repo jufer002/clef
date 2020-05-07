@@ -148,14 +148,20 @@
       url: '/lessons',
       data: {
         'authenticity_token': AUTH_TOKEN,
-        'lesson': {'title': lesson_title, 'body': trix_content},
-        'no_redirect': true,
+        'lesson': { 'title': lesson_title, 'body': trix_content },
         <% if not new_course %>
+        'no_redirect': false,
         // If the lesson is in an existing course, include the information needed to add it to the course.
-        'course': { 'course_id': <%= course.id  %> 'section_id': containingSection }
+        'course': { 'course_id': <%= course.id  %>, 'section_id': containingSection },
+        <% else %>
+        'no_redirect': true,
         <% end %>
       },
     }).done(function() {
+      // If this isn't a new course, refresh the page to show the fancier lesson view.
+      <% if not new_course %>
+        location.reload();
+      <% end %>
       lesson_id = json_response.responseJSON['id'];
   
       sections[containingSection].push(lesson_id);
@@ -246,7 +252,13 @@
       data: {
         'authenticity_token': AUTH_TOKEN,
         'section': {'title': section_title},
-        'no_redirect': true
+        <% if not new_course %>
+        'no_redirect': false,
+        // If the section is in an existing course, include the information needed to add it to the course.
+        'course_id': <%= course.id  %>,
+        <% else %>
+        'no_redirect': true,
+        <% end %>
       },
     }).done(function() {
       section_key = json_response.responseJSON['id'];

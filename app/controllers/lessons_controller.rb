@@ -50,10 +50,12 @@ class LessonsController < ApplicationController
     # puts @lesson.errors.full_messages
     respond_to do |format|
       if @lesson.save
-        #flash[:success] = "#{@lesson.title} has been published!"
+        if params.has_key?('course')
+          course_id = params['course']['course_id']
+          section_id = params['course']['section_id']
 
-        # Attach attachments
-        #@lesson.attachments.attach(params[:lesson][:attachments])
+          add_lesson_to_section(@lesson, section_id)
+        end
         
         # Get the section, if present and add the lesson to it.
         if params.has_key?('section_id')
