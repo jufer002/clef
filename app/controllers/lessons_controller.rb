@@ -67,8 +67,6 @@ class LessonsController < ApplicationController
           redirect_page = @lesson
         end
 
-        puts 'goodbye~!!'
-        
         if not params.has_key?('no_redirect')
           format.html { redirect_to redirect_page }
         

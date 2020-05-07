@@ -32,7 +32,11 @@
     <%= lesson.body %>
   </p>
   <hr>
-  <button class="btn" id="btn-delete[<%= lesson.id %>]" type="button">Delete Lesson</button>
+  <% if logged_in? %>
+      <% if current_user.id == course.user_id %>
+        <button class="btn" id="btn-delete[<%= lesson.id %>]" type="button">Delete Lesson</button>
+      <% end %>
+  <% end %>
 </div>
 
 <center>

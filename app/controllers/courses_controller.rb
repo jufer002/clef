@@ -61,6 +61,19 @@ class CoursesController < ApplicationController
   # PATCH/PUT /courses/1.json
   def update
     section_chunks = get_chunks(params)
+
+    puts params
+    redirect_to @course
+
+    return
+
+    sections = params['sections']
+    if sections.nil?
+      # Loop through course's existing sections.
+      @course.sections.each do |section|
+
+      end
+    end
     
     respond_to do |format|
       # Update subcontents

@@ -12,9 +12,12 @@
               new_course: false,
               f: f
         %>
-      <% if false and current_user.id == @course.user_id %>
+    <% end %> 
+
+    <%= form_with model: @course, local: true do |f| %>
+      <% if current_user.id == @course.user_id %>
         <%= f.submit "Update Course", class: "btn form-btn", id: "update-course" %>
       <% end %>
-    <% end %> 
+    <% end %>
   </div>
 </body>

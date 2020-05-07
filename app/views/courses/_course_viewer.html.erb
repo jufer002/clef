@@ -25,31 +25,35 @@
     $('#lesson_body_in_editor').attr('data-blob-url-template', `http://${document.location.host}/rails/active_storage/blobs/:signed_id/:filename`).
       attr('data-direct-upload-url', `http://${document.location.host}/rails/active_storage/direct_uploads`);
   
-    // Add delete buttons to lessons.
-    <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
-      <% section.lessons.each do |lesson| %>
-          //delete_button = $(`<hr><button class="btn" type="button">Delete Lesson</button>`).attr('id', 'btn-delete[<%= lesson.id %>]');
-          //$("#section[<%= section.id %>]lessonbody[<%= lesson.id %>]").append(delete_button)
-          delete_button = document.getElementById("btn-delete[<%= lesson.id %>]");
-          $(delete_button).click(function() {
-            var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
-            // Remove the lesson from the database.
-            $.ajax({
-              type: "DELETE",
-              url: `/lessons/<%= lesson.id %>`,
-              data: {
-                'authenticity_token': AUTH_TOKEN,
-                'no_redirect': true,
-              },
-            }).done(function() {
-              // Remove all visual traces of the lesson.
-              hideActiveLesson();
-              hideSectionDialog();
-              $(document.getElementById("section[<%= section.id %>]lessonbody[<%= lesson.id %>]")).remove();
-              $(document.getElementById("section[<%= section.id %>]lesson[<%= lesson.id %>]")).remove();
-              alert(`${'<%= lesson.title %>'} has been deleted.`);
-            });
-          });
+    <% if logged_in? and not new_course %>
+      <% if current_user.id == course.user_id %>
+        // Add delete buttons to lessons.
+        <% course.course_contents.map { |content| Section.find(content.section_id) }.each do |section| %>
+          <% section.lessons.each do |lesson| %>
+              delete_button = $(`<hr><button class="btn" type="button">Delete Lesson</button>`).attr('id', 'btn-delete[<%= lesson.id %>]');
+              //$("#section[<%= section.id %>]lessonbody[<%= lesson.id %>]").append(delete_button)
+              delete_button = document.getElementById("btn-delete[<%= lesson.id %>]");
+              $(delete_button).click(function() {
+                var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+                // Remove the lesson from the database.
+                $.ajax({
+                  type: "DELETE",
+                  url: `/lessons/<%= lesson.id %>`,
+                  data: {
+                    'authenticity_token': AUTH_TOKEN,
+                    'no_redirect': true,
+                  },
+                }).done(function() {
+                  // Remove all visual traces of the lesson.
+                  hideActiveLesson();
+                  hideSectionDialog();
+                  $(document.getElementById("section[<%= section.id %>]lessonbody[<%= lesson.id %>]")).remove();
+                  $(document.getElementById("section[<%= section.id %>]lesson[<%= lesson.id %>]")).remove();
+                  alert(`${'<%= lesson.title %>'} has been deleted.`);
+                });
+              });
+          <% end %>
+        <% end %>
       <% end %>
     <% end %>
   });
@@ -145,7 +149,11 @@
       data: {
         'authenticity_token': AUTH_TOKEN,
         'lesson': {'title': lesson_title, 'body': trix_content},
-        'no_redirect': true
+        'no_redirect': true,
+        <% if not new_course %>
+        // If the lesson is in an existing course, include the information needed to add it to the course.
+        'course': { 'course_id': <%= course.id  %> 'section_id': containingSection }
+        <% end %>
       },
     }).done(function() {
       lesson_id = json_response.responseJSON['id'];
@@ -242,9 +250,7 @@
       },
     }).done(function() {
       section_key = json_response.responseJSON['id'];
-  
-      console.log(section_key)
-  
+    
       addToSectionList(section_title, section_key);
     });
   }
