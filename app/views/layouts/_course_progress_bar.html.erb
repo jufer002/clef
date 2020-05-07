@@ -1,7 +1,9 @@
-<% current_course_progress = (calculate_progress(course, current_user) * 100).to_i %>
-<div class="progress">
-  <div class="progress-bar bg-success" role="progressbar" aria-valuenow="<%= current_course_progress %>"
-  aria-valuemin="0" aria-valuemax="100" style="width:<%= current_course_progress %>%">
-    Progress: <%= current_course_progress %>%
+<% if logged_in? %>
+  <% current_course_progress = (calculate_progress(course, current_user) * 100).to_i %>
+  <div class="progress">
+    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="<%= current_course_progress %>"
+    aria-valuemin="0" aria-valuemax="100" style="width:<%= current_course_progress %>%">
+      Progress: <%= current_course_progress %>%
+    </div>
   </div>
-</div>
+<% end %>

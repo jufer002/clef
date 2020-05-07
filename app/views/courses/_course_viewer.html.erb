@@ -290,6 +290,9 @@
                 <% end %>
                 <% total_lessons += 1 %>
               <% end %>
+              <% if not logged_in? %>
+                <li class="lsn" id="section[<%= section.id %>]lesson[<%= lesson.id %>]" onclick="showLsn(event, <%= section.id %>, <%= lesson.id %>)"><%= lesson.title %></li>
+              <% end %>
             <% end %>
           </ol>
           <% if logged_in? %>
