@@ -2,31 +2,31 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 @import "custom.scss";
-@import url(https://fonts.googleapis.com/css?family=Noto+Sans);
+@import url("https://fonts.googleapis.com/css?family=Noto + Sans");
 
 //FOR ADDING TAGS//
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 .wrapping {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    // position: absolute;
-    // top: 50%;
-    // left: 50%;
-    // transform: translate(-50%, -50%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
 }
 input.toggle1 {
-    position:absolute;
-    left: -9999px;
+  position: absolute;
+  left: -9999px;
 }
 
-
-
 label.toggle {
-    font-size: medium;
+  font-size: medium;
   display: block;
   position: relative;
   margin: 5px;
@@ -39,11 +39,11 @@ label.toggle {
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
-  transition: background-color .2s, box-shadow .2s;
+  transition: background-color 0.2s, box-shadow 0.2s;
 }
 
 label.toggle::before {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
   top: 10px;
@@ -52,7 +52,7 @@ label.toggle::before {
   width: 32px;
   border: 1px solid black;
   border-radius: 100px;
-  transition: background-color .2s;
+  transition: background-color 0.2s;
 }
 
 // label.toggle:first-of-type {
@@ -63,20 +63,20 @@ label.toggle::before {
 //   transform: translateX(40px);
 // }
 
-label.toggle:hover, input.toggle1:focus + label.toggle {
-  box-shadow: 0 0 10px rgba(0, 0, 0, .6);
+label.toggle:hover,
+input.toggle1:focus + label.toggle {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
 input.toggle1:checked + label.toggle {
-    background-color: darken($hover-color, 15%);
-    color: $navbar-color;
-    border: 1px solid darken($hover-color, 5%);
+  background-color: darken($hover-color, 15%);
+  color: $navbar-color;
+  border: 1px solid darken($hover-color, 5%);
 }
 
 input.toggle1:checked + label.toggle::before {
-    background-color: white;
-    border: 1px solid white; 
-    
+  background-color: white;
+  border: 1px solid white;
 }
 
 //TAG BADGE//
@@ -88,74 +88,73 @@ input.toggle1:checked + label.toggle::before {
 
 a.badge {
   font-size: medium;
-display: block;
-position: relative;
-margin: 2.5px;
-padding: 5px 13px 5px 13px;
-border: 1px solid $text-color;
-border-radius: 10px;
-color: $text-color;
-background-color: $panel-color;
-//box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-white-space: nowrap;
-cursor: pointer;
-user-select: none;
-transition: background-color .2s, box-shadow .2s;
+  display: block;
+  position: relative;
+  margin: 2.5px;
+  padding: 5px 13px 5px 13px;
+  border: 1px solid $text-color;
+  border-radius: 10px;
+  color: $text-color;
+  background-color: $panel-color;
+  //box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s, box-shadow 0.2s;
 }
 
 a.badge:hover {
   color: $text-color;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .6);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
 label.badge {
   font-size: medium;
-display: block;
-position: relative;
-margin: 2.5px;
-padding: 5px 13px 5px 13px;
-border: 2px solid $text-color;
-border-radius: 10px;
-color: $text-color;
-background-color: $panel-color;
-//box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-white-space: nowrap;
-cursor: pointer;
-user-select: none;
-transition: background-color .2s, box-shadow .2s;
+  display: block;
+  position: relative;
+  margin: 2.5px;
+  padding: 5px 13px 5px 13px;
+  border: 2px solid $text-color;
+  border-radius: 10px;
+  color: $text-color;
+  background-color: $panel-color;
+  //box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s, box-shadow 0.2s;
 }
 
 label.badge:hover {
-  box-shadow: 0 0 5px rgba(0, 0, 0, .6);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
 }
 
 input.badge {
   font-size: medium;
-display: block;
-position: relative;
-margin: 2.5px;
-padding: 5px 13px 5px 13px;
-border: 1px solid $text-color;
-border-radius: 10px;
-color: $text-color;
-background-color: $panel-color;
-//box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-white-space: nowrap;
-cursor: pointer;
-user-select: none;
-transition: background-color .2s, box-shadow .2s;
+  display: block;
+  position: relative;
+  margin: 2.5px;
+  padding: 5px 13px 5px 13px;
+  border: 1px solid $text-color;
+  border-radius: 10px;
+  color: $text-color;
+  background-color: $panel-color;
+  //box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s, box-shadow 0.2s;
 }
 
 input.badge:hover {
   color: $text-color;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .6);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
 a.link:hover {
   color: $text-color;
   background-color: $background-color;
 }
-
 
 input.remove-border {
   box-shadow: none;
@@ -168,3 +167,9 @@ input.remove-border {
 //   color: $background-color;
 
 // }
+
+//Tag index//
+
+.unlimited {
+  height: unset;
+}
