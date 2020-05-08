@@ -33,18 +33,22 @@
     $(document).ready(function () {
     });
     function pageScroll() {
-      if (document.getElementById("1").value == "ON") {
-        window.scrollBy(0, 1);
+      if (document.getElementById("auto-scroll-button") != null) {
+        if (document.getElementById("auto-scroll-button").value == "ON") {
+          window.scrollBy(0, 1);
+        }
+        setTimeout(pageScroll, 200);
       }
-      setTimeout(pageScroll, 200);
     };
 
     console.log('will start');
     pageScroll();
     // setInterval(pageScroll, 200);
     window.onscroll = function (ev) {
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        document.getElementById("1").value = "OFF";
+      if (document.getElementById("auto-scroll-button") != null) {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+          document.getElementById("auto-scroll-button").value = "OFF";
+        }
       }
     };
 
