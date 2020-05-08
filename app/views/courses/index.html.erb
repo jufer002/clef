@@ -1,8 +1,10 @@
 <body class="index">
   <p id="notice"><%= notice %></p>
 
-  <h1>Courses</h1>
+  <h1 class="index">Courses</h1>
+  <hr>
 
+  <center>
   <ul class="index">
       <% @courses.each do |course| %>
         
@@ -10,6 +12,7 @@
         
       <% end %>
   </ul>
+  </center>
 
   <br>
 
