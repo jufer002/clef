@@ -24,6 +24,16 @@ class TagsController < ApplicationController
     end
 
     @new_tag = Tag.new
+
+    @start = params[:start]
+    
+    20.times do |t| 
+      puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" 
+    end
+    puts @start
+    20.times do |t| 
+      puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" 
+    end
   end
 
   # GET /tags/1
