@@ -30,24 +30,46 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
   <script>
-    $(document).ready(function () {
-    });
+    var scrollTimeout;
+
     function pageScroll() {
       if (document.getElementById("auto-scroll-button") != null) {
         if (document.getElementById("auto-scroll-button").value == "ON") {
           window.scrollBy(0, 1);
         }
-        setTimeout(pageScroll, 200);
+        scrollTimeout = setTimeout(pageScroll, 200);
       }
     };
 
-    console.log('will start');
-    pageScroll();
-    // setInterval(pageScroll, 200);
+    history.pushState = (f => function pushState() {
+      var ret = f.apply(this, arguments);
+      window.dispatchEvent(new Event('pushstate'));
+      window.dispatchEvent(new Event('locationchange'));
+      return ret;
+    })(history.pushState);
+
+    history.replaceState = (f => function replaceState() {
+      var ret = f.apply(this, arguments);
+      window.dispatchEvent(new Event('replacestate'));
+      window.dispatchEvent(new Event('locationchange'));
+      return ret;
+    })(history.replaceState);
+
+    window.addEventListener('popstate', () => {
+      window.dispatchEvent(new Event('locationchange'))
+    });
+
+    window.addEventListener('locationchange', function () {
+      console.log('location changed!');
+      clearTimeout(scrollTimeout);
+      document.getElementById("auto-scroll-button").value = "OFF";
+    })
+
     window.onscroll = function (ev) {
       if (document.getElementById("auto-scroll-button") != null) {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
           document.getElementById("auto-scroll-button").value = "OFF";
+          clearTimeout(scrollTimeout);
         }
       }
     };
@@ -56,8 +78,11 @@
     function toggle(button) {
       if (button.value == "OFF") {
         button.value = "ON";
+        pageScroll();
+
       } else {
         button.value = "OFF";
+        clearTimeout(scrollTimeout);
       }
 
     };
