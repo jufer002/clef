@@ -14,7 +14,7 @@
 
     // If the course has no title or description, don't let the user try to submit it.
     onchange = function() {
-      if ($('#course_title').val() == "" || $('#course_description').val()) {
+      if ($('#course_title').val() == "" || $('#course_description').val() == "") {
         $('#submit-course').attr('disabled', true);
       } else {
         $('#submit-course').attr('disabled', false)
