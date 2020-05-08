@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div class="tag-display">
+    <div class="search-results tag-display">
       <% @tags.each do |tag| %>
         <div id=<%="tag#{tag.id}"-%> class="individual-tags">
             <%= render :partial => "show_display", :locals => { :courses => @tag_relation_c[tag], :lessons => @tag_relation_l[tag], :tag => tag } %>
@@ -44,6 +44,12 @@
       event.preventDefault();
       $('#tag'+id).toggle();
     });
+  });
+
+  $(document).ready(function() {
+    var id = "<%= @start %>";
+    console.log(id);
+    $('#tag'+id).show();
   });  
 </script>
 

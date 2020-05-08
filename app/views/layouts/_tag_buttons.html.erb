@@ -2,7 +2,7 @@
     <h3><%= link_to "Browse By Category", "/tags", class:"link"%></h3>
     <% tags_to_show.each do |tag| %>
         
-        <%= link_to tag, class:"tag-btn" do %>
+        <%= link_to tags_path(:start => tag.id), class:"tag-btn" do %>
             <div class="tag-button">
                 <%= tag.name %>
                 <!-- <%= link_to tag.name, tag, class: "tag-btn" %> -->
