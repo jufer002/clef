@@ -32,8 +32,6 @@ class SectionsController < ApplicationController
   def create
     @section = Section.new(section_params)
 
-    
-
     respond_to do |format|
       if @section.save
         # Add section to course.

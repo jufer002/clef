@@ -16,7 +16,6 @@
         <% end %>
     </div>
 
-
     <h4><i>Searching for: <%= params[:search_text] %></i></h4>
 
     <div class="search-results container-fluid">
@@ -52,23 +51,22 @@
                 <h2>Courses found</h2><%= image_tag("info.jpg", :alt => "Info" ) %>
             </span>
 
-            <br>
-            <hr>
-            <ul class="index">
-                <% if @courses.empty? %>
-                No courses match those search terms
-                <% else %>
-                <% @courses.each do |result_relation| %>
-                <% result_relation.each do |result| %>
-                <li>
-                <li><%= render :partial => "layouts/course_partial", :locals => { :course => result} %></li>
-                </li>
-                <% end %>
-                <% end %>
-                <% end %>
-            </ul>
-            <hr>
-        </div>
+        <br>
+        <hr>
+        <ul class="index">
+            <% if @courses.empty? %>
+            No courses match those search terms
+            <% else %>
+            <% @courses.each do |result_relation| %>
+            <% result_relation.each do |result| %>
+            <li>
+                <%= render :partial => "layouts/course_partial", :locals => { :course => result} %>
+            </li>
+            <% end %>
+            <% end %>
+            <% end %>
+        </ul>
+        <hr>
     </div>
 </center>
 

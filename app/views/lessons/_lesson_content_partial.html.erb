@@ -7,7 +7,7 @@
   <h4>
     <p><button id="user-button" class="btn user-button"><%= lesson.user.username %></button></p>
   </h4>
-  
+
   <%= render :partial => "layouts/tag_display_partial", locals: { :content => lesson } %>
 
 </div>
@@ -25,6 +25,14 @@
   </div>
 </div>
 
+<center>
+  <form action="">
+    AUTO SCROLL
+    <input type="button" id="1" value="OFF" onclick="toggle(this);">
+  </form>
+</center>
+
+
 <br />
 
 <div class="container lesson">
@@ -33,19 +41,21 @@
   </p>
   <hr>
   <% if logged_in? %>
-      <% if current_user.id == course.user_id %>
-        <button class="btn" id="btn-delete[<%= lesson.id %>]" type="button">Delete Lesson</button>
-      <% end %>
+  <% if course != nil %>
+  <% if current_user.id == course.user_id %>
+  <button class="btn" id="btn-delete[<%= lesson.id %>]" type="button">Delete Lesson</button>
+  <% end %>
+  <% end %>
   <% end %>
 </div>
 
 <center>
   <% if logged_in? %>
-    <% if !Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id}).include?(lesson.id) %>
-      <%= button_to 'Complete!', {:controller => "progress", :action => "complete"}, params: {lesson_id: lesson.id} %>
-    <% else %>
-      <%= button_to 'Undo Completion', {:controller => "progress", :action => "undo"}, params: {lesson_id: lesson.id} %>
-    <% end %>
+  <% if !Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id}).include?(lesson.id) %>
+  <%= button_to 'Complete!', {:controller => "progress", :action => "complete"}, params: {lesson_id: lesson.id} %>
+  <% else %>
+  <%= button_to 'Undo Completion', {:controller => "progress", :action => "undo"}, params: {lesson_id: lesson.id} %>
+  <% end %>
   <% end %>
 </center>
 <div class="comment-section container">
@@ -53,14 +63,14 @@
 
 
   <% if logged_in? %>
-      <%= form_with model: @comment, url: lesson do |f| %>
-      <%= f.text_area :text, class:"comment-text"%>
-    <% if @course != nil %>
-      <%= f.hidden_field(:redirect_to, value: @course.id) %>
-    <% end %>
-    
-    <%= f.submit "Publish", class: "publish-btn btn" %>
-    <% end %>
+  <%= form_with model: @comment, url: lesson do |f| %>
+  <%= f.text_area :text, class:"comment-text"%>
+  <% if @course != nil %>
+  <%= f.hidden_field(:redirect_to, value: @course.id) %>
+  <% end %>
+
+  <%= f.submit "Publish", class: "publish-btn btn" %>
+  <% end %>
   <% end # if logged_in? %>
   <br />
   <div class="comments-container container">
@@ -71,3 +81,29 @@
     <% end %>
   </div>
 </div>
+
+<script>
+  $(document).ready(function () {
+    console.log('started');
+    function pageScroll() {
+      console.log('will scroll');
+      if (document.getElementById("1").value == "ON") {
+        window.scrollBy(0, 1);
+      }
+    console.log('will this print?');
+
+    };
+    setInterval(pageScroll, 200);
+  });
+
+  // Toggles the passed button from OFF to ON and vice-versa.
+  function toggle(button) {
+    console.log('will toggle');
+
+    if (button.value == "OFF") {
+      button.value = "ON";
+    } else {
+      button.value = "OFF";
+    }
+  };
+</script>
