@@ -26,10 +26,12 @@
 </div>
 
 <center>
+  <% if course == nil %>
   <form action="">
     AUTO SCROLL
-    <input type="button" id="1" value="OFF" onclick="toggle(this);">
+    <input type="button" id="auto-scroll-button" value="OFF" onclick="toggle(this);">
   </form>
+  <% end %>
 </center>
 
 
@@ -82,28 +84,3 @@
   </div>
 </div>
 
-<script>
-  $(document).ready(function () {
-    console.log('started');
-    function pageScroll() {
-      console.log('will scroll');
-      if (document.getElementById("1").value == "ON") {
-        window.scrollBy(0, 1);
-      }
-    console.log('will this print?');
-
-    };
-    setInterval(pageScroll, 200);
-  });
-
-  // Toggles the passed button from OFF to ON and vice-versa.
-  function toggle(button) {
-    console.log('will toggle');
-
-    if (button.value == "OFF") {
-      button.value = "ON";
-    } else {
-      button.value = "OFF";
-    }
-  };
-</script>
