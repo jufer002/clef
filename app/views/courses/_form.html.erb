@@ -11,20 +11,19 @@
 <script>
   var sections;
   $(document).ready(function() {
-    // $('#submit-course').click(function() {
-    //   var AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
-    //   $.ajax({
-    //     type: "POST",
-    //     url: '/courses',
-    //     data: {
-    //       'authenticity_token': AUTH_TOKEN,
-    //       'course': {'title': $("#course_title").value, 'description': $("#course_description").value,
-    //         'sections': sections},
-    //       'no_redirect': true
-    //     }
-    //   });
-    // })
 
+    // If the course has no title or description, don't let the user try to submit it.
+    onchange = function() {
+      if ($('#course_title').val() == "" || $('#course_description').val()) {
+        $('#submit-course').attr('disabled', true);
+      } else {
+        $('#submit-course').attr('disabled', false)
+      }
+    }
+
+    // Attach the relevant forms to the above function.
+    $('#course_title').on('input', onchange);
+    $('#course_description').on('input', onchange)
     
     $('#course-form').submit(function() {
       // Create hidden input field with section-lesson structure.
@@ -71,7 +70,9 @@
       <br/>
       <%= render :partial => "layouts/add_tag", :locals => { :f => f } %>
 
-      <input name="commit" type="submit" value="Publish Course" class="btn form-btn" id="submit-course" data-disable-with="Publish Course">
+      <hr>
+
+      <input name="commit" type="submit" value="Publish Course" class="btn form-btn" id="submit-course" data-disable-with="Publish Course" disabled>
 
       <%#= need type="submit" above f.submit "Publish Course", class: "btn form-btn", id: "submit-course" %>
       <br />
