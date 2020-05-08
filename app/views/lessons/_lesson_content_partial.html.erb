@@ -83,33 +83,27 @@
 </div>
 
 <script>
+  $(document).ready(function () {
+    console.log('started');
+    function pageScroll() {
+      console.log('will scroll');
+      if (document.getElementById("1").value == "ON") {
+        window.scrollBy(0, 1);
+      }
+    console.log('will this print?');
 
-  // $(document).ready(function () {
-  //   function pageScroll() {
-  //     window.scrollBy(0, 1);
-  //   }
-  //   setInterval(pageScroll, 100);
-  //   // pageScroll()
-  //   // $('body,html').animate({scrollTop: 500}, 8000); 
-
-
-  // });
-
-
+    };
+    setInterval(pageScroll, 200);
+  });
 
   // Toggles the passed button from OFF to ON and vice-versa.
   function toggle(button) {
-    function pageScroll() {
-      if (button.value == "ON") {
-        window.scrollBy(0, 1);
-      }
-    }
+    console.log('will toggle');
 
     if (button.value == "OFF") {
-      setInterval(pageScroll, 100);
       button.value = "ON";
     } else {
       button.value = "OFF";
     }
-  }
+  };
 </script>
