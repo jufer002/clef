@@ -4,23 +4,48 @@
 <div class="home unlimited">
 	<div class="flex-container top-row">
     <div class="tag-buttons">
-        <!--<h4> 
-          Browse By All Categories
-        </h4>-->
         <% @tags.each do |tag| %>
-            <%= link_to tag, class:"tag-btn" do %>
+            <%= link_to "#", id:"tag#{tag.id}s", class:"tag-btn", :data => {:tag_id => tag.id }  do%>
                 <div class="tag-button">
                     <%= tag.name %>
-                    <!-- <%= link_to tag.name, tag, class: "tag-btn" %> -->
                 </div>
-            <% end %> 
+            <% end %>
         <% end %>
         <div class="tag-button">
           <%= render :partial => 'layouts/create_tags', :locals => { :tag => Tag.new} %>
         </div>
     </div>
+
+    <div class="tag-display">
+      <% @tags.each do |tag| %>
+        <div id=<%="tag#{tag.id}"-%> class="individual-tags">
+            <%= render :partial => "show_display", :locals => { :courses => @tag_relation_c[tag], :lessons => @tag_relation_l[tag], :tag => tag } %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.5.0.js"
+  integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
+  crossorigin="anonymous"></script>
+
+<%# <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.mins.js"></script> %>
+<script>  
+  $(document).ready(function() {
+    $('.tag-btn').click(function(event) {
+      $('.individual-tags').hide();
+      var id = $(this).data('tag-id');
+      console.log($(this).data('tag-id'));
+      event.preventDefault();
+      $('#tag'+id).toggle();
+    });
+  });  
+</script>
 
 <!--<table>
   <thead>
