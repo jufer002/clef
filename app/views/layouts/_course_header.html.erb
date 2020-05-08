@@ -2,10 +2,17 @@
     <h1>
         <%= course.title %>
         <% course.tags.each do |tag| %>
-            <span class="badge badge-secondary"><%= tag.name %></span>
+        <span class="badge badge-secondary"><%= tag.name %></span>
         <% end %>
     </h1>
     <h4>By: <%= link_to User.find(course.user_id).username, User.find(course.user_id) %></h4>
     <h3><%= course.description  %></h3>
     <%= render :partial => "layouts/course_progress_bar", :locals => { :course => @course } %>
+
+    <center>
+        <form action="">
+            AUTO SCROLL
+            <input type="button" id="1" value="OFF" onclick="toggle(this);">
+        </form>
+    </center>
 </div>
