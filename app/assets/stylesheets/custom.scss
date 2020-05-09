@@ -75,6 +75,9 @@ body {
 }
 
 .welcome-banner {
+  background: linear-gradient(to left, rgba($panel-color, 0), $panel-color, $panel-color), url(rachmaninoff.png);
+  background-repeat: no-repeat;
+  background-position: right;
   background-color: $panel-color;
 
   width: 100%;
