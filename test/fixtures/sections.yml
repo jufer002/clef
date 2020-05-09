@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: test_title1
-  previous_id: 1
-  next_id: 2
+# one:
+#   title: test_title1
+#   previous_id: 1
+#   next_id: 2
 
-two:
-  title: test_title2
-  previous_id: 2
-  next_id: 4
+# two:
+#   title: test_title2
+#   previous_id: 2
+#   next_id: 4

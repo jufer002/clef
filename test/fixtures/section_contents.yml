@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  section: one
-  lesson: one
+# one:
+#   section: one
+#   lesson: one
 
-two:
-  section: two
-  lesson: two
+# two:
+#   section: two
+#   lesson: two

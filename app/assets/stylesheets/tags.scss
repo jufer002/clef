@@ -43,9 +43,9 @@ label.toggle {
   margin: 5px;
   padding: 10px 25px 10px 50px;
   border: 1px solid $text-color;
-  border-radius: 20px;
+  border-radius: 10px;
   color: $text-color;
-  background-color: $panel-color;
+  background-color: darken($panel-color, 10%);
   //box-shadow: 0 0 20px rgba(0, 0, 0, .2);
   white-space: nowrap;
   cursor: pointer;
@@ -60,7 +60,7 @@ label.toggle::before {
   top: 10px;
   bottom: 10px;
   left: 10px;
-  width: 32px;
+  width: 20px;
   border: 1px solid black;
   border-radius: 100px;
   transition: background-color 0.2s;
@@ -80,14 +80,14 @@ input.toggle1:focus + label.toggle {
 }
 
 input.toggle1:checked + label.toggle {
-  background-color: darken($hover-color, 15%);
-  color: $navbar-color;
-  border: 1px solid darken($hover-color, 5%);
+  background-color: $panel-color;
+  color: lighten($text-color, 15%);
+  border: 1px solid $text-color;
 }
 
 input.toggle1:checked + label.toggle::before {
-  background-color: white;
-  border: 1px solid white;
+  background-color: $text-color;
+  border: 1px solid black;
 }
 
 //TAG BADGE//
@@ -184,3 +184,16 @@ input.remove-border {
 .unlimited {
   height: unset;
 }
+
+.individual-tags {
+  display: none;
+}
+
+.tag-display {
+  width: 70;
+}
+
+
+
+
+

@@ -1,30 +1,94 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Clef</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+<head>
+  <title>Clef</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-  <body>
-    <%= render 'layouts/header' %>
-    <div class="container">
-      <% flash.each do |message_type, message| %>
-        <div class="alert alert-<%= message_type %>"><%= message %></div>
-      <% end %>
-    </div>
-    <%= yield %>
-    <script
-      src="https://code.jquery.com/jquery-3.5.0.js"
-      integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
-      crossorigin="anonymous">
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+  <%= render 'layouts/header' %>
+  <div class="container">
+    <% flash.each do |message_type, message| %>
+    <div class="alert alert-<%= message_type %>"><%= message %></div>
+    <% end %>
+  </div>
+  <%= yield %>
+  <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
+    crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <script>
+    var scrollTimeoutId;
+
+    function startScroll() {
+      if (document.getElementById("auto-scroll-button") != null) {
+        if (document.getElementById("auto-scroll-button").value == "ON") {
+          window.scrollBy(0, 1);
+        }
+        scrollTimeoutId = setTimeout(startScroll, 200);
+      }
+    };
+
+    function stopScroll() {
+      if (document.getElementById("auto-scroll-button") != null) {
+        document.getElementById("auto-scroll-button").value = "OFF";
+        clearTimeout(scrollTimeoutId);
+        // document.getElementById('stop_scroll_notice').innerHTML = "Reached end of page. Turning off auto scroll.";
+      }
+    }
+
+    // Modifications to default default methods so our desired functions execute at the desired time
+    history.pushState = (f => function pushState() {
+      var ret = f.apply(this, arguments);
+      window.dispatchEvent(new Event('pushstate'));
+      window.dispatchEvent(new Event('locationchange'));
+      return ret;
+    })(history.pushState);
+
+    history.replaceState = (f => function replaceState() {
+      var ret = f.apply(this, arguments);
+      window.dispatchEvent(new Event('replacestate'));
+      window.dispatchEvent(new Event('locationchange'));
+      return ret;
+    })(history.replaceState);
+
+    window.addEventListener('popstate', () => {
+      window.dispatchEvent(new Event('locationchange'))
+    });
+
+    window.addEventListener('locationchange', function () {
+      stopScroll();
+    })
+
+    // Detects when a user has reached the end of the page and turns off autoscroll
+    window.onscroll = function (ev) {
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        stopScroll();
+      }
+    };
+
+    // Toggles the passed button from OFF to ON and vice-versa.
+    function toggle(button) {
+      if (button.value == "OFF") {
+        button.value = "ON";
+        startScroll();
+      } else {
+        stopScroll();
+      }
+    };
+  </script>
+</body>
+
 </html>

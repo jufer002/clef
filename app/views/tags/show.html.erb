@@ -5,6 +5,15 @@
     </div>
 
 
+<%= render :partial => "show_display", :locals => { :courses => @courses, :lessons => @lessons, :tag => @tag } %>
+</center>
+<!--<center>
+    <div class="center jumbotron">
+        <h1>Tags</h1>
+        <br />
+    </div>
+
+
     <h4><i>Showing results for <%=@tag.name%> tag</i></h4>
 
     <div class="search-results container-fluid">
@@ -61,7 +70,7 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
-</script>
+</script>-->
 
 
 

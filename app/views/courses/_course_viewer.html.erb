@@ -21,6 +21,21 @@
   
     hideSectionDialog();
     hideActiveLesson();
+
+    // Prevent user from submitting the form when pressing enter in the section dialogue.
+    // submit section instead.
+    $("#section-title").keydown(function(e) {
+      // Keycode 13 is the ENTER key.
+      if (e.keyCode == 13) {
+        // Submit the section.
+        addSection();
+        // Reset the text field.
+        $(this).val("");
+        // Prevent the course form from submitting.
+        e.preventDefault();
+        return true;
+      }
+    });
   
     $('#lesson_body_in_editor').attr('data-blob-url-template', `http://${document.location.host}/rails/active_storage/blobs/:signed_id/:filename`).
       attr('data-direct-upload-url', `http://${document.location.host}/rails/active_storage/direct_uploads`);

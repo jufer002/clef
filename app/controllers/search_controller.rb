@@ -13,7 +13,7 @@ class SearchController < ApplicationController
       # the lesson body.
       @lessons << Lesson.joins('INNER JOIN action_text_rich_texts ON action_text_rich_texts.record_id = lessons.id')
                         .where('action_text_rich_texts.body LIKE ?', "%#{search_text}%")
-      @lessons = [] if @lessons[0].empty? && @lessons[1].empty?
+      @lessons = [] if @lessons[0].empty? && @lessons[1].empty? && @lessons[2].empty?
 
       @courses << Course.where('title LIKE ?', "%#{search_text}%")
       @courses << Course.where('LOWER(title) LIKE ?', "%#{search_text}%")
