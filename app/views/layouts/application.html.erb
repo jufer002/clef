@@ -30,17 +30,26 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
   <script>
-    var scrollTimeout;
+    var scrollTimeoutId;
 
-    function pageScroll() {
+    function startScroll() {
       if (document.getElementById("auto-scroll-button") != null) {
         if (document.getElementById("auto-scroll-button").value == "ON") {
           window.scrollBy(0, 1);
         }
-        scrollTimeout = setTimeout(pageScroll, 200);
+        scrollTimeoutId = setTimeout(startScroll, 200);
       }
     };
 
+    function stopScroll() {
+      if (document.getElementById("auto-scroll-button") != null) {
+        document.getElementById("auto-scroll-button").value = "OFF";
+        clearTimeout(scrollTimeoutId);
+        // document.getElementById('stop_scroll_notice').innerHTML = "Reached end of page. Turning off auto scroll.";
+      }
+    }
+
+    // Modifications to default default methods so our desired functions execute at the desired time
     history.pushState = (f => function pushState() {
       var ret = f.apply(this, arguments);
       window.dispatchEvent(new Event('pushstate'));
@@ -60,17 +69,13 @@
     });
 
     window.addEventListener('locationchange', function () {
-      console.log('location changed!');
-      clearTimeout(scrollTimeout);
-      document.getElementById("auto-scroll-button").value = "OFF";
+      stopScroll();
     })
 
+    // Detects when a user has reached the end of the page and turns off autoscroll
     window.onscroll = function (ev) {
-      if (document.getElementById("auto-scroll-button") != null) {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-          document.getElementById("auto-scroll-button").value = "OFF";
-          clearTimeout(scrollTimeout);
-        }
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        stopScroll();
       }
     };
 
@@ -78,13 +83,10 @@
     function toggle(button) {
       if (button.value == "OFF") {
         button.value = "ON";
-        pageScroll();
-
+        startScroll();
       } else {
-        button.value = "OFF";
-        clearTimeout(scrollTimeout);
+        stopScroll();
       }
-
     };
   </script>
 </body>
