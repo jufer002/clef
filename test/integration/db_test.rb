@@ -79,4 +79,6 @@ class DBTest < ActionDispatch::IntegrationTest
     @course.tags << very_hard
     assert_equal very_hard, @course.tags.first
   end
+
+  
 end

@@ -296,6 +296,16 @@ ul.index {
   align-content: center;
 }
 
+.comment-text {
+  width: 50%;
+  display: block;
+}
+.comment-publish {
+  //position: absolute;
+  bottom:10%;
+  right:10%;
+}
+
 .search-results {
   display: flex;
   flex-direction: row;
