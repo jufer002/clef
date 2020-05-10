@@ -37,8 +37,8 @@
       }
     });
   
-    $('#lesson_body_in_editor').attr('data-blob-url-template', `http://${document.location.host}/rails/active_storage/blobs/:signed_id/:filename`).
-      attr('data-direct-upload-url', `http://${document.location.host}/rails/active_storage/direct_uploads`);
+    $('#lesson_body_in_editor').attr('data-blob-url-template', `https://${document.location.host}/rails/active_storage/blobs/:signed_id/:filename`).
+      attr('data-direct-upload-url', `https://${document.location.host}/rails/active_storage/direct_uploads`);
   
     <% if logged_in? and not new_course %>
       <% if current_user.id == course.user_id %>
