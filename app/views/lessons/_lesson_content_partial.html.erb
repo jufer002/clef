@@ -1,12 +1,46 @@
 <p id="notice"><%= notice %></p>
 
 <script src="/js/show.js.erb"></script>
+<script>
+  
+  $(document).ready(function() {
+    AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
+    
+    complete_button = document.getElementById("btn-complete[<%= lesson.id %>]");
+    uncomplete_button = document.getElementById("btn-undo-complete[<%= lesson.id %>]");
+    user_button = document.getElementById("user-button-<%= lesson.user.username %>");
+    
+    // Add complete/undo completion functionality to the buttons.
+    $(complete_button).click(function() {
+      $.ajax({
+        type: "POST",
+        url: "/progress/complete",
+        data: {
+          'lesson_id': <%= lesson.id %>,
+          'authenticity_token': AUTH_TOKEN
+          }
+      })
+    });
+
+    $(uncomplete_button).click(function() {
+      $.ajax({
+        type: "POST",
+        url: "/progress/undo",
+        data: {
+          'lesson_id': <%= lesson.id %>,
+          'authenticity_token': AUTH_TOKEN
+        }
+      });
+    });
+  });
+</script>
+
 
 <div class="lesson-content">
   <div class="center lesson-show-head">
     <h2><%= lesson.title %></h2>
     <h4>
-      <p>by: <button id="user-button" class="btn user-button"><%= lesson.user.username %></button></p>
+      <p>by: <a href="<%= user_path(lesson.user) %>"><%= lesson.user.username %></a></p>
     </h4>
 
     <%= render :partial => "layouts/tag_display_partial", locals: { :content => lesson } %>
@@ -54,9 +88,11 @@
   <center>
     <% if logged_in? %>
     <% if !Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id}).include?(lesson.id) %>
-    <%= button_to 'Complete!', {:controller => "progress", :action => "complete"}, params: {lesson_id: lesson.id} %>
+    <button class="btn complete-button" id="btn-complete[<%= lesson.id %>]" type="button">Complete!</button>
+    <%#= button_to 'Complete!', {:controller => "progress", :action => "complete"}, params: {lesson_id: lesson.id} %>
     <% else %>
-    <%= button_to 'Undo Completion', {:controller => "progress", :action => "undo"}, params: {lesson_id: lesson.id} %>
+    <button class="btn complete-button" id="btn-undo-complete[<%= lesson.id %>]" type="button">Undo Completion</button>
+    <%#= button_to 'Undo Completion', {:controller => "progress", :action => "undo"}, params: {lesson_id: lesson.id} %>
     <% end %>
     <% end %>
   </center>
