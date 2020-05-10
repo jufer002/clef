@@ -284,7 +284,9 @@ li {
 }
 
 ul.index {
+  
   li {
+    display: inline-block;
     margin: 3px 0px;
   }
 }
@@ -305,3 +307,40 @@ ul.index {
   flex-direction: row;
   justify-content: space-evenly;
 }
+
+.lesson-content {
+  background-color: darken($background-color, 13%);
+  // margin: 2em 3em 5em 3em;
+  width: 92%;
+  height: 95%;
+  margin: auto;
+  padding: 0.5em 0em 2em 0em;
+  // align-content: center;
+}
+
+.lesson-show-head,
+.lesson,
+.comment-section {
+  background-color: darken($background-color, 21%);
+  width: 92%;
+  height: 95%;
+  // display: inline-block;
+  margin: auto;
+  // padding: 1em 0em 1em 0em;
+}
+
+.lesson-show-head {
+  // margin: 9%;
+}
+
+.comment-form, .comments-container {
+  background-color: darken($background-color, 26.5%);
+  width: 98%;
+  margin: auto;
+  padding: 1.85%;
+}
+
+// $panel-color: darken($background-color, 5%);
+// $navbar-color: darken($background-color, 20%);
+// $btn-color: lighten($background-color, 8%);
+// $hover-color: darken($background-color, 50%);

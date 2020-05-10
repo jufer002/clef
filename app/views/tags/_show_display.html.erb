@@ -2,8 +2,8 @@
     <h4><i>Showing results for <%=tag.name%> tag</i></h4>
 
     <div class="search-results container-fluid">
-        <div class="lesson-results container-fluid">
-            <div class="user-lessons container-fluid">
+        <div class="results container-fluid">
+            <div class="user-lessons container-fluid display-center">
                 <span class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom"
                     title="Lessons with <%=tag.name%> tag">
                     <h2>Lessons found</h2><%= image_tag("info.jpg", :alt => "Info" ) %>
@@ -26,27 +26,28 @@
         </div>
 
 
-        <div class="container-fluid">
+        <div class="results container-fluid">
+            <div class="display-center">
+                <span class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom"
+                    title="Courses with <%=tag.name%> tag">
+                    <h2>Courses found</h2><%= image_tag("info.jpg", :alt => "Info" ) %>
+                </span>
 
-            <span class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom"
-                title="Courses with <%=tag.name%> tag">
-                <h2>Courses found</h2><%= image_tag("info.jpg", :alt => "Info" ) %>
-            </span>
-
-            <br>
-            <hr>
-            <ul class="index">
-                <% if courses.empty? %>
-                No courses match those search terms
-                <% else %>
-                <% courses.each do |result| %>
-                <li>
-                <li><%= render :partial => "layouts/course_partial", :locals => { :course => result} %></li>
-                </li>
-                <% end %>
-                <% end %>
-            </ul>
-            <hr>
+                <br>
+                <hr>
+                <ul class="index">
+                    <% if courses.empty? %>
+                    No courses match those search terms
+                    <% else %>
+                    <% courses.each do |result| %>
+                    <li>
+                    <li><%= render :partial => "layouts/course_partial", :locals => { :course => result} %></li>
+                    </li>
+                    <% end %>
+                    <% end %>
+                </ul>
+                <hr>
+            </div>
         </div>
     </div>
 

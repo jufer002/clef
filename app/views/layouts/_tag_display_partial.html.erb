@@ -1,11 +1,10 @@
    
 <h4>
-    Tags:
     <% if content.tags.empty? %>
-    None
+    No tags
     <% else %>
     <div class="wrapped"> 
-        <% content.tags.each do |content_tag| %>
+        Tags: <% content.tags.each do |content_tag| %>
             <%= link_to content_tag, class:"badge" do %>
                 <%= content_tag.name %>
             <% end %>

@@ -3,7 +3,7 @@
 <h1>Tags</h1>
 <div class="home unlimited">
 	<div class="flex-container top-row">
-    <div class="tag-buttons">
+    <div class="tag-buttons thirty">
         <% @tags.each do |tag| %>
             <%= link_to "#", id:"tag#{tag.id}s", class:"tag-btn", :data => {:tag_id => tag.id }  do%>
                 <div class="tag-button">
