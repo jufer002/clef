@@ -11,6 +11,11 @@ class DBTest < ActionDispatch::IntegrationTest
     @course = Course.create(title: 'my new course', description: 'my new course description', user_id: @user.id)
   end
 
+  test "that a course cannot be created by no user" do
+    # Try to create a course that has no :user_id key and assert that it fails.
+    assert_not Course.create(title: 'my new course', description: 'my new course description')
+  end
+
   test "that a lesson can be added to a section" do
     assert add_lesson_to_section(@lsn, @sec.id)
 
@@ -57,5 +62,9 @@ class DBTest < ActionDispatch::IntegrationTest
     assert @comment.save
 
     assert Comment.where(text: "An approving comment")[0].user_id == @user.id
+  end
+
+  test "that a tag can be created" do
+    assert Tag.new(category: 'Instrument', name: 'Tambourine').save
   end
 end
