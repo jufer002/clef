@@ -67,4 +67,16 @@ class DBTest < ActionDispatch::IntegrationTest
   test "that a tag can be created" do
     assert Tag.new(category: 'Instrument', name: 'Tambourine').save
   end
+
+  test "that a tag can be added to a lesson" do
+    very_hard = Tag.create(category: 'difficulty', name: 'very hard')
+    @lsn.tags << very_hard
+    assert_equal very_hard, @lsn.tags.first
+  end
+
+  test "that a tag can be added to a course" do
+    very_hard = Tag.create(category: 'difficulty', name: 'very hard')
+    @course.tags << very_hard
+    assert_equal very_hard, @course.tags.first
+  end
 end
