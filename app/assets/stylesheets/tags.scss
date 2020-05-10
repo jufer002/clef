@@ -97,16 +97,21 @@ input.toggle1:checked + label.toggle::before {
   justify-content: center;
 }
 
+.course-wrap {
+  justify-content: left;
+  display: inline-block;
+}
+
 a.badge {
-  font-size: medium;
+  font-size: x-small;
   display: block;
   position: relative;
   margin: 2.5px;
   padding: 5px 13px 5px 13px;
-  border: 1px solid $text-color;
+  border: 1px solid darken($hover-color, 10%);
   border-radius: 10px;
-  color: $text-color;
-  background-color: $panel-color;
+  color: white;
+  background-color: darken($hover-color, 10%);
   //box-shadow: 0 0 10px rgba(0, 0, 0, .2);
   white-space: nowrap;
   cursor: pointer;
@@ -115,12 +120,12 @@ a.badge {
 }
 
 a.badge:hover {
-  color: $text-color;
+  //color: $text-color;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
 label.badge {
-  font-size: medium;
+  font-size: x-small;
   display: block;
   position: relative;
   margin: 2.5px;
@@ -187,10 +192,23 @@ input.remove-border {
 
 .individual-tags {
   display: none;
+  text-align: center;
 }
 
 .tag-display {
-  width: 70;
+  width: 75%;
+}
+
+.results {
+  text-align: center;
+}
+
+.display-center {
+  display: inline-block;
+}
+
+.thirty {
+  width: 25%;
 }
 
 

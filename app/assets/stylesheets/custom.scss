@@ -280,7 +280,9 @@ li {
 }
 
 ul.index {
+  
   li {
+    display: inline-block;
     margin: 3px 0px;
     width: 60%;
   }

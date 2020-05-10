@@ -24,4 +24,7 @@ class DBTest < ActionDispatch::IntegrationTest
     assert_equal 1, @course.sections.length
     assert_equal @sec, @course.sections.first
   end
+
+
+  
 end

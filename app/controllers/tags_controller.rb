@@ -8,19 +8,23 @@ class TagsController < ApplicationController
     @tag_relation_l = {}
     @tag_relation_c = {}
     @tags.each do |tag|
-      lessontags = LessonTag.where(tag_id: tag.id)
-      l_array = []
-      lessontags.each do |lesson|
-        l_array << lesson.lesson
-      end
-      @tag_relation_l[tag] = l_array
+      # lessontags = LessonTag.where(tag_id: tag.id)
+      # l_array = []
+      # lessontags.each do |lesson|
+      #   l_array << lesson.lesson
+      # end
+      # @tag_relation_l[tag] = l_array
 
-      coursetags = CourseTag.where(tag_id: tag.id)
-      c_array = []
-      coursetags.each do |course|
-        c_array << course.course
-      end
-      @tag_relation_c[tag] = c_array
+      @tag_relation_l[tag] = tag.lessons.to_a
+
+      # coursetags = CourseTag.where(tag_id: tag.id)
+      # c_array = []
+      # coursetags.each do |course|
+      #   c_array << course.course
+      # end
+      # @tag_relation_c[tag] = c_array
+
+      @tag_relation_c[tag] = tag.courses.to_a
     end
 
     @new_tag = Tag.new
