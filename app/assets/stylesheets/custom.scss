@@ -75,7 +75,11 @@ body {
 }
 
 .welcome-banner {
+  background: linear-gradient(to left, rgba($panel-color, 0), $panel-color 650px, $panel-color), url(rachmaninoff.png);
+  background-repeat: no-repeat;
+  background-position: right;
   background-color: $panel-color;
+  background-size: auto;
 
   width: 100%;
   width: 100vw;
@@ -282,12 +286,7 @@ li {
 ul.index {
   li {
     margin: 3px 0px;
-    width: 60%;
   }
-}
-
-h1.index {
-  text-align: center;
 }
 
 .comment-section {
