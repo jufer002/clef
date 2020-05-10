@@ -2,86 +2,88 @@
 
 <script src="/js/show.js.erb"></script>
 
-<div class="center lesson-show-head">
-  <h2><%= lesson.title %></h2>
-  <h4>
-    <p><button id="user-button" class="btn user-button"><%= lesson.user.username %></button></p>
-  </h4>
+<div class="lesson-content">
+  <div class="center lesson-show-head">
+    <h2><%= lesson.title %></h2>
+    <h4>
+      <p><button id="user-button" class="btn user-button"><%= lesson.user.username %></button></p>
+    </h4>
 
-  <%= render :partial => "layouts/tag_display_partial", locals: { :content => lesson } %>
+    <%= render :partial => "layouts/tag_display_partial", locals: { :content => lesson } %>
 
-</div>
+  </div>
 
-<div id="user-modal" class="modal">
-  <!-- Modal content -->
-  <div class="user-modal-content">
-    <div class="modal-header">
-      <span class="close">&times;</span>
-      <h2><%= link_to lesson.user.username, lesson.user %></h2>
-    </div>
-    <div class="modal-body">
-      <p>This will contain more information about the user who wrote this lesson.</p>
+  <div id="user-modal" class="modal">
+    <!-- Modal content -->
+    <div class="user-modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2><%= link_to lesson.user.username, lesson.user %></h2>
+      </div>
+      <div class="modal-body">
+        <p>This will contain more information about the user who wrote this lesson.</p>
+      </div>
     </div>
   </div>
-</div>
 
-<center>
-  <% if course == nil %>
-  <form action="">
-    AUTO SCROLL
-    <input type="button" id="auto-scroll-button" value="OFF" onclick="toggle(this);">
-  </form>
-  <% end %>
-</center>
-
-
-<br />
-
-<div class="container lesson">
-  <p>
-    <%= lesson.body %>
-  </p>
-  <hr>
-  <% if logged_in? %>
-  <% if course != nil %>
-  <% if current_user.id == course.user_id %>
-  <button class="btn" id="btn-delete[<%= lesson.id %>]" type="button">Delete Lesson</button>
-  <% end %>
-  <% end %>
-  <% end %>
-</div>
-
-<center>
-  <% if logged_in? %>
-  <% if !Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id}).include?(lesson.id) %>
-  <%= button_to 'Complete!', {:controller => "progress", :action => "complete"}, params: {lesson_id: lesson.id} %>
-  <% else %>
-  <%= button_to 'Undo Completion', {:controller => "progress", :action => "undo"}, params: {lesson_id: lesson.id} %>
-  <% end %>
-  <% end %>
-</center>
-<div class="comment-section container">
-  <h3>Comments</h3>
+  <center>
+    <% if course == nil %>
+    <form action="">
+      AUTO SCROLL
+      <input type="button" id="auto-scroll-button" value="OFF" onclick="toggle(this);">
+    </form>
+    <% end %>
+  </center>
 
 
-  <% if logged_in? %>
-  <%= form_with model: @comment, url: lesson do |f| %>
-  <%= f.text_area :text, class:"comment-text"%>
-  <% if @course != nil %>
-  <%= f.hidden_field(:redirect_to, value: @course.id) %>
-  <% end %>
-
-  <%= f.submit "Publish", class: "publish-btn btn" %>
-  <% end %>
-  <% end # if logged_in? %>
   <br />
-  <div class="comments-container container">
-    <% lesson.comments.each do |comment| %>
-    <div class="comment-container container">
-      <strong><%= link_to  comment.user.username, comment.user %></strong>: <%= comment.text %>
-    </div>
+
+  <div class="container lesson">
+    <p>
+      <%= lesson.body %>
+    </p>
+    <hr>
+    <% if logged_in? %>
+    <% if course != nil %>
+    <% if current_user.id == course.user_id %>
+    <button class="btn" id="btn-delete[<%= lesson.id %>]" type="button">Delete Lesson</button>
+    <% end %>
+    <% end %>
     <% end %>
   </div>
-</div>
 
-<div id="stop_scroll_notice"></div>
+  <center>
+    <% if logged_in? %>
+    <% if !Set.new( Progress.where(user_id: current_user.id).map {|progress| progress.lesson_id}).include?(lesson.id) %>
+    <%= button_to 'Complete!', {:controller => "progress", :action => "complete"}, params: {lesson_id: lesson.id} %>
+    <% else %>
+    <%= button_to 'Undo Completion', {:controller => "progress", :action => "undo"}, params: {lesson_id: lesson.id} %>
+    <% end %>
+    <% end %>
+  </center>
+  <div class="comment-section container">
+    <h3>Comments</h3>
+
+
+    <% if logged_in? %>
+    <%= form_with model: @comment, url: lesson do |f| %>
+    <%= f.text_area :text, class:"comment-text"%>
+    <% if @course != nil %>
+    <%= f.hidden_field(:redirect_to, value: @course.id) %>
+    <% end %>
+
+    <%= f.submit "Publish", class: "publish-btn btn" %>
+    <% end %>
+    <% end # if logged_in? %>
+    <br />
+    <div class="comments-container container">
+      <% lesson.comments.each do |comment| %>
+      <div class="comment-container container">
+        <strong><%= link_to  comment.user.username, comment.user %></strong>: <%= comment.text %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="stop_scroll_notice"></div>
+</div>

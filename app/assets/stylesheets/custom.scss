@@ -306,3 +306,18 @@ h1.index {
   flex-direction: row;
   justify-content: space-evenly;
 }
+
+.lesson-container {
+  background-color: $panel-color;
+
+}
+
+.lesson-show-head {
+  background-color: $navbar-color;
+}
+
+
+// $panel-color: darken($background-color, 5%);
+// $navbar-color: darken($background-color, 20%);
+// $btn-color: lighten($background-color, 8%);
+// $hover-color: darken($background-color, 50%);
