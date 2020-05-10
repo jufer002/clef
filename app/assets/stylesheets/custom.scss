@@ -286,7 +286,7 @@ li {
 ul.index {
   
   li {
-    display: inline-block;
+    //display: inline-block;
     margin: 3px 0px;
   }
 }
@@ -294,6 +294,16 @@ ul.index {
 .comment-section {
   padding: 3em;
   align-content: center;
+}
+
+.comment-text {
+  width: 50%;
+  display: block;
+}
+.comment-publish {
+  //position: absolute;
+  bottom:10%;
+  right:10%;
 }
 
 .search-results {
