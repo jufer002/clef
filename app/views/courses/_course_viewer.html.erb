@@ -190,8 +190,7 @@
   
       lesson_ol = document.getElementById(`section[${containingSection}]-lesson-ol`);
   
-      //lesson_ol.appendChild(li);
-      $(lesson_ol).append(li).collapse();
+      $(li).appendTo($(lesson_ol)).hide().slideDown("slow");
       lesson_ol.appendChild(document.createElement("hr"));
   
       // Create lesson body from trix content.
@@ -223,7 +222,7 @@
           hideSectionDialog();
           $(p).remove();
           $(li).remove();
-          $(lesson_ol).collapse();
+          $(lesson_ol).hide().slideDown("slow");
           alert(`${lesson_title} has been deleted.`);
         });
       });
@@ -250,8 +249,8 @@
   
     html_text = `<li class="sec-li" id=section[${section_key}]><h3>${section_title}</h3>${new_lesson_ol}</li>`
   
-    $(html_text).appendTo($('.section-head'));
-    $('#section-head').collapse();
+    $(html_text).appendTo($('.section-head'));;
+    $('#section-head').hide().slideDown("slow");
   }
   
   function addSection() {
