@@ -4,7 +4,7 @@
     No tags
     <% else %>
     <div class="wrapped"> 
-        Tags: <% content.tags.each do |content_tag| %>
+        <% content.tags.each do |content_tag| %>
             <%= link_to tags_path(:start => content_tag.id), class:"badge" do %>
                 <%= content_tag.name %>
             <% end %>

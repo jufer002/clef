@@ -172,8 +172,7 @@ li {
 }
 
 .course-header {
-  margin: 0% 5%;
-  padding-bottom: 2%;
+  margin: 2em;
   border-bottom: 2px solid $panel-color;
   h1 {
     font-size: 2em;
@@ -184,8 +183,10 @@ li {
 }
 .course-viewer {
   display: flex;
-  padding-top: 3em;
-  padding-bottom: 3em;
+
+  // padding-top: 3em;
+  // padding-bottom: 3em;
+  margin: 2em;
 
   #new-section-dialog {
     display: none;
@@ -218,10 +219,11 @@ li {
 
   .sec-li {
     margin: 1em;
+    margin-left: 0;
   }
 
   .lsn-body {
-    padding: 1em;
+    padding-left: 1em;
   }
 }
 .side {
@@ -229,7 +231,7 @@ li {
 
   background-color: $background-color;
   border-right: 2px solid $panel-color;
-  margin-left: 20px;
+
   ol {
     padding-inline-start: 0px;
   }
@@ -318,30 +320,35 @@ ul.index {
   justify-content: space-evenly;
 }
 
-.lesson-content {
-  background-color: darken($background-color, 13%);
-  // margin: 2em 3em 5em 3em;
-  width: 92%;
-  height: 95%;
-  margin: auto;
-  padding: 0.5em 0em 2em 0em;
-  // align-content: center;
-}
+// .lesson-content {
+//   background-color: darken($background-color, 13%);
+//   // margin: 2em 3em 5em 3em;
+//   width: 92%;
+//   height: 95%;
+//   margin: auto;
+//   padding: 0.5em 0em 2em 0em;
+//   // align-content: center;
+// }
 
-.lesson-show-head,
-.lesson,
-.comment-section {
-  background-color: darken($background-color, 21%);
-  width: 92%;
-  height: 95%;
-  // display: inline-block;
-  margin: auto;
-  // padding: 1em 0em 1em 0em;
-}
+// .lesson-show-head,
+// .lesson,
+// .comment-section {
+//   background-color: darken($background-color, 21%);
+//   width: 92%;
+//   height: 95%;
+//   // display: inline-block;
+//   margin: auto;
+//   // padding: 1em 0em 1em 0em;
+// }
+
+// .lesson-show-head {
+//   // margin: 9%;
+// }
 
 .lesson-show-head {
-  // margin: 9%;
+  border-bottom: 2px solid $navbar-color;
 }
+
 
 .comment-form, .comments-container {
   background-color: darken($background-color, 26.5%);
