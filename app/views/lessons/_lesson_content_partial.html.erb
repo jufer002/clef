@@ -2,27 +2,27 @@
 
 <script src="/js/show.js.erb"></script>
 <script>
-  
-  $(document).ready(function() {
+
+  $(document).ready(function () {
     AUTH_TOKEN = $('meta[name=csrf-token]').attr('content');
-    
+
     complete_button = document.getElementById("btn-complete[<%= lesson.id %>]");
     uncomplete_button = document.getElementById("btn-undo-complete[<%= lesson.id %>]");
     user_button = document.getElementById("user-button-<%= lesson.user.username %>");
-    
+
     // Add complete/undo completion functionality to the buttons.
-    $(complete_button).click(function() {
+    $(complete_button).click(function () {
       $.ajax({
         type: "POST",
         url: "/progress/complete",
         data: {
           'lesson_id': <%= lesson.id %>,
           'authenticity_token': AUTH_TOKEN
-          } 
+        }
       })
     });
 
-    $(uncomplete_button).click(function() {
+    $(uncomplete_button).click(function () {
       $.ajax({
         type: "POST",
         url: "/progress/undo",
@@ -94,22 +94,26 @@
     <button class="btn complete-button" id="btn-undo-complete[<%= lesson.id %>]" type="button">Undo Completion</button>
     <%#= button_to 'Undo Completion', {:controller => "progress", :action => "undo"}, params: {lesson_id: lesson.id} %>
     <% end %>
+    <% else %>
+    Log in to save progress!
     <% end %>
   </center>
 
   <div class="comment-section">
     <h3>Comments</h3>
     <div class="comment-form">
-    <% if logged_in? %>
-    <%= form_with model: @comment, url: lesson do |f| %>
-    <%= f.text_area :text, class:"comment-text"%>
-    <% if @course != nil %>
-    <%= f.hidden_field(:redirect_to, value: @course.id) %>
-    <% end %>
+      <% if logged_in? %>
+      <%= form_with model: @comment, url: lesson do |f| %>
+      <%= f.text_area :text, class:"comment-text"%>
+      <% if @course != nil %>
+      <%= f.hidden_field(:redirect_to, value: @course.id) %>
+      <% end %>
 
-    <%= f.submit "Publish", class: "publish-btn btn comment-publish" %>
-    <% end %>
-    <% end # if logged_in? %>
+      <%= f.submit "Publish", class: "publish-btn btn comment-publish" %>
+      <% end %>
+      <% else %>
+      Log in to post comments!
+      <% end # if logged_in? %>
     </div>
 
     <br />
